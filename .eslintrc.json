@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "semi": ["error", "always"],
+    "linebreak-style": "off",
+    "no-plusplus": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }]
+  }
+}
