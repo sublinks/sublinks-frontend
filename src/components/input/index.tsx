@@ -1,5 +1,5 @@
 import React from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+
 import Icon, { ICON_SIZE } from '../icon';
 
 interface TextFieldProps {
@@ -8,17 +8,22 @@ interface TextFieldProps {
   name: string;
   id: string;
   placeholder: string;
+  LeftIcon: React.FunctionComponent;
 }
 
 const TextField = ({
-  type, label, name, id, placeholder
+  type, label, name, id, placeholder, LeftIcon
 }: TextFieldProps) => (
   <div>
     <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900 sr-only">
       {label}
     </label>
     <div className="flex items-center border border-gray-300 rounded-md px-8">
-      <Icon IconType={MagnifyingGlassIcon} size={ICON_SIZE.SMALL} title="Search icon" />
+      {LeftIcon && (
+        <span className="aria-hidden">
+          <Icon IconType={LeftIcon} size={ICON_SIZE.SMALL} />
+        </span>
+      )}
       <input
         type={type}
         name={name}
