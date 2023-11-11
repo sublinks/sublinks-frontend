@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline
 import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
 
-const Header = () => (
+const Header = (): React.ReactNode => (
   <header className="flex items-center justify-between py-8 px-8 md:px-16 border-b">
     <Image
       className="h-32 w-32"

@@ -13,7 +13,7 @@ interface TextFieldProps {
 
 const TextField = ({
   type, label, name, id, placeholder, LeftIcon
-}: TextFieldProps) => (
+}: TextFieldProps): React.ReactNode => (
   <div>
     <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900 sr-only">
       {label}
