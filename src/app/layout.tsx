@@ -20,7 +20,7 @@ const RootLayout = ({
   <html lang="en">
     <body className={inter.className}>
       <Header />
-      <main>{children}</main>
+      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x">{children}</main>
     </body>
   </html>
 );
