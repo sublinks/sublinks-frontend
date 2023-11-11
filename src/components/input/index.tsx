@@ -15,7 +15,7 @@ const TextField = ({
   type, label, name, id, placeholder, LeftIcon
 }: TextFieldProps): React.ReactNode => (
   <div>
-    <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900 sr-only">
+    <label htmlFor={name} className="sr-only">
       {label}
     </label>
     <div className="flex items-center border border-gray-300 rounded-md px-8">
