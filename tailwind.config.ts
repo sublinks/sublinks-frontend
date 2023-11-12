@@ -52,7 +52,15 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
   theme: {
-    spacing
+    spacing,
+    maxHeight: {
+      ...spacing,
+      full: '100%'
+    },
+    maxWidth: {
+      ...spacing,
+      full: '100%'
+    },
   },
   plugins: []
 };
