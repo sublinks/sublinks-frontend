@@ -21,7 +21,7 @@ interface IconProps {
 const Icon = ({
   IconType, size, title, titleId
 }: IconProps): React.ReactNode => (
-  <div className={cx(sizeClassMap[size], 'text-gray-700')}>
+  <div className={cx(sizeClassMap[size], 'text-gray-700 dark:text-white')}>
     <IconType title={title} titleId={titleId} />
   </div>
 );

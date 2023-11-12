@@ -1,6 +1,7 @@
 import './globals.css';
 import React from 'react';
 import type { Metadata } from 'next';
+import cx from 'classnames';
 import { Inter } from 'next/font/google';
 
 import Header from '@/components/header';
@@ -18,9 +19,9 @@ const RootLayout = ({
   children: React.ReactNode
 }) => (
   <html lang="en">
-    <body className={inter.className}>
+    <body className={cx(inter.className, 'dark:bg-gray-700')}>
       <Header />
-      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x">{children}</main>
+      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x dark:border-gray-900">{children}</main>
     </body>
   </html>
 );

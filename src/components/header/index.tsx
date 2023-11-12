@@ -6,7 +6,7 @@ import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
 
 const Header = (): React.ReactNode => (
-  <header className="flex items-center justify-between py-8 px-8 md:px-16 border-b">
+  <header className="flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
     <Image
       className="h-32 w-32"
       src="/logo.png"
