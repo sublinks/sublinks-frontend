@@ -1,8 +1,10 @@
 import React from 'react';
 
+import PostFeed from '@/components/post-feed';
+
 const Home = () => (
   <div>
-    Hello World
+    <PostFeed />
   </div>
 );
 
