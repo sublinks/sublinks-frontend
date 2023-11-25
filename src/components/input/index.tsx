@@ -9,12 +9,13 @@ interface TextFieldProps {
   id: string;
   placeholder: string;
   LeftIcon: React.FunctionComponent;
+  className?: string;
 }
 
 const TextField = ({
-  type, label, name, id, placeholder, LeftIcon
+  type, label, name, id, placeholder, LeftIcon, className
 }: TextFieldProps): React.ReactNode => (
-  <div>
+  <div className={className}>
     <label htmlFor={name} className="sr-only">
       {label}
     </label>
@@ -28,7 +29,7 @@ const TextField = ({
         type={type}
         name={name}
         id={id}
-        className="block w-full rounded-md border-0 py-8 px-8 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
+        className="block w-full rounded-md border-0 py-4 px-8 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6"
         placeholder={placeholder}
       />
     </div>

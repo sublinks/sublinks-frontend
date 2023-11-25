@@ -7,20 +7,35 @@ import { TextField } from '../input';
 
 const Header = (): React.ReactNode => (
   <header className="flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
-    <Image
-      className="h-32 w-32"
-      src="/logo.png"
-      alt="Sublinks logo"
-      width={32}
-      height={32}
-      priority
-    />
-    <div className="md:w-1/2 lg:w-1/3">
-      <TextField type="text" name="search" id="search" label="Search" placeholder="Search" LeftIcon={MagnifyingGlassIcon} />
+    <div className="flex items-center">
+      <Image
+        className="h-32 w-32"
+        src="/logo.png"
+        alt="Sublinks logo"
+        width={32}
+        height={32}
+        priority
+      />
+      <div className="flex gap-16 ml-24">
+        <span>Communities</span>
+        <span>Create post</span>
+        <span>|</span>
+        <span>Favorites</span>
+      </div>
     </div>
-    <div>
+    <div className="flex items-center gap-12">
+      <TextField
+        type="text"
+        name="search"
+        id="search"
+        label="Search"
+        placeholder="Search"
+        LeftIcon={MagnifyingGlassIcon}
+        className="w-240 hover:w-500 focus-within:w-500 transition-all hidden md:block"
+      />
       <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" />
     </div>
   </header>
 );
+
 export default Header;
