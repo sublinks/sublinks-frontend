@@ -17,11 +17,11 @@ const Header = (): React.ReactNode => (
         height={32}
         priority
       />
-      <div className="flex gap-16 ml-24">
+      <div className="flex gap-16 ml-24 items-center">
         <ParagraphTitle className="text-base">Communities</ParagraphTitle>
         <ParagraphTitle className="text-base">Create post</ParagraphTitle>
         <ParagraphTitle className="text-base">|</ParagraphTitle>
-        <ParagraphTitle className="text-base">Favorites</ParagraphTitle>
+        <ParagraphTitle className="text-base">Add favorite communities</ParagraphTitle>
       </div>
     </div>
     <div className="flex items-center gap-12">
@@ -32,7 +32,7 @@ const Header = (): React.ReactNode => (
         label="Search"
         placeholder="Search"
         LeftIcon={MagnifyingGlassIcon}
-        className="w-240 hover:w-500 focus-within:w-500 transition-all"
+        className="w-240 lg:hover:w-500 lg:focus-within:w-500 transition-all"
       />
       <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" />
     </div>
