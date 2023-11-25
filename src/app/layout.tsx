@@ -22,8 +22,8 @@ const RootLayout = ({
   <html lang="en">
     <body className={cx(inter.className, `dark:bg-gray-700 max-md:pb-${NAV_HEIGHT}`)}>
       <Header />
-      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x dark:border-gray-900">{children}</main>
       <BottomNav />
+      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x dark:border-gray-900">{children}</main>
     </body>
   </html>
 );
