@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 
 import * as testData from '../../../test-data.json';
+import { PaleParagraph, Paragraph, ParagraphTitle } from '../text';
 
 const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
@@ -39,11 +40,11 @@ const PostFeed = (): React.ReactNode => (
             </div>
             <div className="h-full w-full flex">
               <div className="h-full flex flex-col">
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{title}</span>
-                <span className="mb-8 text-xs text-gray-500 dark:text-gray-400">
+                <ParagraphTitle className="font-semibold">{title}</ParagraphTitle>
+                <PaleParagraph className="mb-8">
                   {`Posted on ${postPublishedAt}`}
-                </span>
-                {body && <span className="max-md:hidden text-sm text-gray-600 dark:text-gray-200 line-clamp-2">{body}</span>}
+                </PaleParagraph>
+                {body && <Paragraph className="max-md:hidden text-sm line-clamp-2">{body}</Paragraph>}
               </div>
             </div>
           </div>

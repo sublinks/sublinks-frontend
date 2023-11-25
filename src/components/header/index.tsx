@@ -4,9 +4,10 @@ import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline
 
 import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
+import { ParagraphTitle } from '../text';
 
 const Header = (): React.ReactNode => (
-  <header className=" hidden md:flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
+  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
     <div className="flex items-center">
       <Image
         className="h-32 w-32"
@@ -17,10 +18,10 @@ const Header = (): React.ReactNode => (
         priority
       />
       <div className="flex gap-16 ml-24">
-        <span>Communities</span>
-        <span>Create post</span>
-        <span>|</span>
-        <span>Favorites</span>
+        <ParagraphTitle className="text-base">Communities</ParagraphTitle>
+        <ParagraphTitle className="text-base">Create post</ParagraphTitle>
+        <ParagraphTitle className="text-base">|</ParagraphTitle>
+        <ParagraphTitle className="text-base">Favorites</ParagraphTitle>
       </div>
     </div>
     <div className="flex items-center gap-12">
