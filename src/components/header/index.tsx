@@ -6,7 +6,7 @@ import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
 
 const Header = (): React.ReactNode => (
-  <header className="flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
+  <header className=" hidden md:flex items-center justify-between py-8 px-8 md:px-16 border-b dark:border-gray-900">
     <div className="flex items-center">
       <Image
         className="h-32 w-32"
@@ -31,7 +31,7 @@ const Header = (): React.ReactNode => (
         label="Search"
         placeholder="Search"
         LeftIcon={MagnifyingGlassIcon}
-        className="w-240 hover:w-500 focus-within:w-500 transition-all hidden md:block"
+        className="w-240 hover:w-500 focus-within:w-500 transition-all"
       />
       <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" />
     </div>

@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { Inter } from 'next/font/google';
 
 import Header from '@/components/header';
+import BottomNav from '@/components/bottom-nav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,7 @@ const RootLayout = ({
     <body className={cx(inter.className, 'dark:bg-gray-700')}>
       <Header />
       <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x dark:border-gray-900">{children}</main>
+      <BottomNav />
     </body>
   </html>
 );
