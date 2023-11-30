@@ -61,6 +61,22 @@ const config: Config = {
       ...spacing,
       full: '100%'
     },
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#ffffff',
+          dark: '#374151'
+        },
+        secondary: {
+          DEFAULT: '#e5e7eb',
+          dark: '#111827'
+        },
+        hover: {
+          DEFAULT: '#d1d5db',
+          dark: '#4b5563'
+        }
+      },
+    }
   },
   plugins: []
 };

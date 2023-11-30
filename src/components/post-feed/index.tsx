@@ -35,7 +35,7 @@ const PostFeed = (): React.ReactNode => (
 
       return (
         <Link href={`/post/${id}`}>
-          <div key={id} className="min-h-72 relative hover:bg-gray-200 dark:hover:bg-gray-900">
+          <div key={id} className="min-h-72 relative hover:bg-hover dark:hover:bg-hover-dark">
             <div className="h-full flex gap-12 px-12 py-6">
               <div className="h-72 w-72 flex flex-shrink-0 relative">
                 {postThumbnail(thumbnail)}
@@ -50,7 +50,7 @@ const PostFeed = (): React.ReactNode => (
                 </div>
               </div>
             </div>
-            <div className="border-b border-gray-200 dark:border-gray-900" />
+            <div className="border-b border-secondary dark:border-secondary-dark" />
           </div>
 
         </Link>

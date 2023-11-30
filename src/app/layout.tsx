@@ -20,10 +20,10 @@ const RootLayout = ({
   children: React.ReactNode
 }) => (
   <html lang="en">
-    <body className={cx(inter.className, `dark:bg-gray-700 max-md:pb-${NAV_HEIGHT}`)}>
+    <body className={cx(inter.className, `bg-secondary dark:bg-secondary-dark max-md:pb-${NAV_HEIGHT}`)}>
       <Header />
       <BottomNav />
-      <main className="h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto border-x dark:border-gray-900">{children}</main>
+      <main className="bg-primary dark:bg-primary-dark h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">{children}</main>
     </body>
   </html>
 );
