@@ -33,10 +33,14 @@ Lint
 ```
 
 Unit Tests
-TBD
+```sh
+  TBD
+```
 
 E2E Tests
-TBD
+```sh
+  TBD
+```
 
 ## Deploying
 TBD

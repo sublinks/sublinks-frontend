@@ -11,7 +11,7 @@ As with most things you'll read about in this document, even these guidelines ar
 
 We use [Tailwind](https://tailwindui.com/) for styling our components and pages. Note that the basic sizes and spacings have been overwritten to use pixels instead of the default rem.
 
-Nothing is set in stone reg. layouts or color schemes. So far the general idea is to create a mix between Reddit and Lemmy.
+Nothing is set in stone reg. layouts or color schemes. The general idea is to create a mix between Reddit and Lemmy. But we have no designer on the team(yet) so feel free to change things around.
 
 ### Server-Side Rendering
 
