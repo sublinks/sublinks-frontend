@@ -5,6 +5,14 @@ import Link from 'next/link';
 import * as testData from '../../../test-data.json';
 import { PaleParagraph, Paragraph, ParagraphTitle } from '../text';
 
+const getPostUrlFromCommunityActor = (communityUrl: string, id: number) => {
+  const urlMatches = communityUrl.match(/:\/\/(.+)\/c\/(.+)/);
+  const communityName = urlMatches?.[2];
+  const instanceName = urlMatches?.[1];
+
+  return communityName && instanceName ? `/post/${communityName}@${instanceName}/${id}` : `/post/${id}`;
+};
+
 const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
     src={postThumbnailUrl}
@@ -25,16 +33,18 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
 ));
 
 const PostFeed = (): React.ReactNode => (
-  <div className="dark:bg-gray-700">
+  <div className="bg-primary dark:bg-primary-dark">
     {testData.posts.map(postData => {
       const {
         id, body, name: title, thumbnail_url: thumbnail, published
       } = postData.post;
+      const { actor_id: communityUrl } = postData.community;
       const publishedDate = new Date(published);
       const postPublishedAt = `${publishedDate.toLocaleDateString()}, ${publishedDate.toLocaleTimeString()}`;
+      const postUrl = getPostUrlFromCommunityActor(communityUrl, id);
 
       return (
-        <Link key={id} href={`/post/${id}`}>
+        <Link key={id} href={postUrl}>
           <div className="min-h-72 relative hover:bg-hover dark:hover:bg-hover-dark">
             <div className="h-full flex gap-12 px-12 py-6">
               <div className="h-72 w-72 flex flex-shrink-0 relative">

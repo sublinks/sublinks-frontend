@@ -8,11 +8,12 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": ["@stylistic/js"],
   "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
   "rules": {
     "arrow-parens": ["error", "as-needed"],
-    "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": "off",
+    "comma-dangle": ["error", "never"],
     "semi": ["error", "always"],
     "linebreak-style": "off",
     "no-plusplus": "off",
