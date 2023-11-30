@@ -61,7 +61,7 @@ const config: Config = {
           DEFAULT: '#d1d5db',
           dark: '#4b5563'
         }
-      },
+      }
     }
   },
   plugins: []

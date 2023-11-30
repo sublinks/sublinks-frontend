@@ -11,11 +11,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Sublinks',
-  description: 'Sublinks',
+  description: 'Sublinks'
 };
 
 const RootLayout = ({
-  children,
+  children
 }: {
   children: React.ReactNode
 }) => (
