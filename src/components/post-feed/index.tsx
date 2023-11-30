@@ -34,8 +34,8 @@ const PostFeed = (): React.ReactNode => (
       const postPublishedAt = `${publishedDate.toLocaleDateString()}, ${publishedDate.toLocaleTimeString()}`;
 
       return (
-        <Link href={`/post/${id}`}>
-          <div key={id} className="min-h-72 relative hover:bg-hover dark:hover:bg-hover-dark">
+        <Link key={id} href={`/post/${id}`}>
+          <div className="min-h-72 relative hover:bg-hover dark:hover:bg-hover-dark">
             <div className="h-full flex gap-12 px-12 py-6">
               <div className="h-72 w-72 flex flex-shrink-0 relative">
                 {postThumbnail(thumbnail)}
