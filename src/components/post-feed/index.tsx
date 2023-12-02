@@ -11,7 +11,7 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
     src={postThumbnailUrl}
     alt="Post thumbnail"
-    sizes="64px"
+    sizes="80px"
     fill
     objectFit="cover"
     unoptimized
@@ -20,8 +20,8 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
     src="/logo.png"
     alt="Post default thumbnail"
-    width={64}
-    height={64}
+    width={80}
+    height={80}
     objectFit="cover"
   />
 ));
@@ -38,10 +38,10 @@ const PostFeed = (): React.ReactNode => (
 
       return (
         <Link key={id} href={postUrl}>
-          <div className="flex h-80 relative hover:bg-hover dark:hover:bg-hover-dark">
+          <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
             <PostVotes />
             <div className="h-full flex gap-12 px-12 py-6 items-start">
-              <div className="h-64 w-64 mt-8 flex flex-shrink-0 relative">
+              <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
                 {postThumbnail(thumbnail)}
               </div>
               <div className="h-full w-full flex">
@@ -52,7 +52,7 @@ const PostFeed = (): React.ReactNode => (
                       {`Posted to ${communitySlug}`}
                     </PaleParagraph>
                   </div>
-                  {body && <Paragraph className="max-md:hidden text-sm line-clamp-1">{body}</Paragraph>}
+                  {body && <Paragraph className="max-md:hidden text-sm line-clamp-2">{body}</Paragraph>}
                 </div>
               </div>
             </div>
