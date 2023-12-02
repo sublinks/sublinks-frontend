@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-
 import Link from 'next/link';
-import * as testData from '../../../test-data.json';
+
 import { PaleParagraph, Paragraph, ParagraphTitle } from '../text';
+import PostVotes from '../post-votes';
+import * as testData from '../../../test-data.json';
 
 const getPostUrlFromCommunityActor = (communityUrl: string, id: number) => {
   const urlMatches = communityUrl.match(/:\/\/(.+)\/c\/(.+)/);
@@ -19,7 +20,8 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
     alt="Post thumbnail"
     sizes="64px"
     fill
-    className="object-contain"
+    objectFit="cover"
+    unoptimized
   />
 ) : (
   <Image
@@ -27,7 +29,7 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
     alt="Post default thumbnail"
     width={64}
     height={64}
-    className="object-contain"
+    objectFit="cover"
   />
 ));
 
@@ -44,14 +46,15 @@ const PostFeed = (): React.ReactNode => (
 
       return (
         <Link key={id} href={postUrl}>
-          <div className="h-72 relative hover:bg-hover dark:hover:bg-hover-dark">
-            <div className="h-full flex gap-12 px-12 py-6 items-center">
-              <div className="h-64 w-64 flex flex-shrink-0 relative">
+          <div className="flex h-80 relative hover:bg-hover dark:hover:bg-hover-dark">
+            <PostVotes />
+            <div className="h-full flex gap-12 px-12 py-6 items-start">
+              <div className="h-64 w-64 mt-8 flex flex-shrink-0 relative">
                 {postThumbnail(thumbnail)}
               </div>
               <div className="h-full w-full flex">
                 <div className="h-full flex flex-col">
-                  <ParagraphTitle className="font-semibold">{title}</ParagraphTitle>
+                  <ParagraphTitle className="font-semibold line-clamp-2">{title}</ParagraphTitle>
                   <PaleParagraph className="mb-8">
                     {`Posted on ${postPublishedAt}`}
                   </PaleParagraph>
@@ -59,9 +62,8 @@ const PostFeed = (): React.ReactNode => (
                 </div>
               </div>
             </div>
-            <div className="border-b border-secondary dark:border-secondary-dark" />
           </div>
-
+          <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
         </Link>
       );
     })}
