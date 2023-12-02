@@ -37,28 +37,30 @@ const PostFeed = (): React.ReactNode => (
       const postUrl = `/post/${communitySlug}/${id}`;
 
       return (
-        <Link key={id} href={postUrl}>
-          <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
-            <PostVotes />
-            <div className="h-full flex gap-12 px-12 py-6 items-start">
-              <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
-                {postThumbnail(thumbnail)}
-              </div>
-              <div className="h-full w-full flex">
-                <div className="h-full flex flex-col">
-                  <ParagraphTitle className="font-semibold line-clamp-2">{title}</ParagraphTitle>
-                  <div className="mb-8 flex max-md:flex-col">
-                    <PaleParagraph>
-                      {`Posted to ${communitySlug}`}
-                    </PaleParagraph>
+        <div className="flex">
+          <PostVotes />
+          <Link key={id} href={postUrl} className="w-full">
+            <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
+              <div className="h-full flex gap-12 px-12 py-6 items-start">
+                <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
+                  {postThumbnail(thumbnail)}
+                </div>
+                <div className="h-full w-full flex">
+                  <div className="h-full flex flex-col">
+                    <ParagraphTitle className="font-semibold line-clamp-2">{title}</ParagraphTitle>
+                    <div className="mb-8 flex max-md:flex-col">
+                      <PaleParagraph>
+                        {`Posted to ${communitySlug}`}
+                      </PaleParagraph>
+                    </div>
+                    {body && <Paragraph className="max-md:hidden text-sm line-clamp-2">{body}</Paragraph>}
                   </div>
-                  {body && <Paragraph className="max-md:hidden text-sm line-clamp-2">{body}</Paragraph>}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
-        </Link>
+            <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
+          </Link>
+        </div>
       );
     })}
   </div>
