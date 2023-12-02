@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/outline';
+import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 
 import Icon, { ICON_SIZE } from '../icon';
 
