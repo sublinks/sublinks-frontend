@@ -8,7 +8,7 @@ import { TextField } from '../input';
 import { ParagraphTitle } from '../text';
 
 const Header = (): React.ReactNode => (
-  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark">
+  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark z-10">
     <div className="flex items-center">
       <Link href="/">
         <Image
@@ -33,7 +33,7 @@ const Header = (): React.ReactNode => (
         </Link>
       </div>
     </div>
-    <div className="flex items-center gap-12">
+    <div className="flex items-center gap-12 z-10">
       <TextField
         type="text"
         name="search"
