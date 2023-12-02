@@ -2,10 +2,10 @@ import React from 'react';
 
 import PostFeed from '@/components/post-feed';
 
-const Home = () => (
+const Feed = () => (
   <div>
     <PostFeed />
   </div>
 );
 
-export default Home;
+export default Feed;
