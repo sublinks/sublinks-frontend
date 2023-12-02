@@ -16,14 +16,14 @@ export const metadata: Metadata = {
 
 const CurvedCorner = ({ left, right }: { left?: boolean; right?: boolean; }) => (
   <>
-    <div className={cx('max-md:hidden bg-primary dark:bg-primary-dark w-48 h-48 absolute -top-24', {
+    <div className={cx('max-md:hidden bg-primary dark:bg-primary-dark w-40 h-40 absolute -top-24', {
       '-right-24': right,
       '-left-24': left
     })}
     />
-    <div className={cx('max-md:hidden bg-secondary dark:bg-secondary-dark w-48 h-48 absolute top-0 rounded-full', {
-      '-right-48': right,
-      '-left-48': left
+    <div className={cx('max-md:hidden bg-secondary dark:bg-secondary-dark w-40 h-40 absolute top-0 rounded-full', {
+      '-right-40': right,
+      '-left-40': left
     })}
     />
   </>
