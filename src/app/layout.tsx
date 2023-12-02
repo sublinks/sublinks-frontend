@@ -14,6 +14,21 @@ export const metadata: Metadata = {
   description: 'Sublinks'
 };
 
+const CurvedCorner = ({ left, right }: { left?: boolean; right?: boolean; }) => (
+  <>
+    <div className={cx('max-md:hidden bg-primary dark:bg-primary-dark w-48 h-48 absolute -top-24', {
+      '-right-24': right,
+      '-left-24': left
+    })}
+    />
+    <div className={cx('max-md:hidden bg-secondary dark:bg-secondary-dark w-48 h-48 absolute top-0 rounded-full', {
+      '-right-48': right,
+      '-left-48': left
+    })}
+    />
+  </>
+);
+
 const RootLayout = ({
   children
 }: {
@@ -23,7 +38,11 @@ const RootLayout = ({
     <body className={cx(inter.className, `bg-secondary dark:bg-secondary-dark max-md:pb-${NAV_HEIGHT}`)}>
       <Header />
       <BottomNav />
-      <main className="bg-primary dark:bg-primary-dark h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">{children}</main>
+      <main className="relative bg-primary dark:bg-primary-dark h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">
+        <CurvedCorner left />
+        <CurvedCorner right />
+        {children}
+      </main>
     </body>
   </html>
 );
