@@ -7,11 +7,11 @@ export const ICON_SIZE = {
 };
 
 const wrapperSizeClassMap = {
-  [ICON_SIZE.SMALL]: 'h-24 w-24',
+  [ICON_SIZE.SMALL]: 'h-20 w-20',
   [ICON_SIZE.MEDIUM]: 'h-32 w-32'
 };
 const iconSizeClassMap = {
-  [ICON_SIZE.SMALL]: 24,
+  [ICON_SIZE.SMALL]: 20,
   [ICON_SIZE.MEDIUM]: 32
 };
 
