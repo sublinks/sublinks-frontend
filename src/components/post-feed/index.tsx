@@ -39,7 +39,7 @@ const PostFeed = (): React.ReactNode => (
       return (
         <>
           <div key={id} className="flex">
-            <div className="ml-8">
+            <div className="flex items-center ml-8">
               <PostVotes points={score} />
             </div>
             <Link href={postUrl} className="w-full">

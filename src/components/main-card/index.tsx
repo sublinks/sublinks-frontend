@@ -22,6 +22,9 @@ const customMarkdownComponents: Components = {
       </LinkText>
     </Link>
   ),
+  p: ({ children }) => (
+    <p className="mb-12">{children}</p>
+  ),
   ul: ({ children }) => (
     <ul className="list-disc pl-12">{children}</ul>
   )
