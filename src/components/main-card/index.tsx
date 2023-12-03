@@ -1,30 +1,30 @@
 import React from 'react';
 
-import { BodyText, H1, PaleBodyText } from '../text';
-import PostVotes from '../post-votes';
+import { BodyText, H1 } from '../text';
 
 interface MainCardProps {
+  LeftHeaderComponent?: React.JSX.Element;
   title: string;
   body?: string;
-  subTitle?: string;
+  SubTitle?: React.JSX.Element;
   imageUrl?: string;
   videoUrl?: string;
 }
 
 const MainCard = ({
-  title, body, subTitle, imageUrl, videoUrl
+  LeftHeaderComponent, title, body, SubTitle, imageUrl, videoUrl
 }: MainCardProps): React.ReactNode => (
   <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg">
     <div className="flex items-center gap-12">
-      <PostVotes points={123} />
+      {LeftHeaderComponent}
       <div className="flex flex-col">
         <H1>{title}</H1>
-        {subTitle && <PaleBodyText className="text-sm">{subTitle}</PaleBodyText>}
+        {SubTitle}
       </div>
     </div>
     {body && (
       <div className="mt-24">
-        <BodyText>{body}</BodyText>
+        <BodyText className="text-sm">{body}</BodyText>
       </div>
     )}
   </div>

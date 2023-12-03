@@ -17,10 +17,13 @@ const PaleBodyText = ({ children, className, title }: TextProps) => <span classN
 
 const LinkText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-900 dark:text-gray-100 hover:text-hover-link dark:hover:text-hover-link-dark', className)} title={title}>{children}</span>;
 
+const PaleLinkText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-500 dark:text-gray-400 hover:text-hover-link dark:hover:text-hover-link-dark', className)} title={title}>{children}</span>;
+
 export {
   H1,
   BodyTitle,
   BodyText,
   PaleBodyText,
-  LinkText
+  LinkText,
+  PaleLinkText
 };
