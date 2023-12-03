@@ -21,6 +21,10 @@ We want to leverage the powers of NextJS as much as possible. And one thing it d
 
 One of our goals with this project is to keep it as componentized as we can. Any element that's used in more than one place should be created as a separate component. This will help us create consistency and avoid creating the same or very similar components in multiple files.
 
+## Types
+
+This project uses and relies on TypeScript. Meaning every variable, function, and component is required to have proper type definitions.
+
 ## Accessibility
 
 Making sure the frontend is accessible to all users is mandatory. This includes but is not limited to users with any level of vision, hearing, physical, and cognitive impairments.
