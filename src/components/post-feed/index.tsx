@@ -1,29 +1,11 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { getCommunitySlugFromUrl } from '@/utils/communities';
 import PostVotes from '../post-votes';
 import { BodyText, BodyTitle, PaleBodyText } from '../text';
 import * as testData from '../../../test-data.json';
-
-const PostThumbnail = ({ postThumbnailUrl }: { postThumbnailUrl?: string }) => (postThumbnailUrl ? (
-  <Image
-    src={postThumbnailUrl}
-    alt="Post thumbnail"
-    sizes="160px" // Twice the container size for non-blurred image
-    fill
-    className="object-cover"
-  />
-) : (
-  <Image
-    src="/logo.png"
-    alt="Post default thumbnail"
-    sizes="160px" // Twice the container size for non-blurred image
-    fill
-    className="object-contain"
-  />
-));
+import PostThumbnail from '../post-thumbnail';
 
 const PostFeed = (): React.ReactNode => (
   <div className="bg-primary dark:bg-primary-dark">
