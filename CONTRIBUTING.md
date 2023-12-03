@@ -33,7 +33,7 @@ For good resources on accessibility we recommend [WCAG 2 Overview](https://www.w
 
 ## Colors
 
-While no color scheme has been solidified. We want the default colors to be neutral. Consider the fact that you and other users may spend hours looking at Sublinks pages. We should try to make it easy on the eyes.
+While no color scheme has been solidified. We want the default colors to be neutral. Consider the fact that you and other users may spend hours looking at Sublinks pages. We should try to make it easy on the eyes. In the future the goal is to allow community mods to customize their own pages.
 
 ### Light and Dark Mode
 
