@@ -11,6 +11,7 @@ const PostThumbnail = ({ postThumbnailUrl }: { postThumbnailUrl?: string }) => (
   <Image
     src={postThumbnailUrl}
     alt="Post thumbnail"
+    sizes="160px" // Twice the container size for non-blurred image
     fill
     className="object-cover"
   />
@@ -18,8 +19,9 @@ const PostThumbnail = ({ postThumbnailUrl }: { postThumbnailUrl?: string }) => (
   <Image
     src="/logo.png"
     alt="Post default thumbnail"
+    sizes="160px" // Twice the container size for non-blurred image
     fill
-    className="object-cover"
+    className="object-contain"
   />
 ));
 
@@ -46,13 +48,13 @@ const PostFeed = (): React.ReactNode => (
                   </div>
                   <div className="h-full w-full flex">
                     <div className="h-full flex flex-col">
-                      <BodyTitle className="font-semibold line-clamp-2">{title}</BodyTitle>
+                      <BodyTitle className="text-sm font-semibold line-clamp-2">{title}</BodyTitle>
                       <div className="mb-8 flex max-md:flex-col">
-                        <PaleBodyText>
+                        <PaleBodyText className="text-xs">
                           {`Posted to ${communitySlug}`}
                         </PaleBodyText>
                       </div>
-                      {body && <BodyText className="max-md:hidden text-sm line-clamp-2">{body}</BodyText>}
+                      {body && <BodyText className="text-xs max-md:hidden line-clamp-2">{body}</BodyText>}
                     </div>
                   </div>
                 </div>

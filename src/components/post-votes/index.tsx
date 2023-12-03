@@ -29,7 +29,7 @@ const PostVotes = ({ points }: { points: number; }): React.ReactNode => (
     <VoteButton label="Upvote arrow">
       <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} className="hover:text-blue-400" />
     </VoteButton>
-    <PaleBodyText title="Post score">{points}</PaleBodyText>
+    <PaleBodyText title="Post score" className="text-xs">{points}</PaleBodyText>
     <VoteButton label="Downvote arrow">
       <Icon IconType={ArrowDownIcon} size={ICON_SIZE.SMALL} className="hover:text-red-400" />
     </VoteButton>
