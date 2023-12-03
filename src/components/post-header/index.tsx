@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import cx from 'classnames';
 
 import PostVotes from '../post-votes';
@@ -40,7 +41,14 @@ const PostHeader = ({
             className={cx('h-80 w-80 relative', {
               'cursor-default': !postUrl || !hasBody
             })}
-            onClick={() => setShowOriginalImage(hasImage && !showOriginalImage)}
+            onClick={() => {
+              // Don't allow hiding image if post has no other content
+              if (hasImage && hasBody) {
+                setShowOriginalImage(hasImage && !showOriginalImage);
+              } else if (!hasImage && postUrl) {
+                window.open(postUrl, '_blank', 'noopener noreferrer');
+              }
+            }}
           >
             <PostThumbnail postThumbnailUrl={thumbnailUrl} />
           </button>
@@ -52,7 +60,9 @@ const PostHeader = ({
       </div>
       {showOriginalImage && (
         <div className="flex items-center h-500 w-full relative">
-          <Image alt="Post image" src={postUrl!} fill style={{ objectFit: 'contain' }} />
+          <Link href={postUrl!} target="_blank" rel="noopener noreferrer">
+            <Image alt="Post image" src={postUrl!} fill style={{ objectFit: 'contain' }} />
+          </Link>
         </div>
       )}
     </div>
