@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 interface TextProps {
-  children: string;
+  children: string | number;
   className?: string;
 }
 

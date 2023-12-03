@@ -33,12 +33,13 @@ const PostFeed = (): React.ReactNode => (
         id, body, name: title, thumbnail_url: thumbnail
       } = postData.post;
       const { actor_id: communityUrl } = postData.community;
+      const { score } = postData.counts;
       const communitySlug = getCommunitySlugFromUrl(communityUrl);
       const postUrl = `/post/${communitySlug}/${id}`;
 
       return (
         <div className="flex">
-          <PostVotes />
+          <PostVotes points={score} />
           <Link key={id} href={postUrl} className="w-full">
             <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
               <div className="h-full flex gap-12 px-12 py-6 items-start">
