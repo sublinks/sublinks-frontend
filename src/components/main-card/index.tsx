@@ -8,8 +8,6 @@ import { LinkText } from '../text';
 interface MainCardProps {
   Header: React.JSX.Element;
   body?: string;
-  imageUrl?: string;
-  videoUrl?: string;
 }
 
 const customMarkdownComponents: Components = {
@@ -29,7 +27,7 @@ const customMarkdownComponents: Components = {
 };
 
 const MainCard = ({
-  Header, body, imageUrl, videoUrl
+  Header, body
 }: MainCardProps): React.ReactNode => (
   <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg">
     <div className="flex items-center gap-12">

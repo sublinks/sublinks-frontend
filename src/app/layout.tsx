@@ -1,8 +1,8 @@
 import './globals.css';
 import React from 'react';
 import type { Metadata } from 'next';
-import cx from 'classnames';
 import { Inter } from 'next/font/google';
+import cx from 'classnames';
 
 import Header from '@/components/header';
 import BottomNav from '@/components/bottom-nav';
