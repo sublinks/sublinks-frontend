@@ -34,8 +34,8 @@ const RootLayout = ({
 }: {
   children: React.ReactNode
 }) => (
-  <html lang="en">
-    <body className={cx(inter.className, 'bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
+  <html lang="en" className="h-full">
+    <body className={cx(inter.className, 'h-full bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
       <Header />
       <BottomNav />
       <main className="relative bg-primary dark:bg-primary-dark h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">

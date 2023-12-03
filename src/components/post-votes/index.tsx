@@ -25,7 +25,7 @@ const VoteButton = ({ children, label }: VoteButtonProps) => (
 );
 
 const PostVotes = ({ points }: { points: number; }): React.ReactNode => (
-  <div className="flex flex-col justify-center items-center pl-8">
+  <div className="flex flex-col justify-center items-center">
     <VoteButton label="Upvote arrow">
       <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} className="hover:text-blue-400" />
     </VoteButton>

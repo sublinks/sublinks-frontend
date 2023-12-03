@@ -39,7 +39,9 @@ const PostFeed = (): React.ReactNode => (
       return (
         <>
           <div key={id} className="flex">
-            <PostVotes points={score} />
+            <div className="ml-8">
+              <PostVotes points={score} />
+            </div>
             <Link href={postUrl} className="w-full">
               <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
                 <div className="h-full flex gap-12 px-12 py-6 items-start">
