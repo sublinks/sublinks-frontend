@@ -37,8 +37,8 @@ const PostFeed = (): React.ReactNode => (
       const postUrl = `/p/${communitySlug}/${id}`;
 
       return (
-        <>
-          <div key={id} className="flex">
+        <div key={id}>
+          <div className="flex">
             <div className="flex items-center ml-8">
               <PostVotes points={score} />
             </div>
@@ -64,7 +64,7 @@ const PostFeed = (): React.ReactNode => (
             </Link>
           </div>
           <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
-        </>
+        </div>
       );
     })}
   </div>
