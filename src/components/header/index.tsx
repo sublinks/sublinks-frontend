@@ -5,10 +5,10 @@ import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline
 
 import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
-import { BodyTitle } from '../text';
+import { LinkText } from '../text';
 
 const Header = (): React.ReactNode => (
-  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark z-10">
+  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark">
     <div className="flex items-center">
       <Link href="/">
         <Image
@@ -22,18 +22,18 @@ const Header = (): React.ReactNode => (
       </Link>
       <div className="flex gap-16 ml-24 items-center">
         <Link href="/communities">
-          <BodyTitle className="text-base">Communities</BodyTitle>
+          <LinkText>Create community</LinkText>
         </Link>
         <Link href="/post">
-          <BodyTitle className="text-base">Create post</BodyTitle>
+          <LinkText>Create post</LinkText>
         </Link>
-        <BodyTitle className="text-base">|</BodyTitle>
+        <span>|</span>
         <Link href="/favorites">
-          <BodyTitle className="text-base">Add favorite communities</BodyTitle>
+          <LinkText className="text-base">Add favorite communities</LinkText>
         </Link>
       </div>
     </div>
-    <div className="flex items-center gap-12 z-10">
+    <div className="flex items-center gap-12">
       <TextField
         type="text"
         name="search"

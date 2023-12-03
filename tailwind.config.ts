@@ -59,7 +59,11 @@ const config: Config = {
         },
         hover: {
           DEFAULT: '#d1d5db',
-          dark: '#4b5563'
+          dark: '#4b5563',
+          link: {
+            DEFAULT: '#8e4d63',
+            dark: '#f8c234'
+          }
         }
       }
     }
