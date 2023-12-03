@@ -54,7 +54,11 @@ const PostHeader = ({
           </button>
         </div>
         <div className="flex flex-col">
-          <H1>{title}</H1>
+          {postUrl ? (
+            <Link href={postUrl} target="_blank" rel="noopener noreferrer">
+              <H1 className="hover:text-hover-link dark:hover:text-hover-link-dark">{title}</H1>
+            </Link>
+          ) : <H1>{title}</H1>}
           {SubTitle}
         </div>
       </div>
