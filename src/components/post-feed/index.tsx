@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import { getCommunitySlugFromUrl } from '@/utils/communities';
 import PostVotes from '../post-votes';
-import * as testData from '../../../test-data.json';
 import { BodyText, BodyTitle, PaleBodyText } from '../text';
+import * as testData from '../../../test-data.json';
 
 const PostThumbnail = ({ postThumbnailUrl }: { postThumbnailUrl?: string }) => (postThumbnailUrl ? (
   <Image
@@ -34,7 +34,7 @@ const PostFeed = (): React.ReactNode => (
       const { actor_id: communityUrl } = postData.community;
       const { score } = postData.counts;
       const communitySlug = getCommunitySlugFromUrl(communityUrl);
-      const postUrl = `/post/${communitySlug}/${id}`;
+      const postUrl = `/p/${communitySlug}/${id}`;
 
       return (
         <>
