@@ -11,18 +11,15 @@ const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
     src={postThumbnailUrl}
     alt="Post thumbnail"
-    sizes="80px"
     fill
-    objectFit="cover"
-    unoptimized
+    className="object-cover"
   />
 ) : (
   <Image
     src="/logo.png"
     alt="Post default thumbnail"
-    width={80}
-    height={80}
-    objectFit="cover"
+    fill
+    className="object-cover"
   />
 ));
 
@@ -38,9 +35,9 @@ const PostFeed = (): React.ReactNode => (
       const postUrl = `/post/${communitySlug}/${id}`;
 
       return (
-        <div className="flex">
+        <div key={id} className="flex">
           <PostVotes points={score} />
-          <Link key={id} href={postUrl} className="w-full">
+          <Link href={postUrl} className="w-full">
             <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
               <div className="h-full flex gap-12 px-12 py-6 items-start">
                 <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
