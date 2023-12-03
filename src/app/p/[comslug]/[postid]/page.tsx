@@ -1,9 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import cx from 'classnames';
 
 import MainCard from '@/components/main-card';
 import PostVotes from '@/components/post-votes';
-import { PaleBodyText, PaleLinkText } from '@/components/text';
+import { H1, PaleBodyText, PaleLinkText } from '@/components/text';
+import { isImage } from '@/utils/links';
+import PostThumbnail from '@/components/post-thumbnail';
+import Image from 'next/image';
 import * as testData from '../../../../../test-data.json';
 
 interface PostSubTitleProps {
@@ -41,15 +47,23 @@ const PostSubTitle = ({
 const PostView = ({ params: { comSlug, postId } }: PostViewProps) => {
   const post = testData.posts.find(p => p.post.id === parseInt(postId, 10));
   const readableSlug = decodeURIComponent(comSlug);
+  const [showOriginalImage, setShowOriginalImage] = useState(false);
 
   if (!post) {
     return null;
   }
 
-  const { body, name: postName } = post.post;
+  const {
+    body, name: postName, url: postUrl, thumbnail_url: thumbnailUrl
+  } = post.post;
   const { name: authorName, actor_id: authorUrl } = post.creator;
   const { actor_id: communityUrl } = post.community;
   const { score } = post.counts;
+  const postHasImage = postUrl ? isImage(postUrl) : false;
+
+  if (postHasImage && !body && !showOriginalImage) {
+    setShowOriginalImage(true);
+  }
 
   const SubTitle = (
     <PostSubTitle
@@ -59,11 +73,39 @@ const PostView = ({ params: { comSlug, postId } }: PostViewProps) => {
       communityUrl={communityUrl}
     />
   );
-  const Votes = <PostVotes points={score} />;
+  // TODO: Break out into client component
+  const Header = (
+    <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full">
+        <div className="flex gap-8">
+          <PostVotes points={score} />
+          <button
+            type="button"
+            aria-label="Post thumbnail"
+            className={cx('h-80 w-80 relative', {
+              'cursor-default': !postUrl || !body
+            })}
+            onClick={() => setShowOriginalImage(postHasImage && !showOriginalImage)}
+          >
+            <PostThumbnail postThumbnailUrl={thumbnailUrl} />
+          </button>
+          <div className="flex flex-col">
+            <H1>{postName}</H1>
+            {SubTitle}
+          </div>
+        </div>
+        {showOriginalImage && (
+        <div className="flex items-center h-500 w-full relative">
+          <Image alt="Post image" src={postUrl!} fill style={{ objectFit: 'contain' }} />
+        </div>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div>
-      <MainCard LeftHeaderComponent={Votes} title={postName} SubTitle={SubTitle} body={body} />
+      <MainCard Header={Header} body={body} />
     </div>
   );
 };

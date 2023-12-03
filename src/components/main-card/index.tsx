@@ -3,13 +3,11 @@ import Link from 'next/link';
 import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { H1, LinkText } from '../text';
+import { LinkText } from '../text';
 
 interface MainCardProps {
-  LeftHeaderComponent?: React.JSX.Element;
-  title: string;
+  Header: React.JSX.Element;
   body?: string;
-  SubTitle?: React.JSX.Element;
   imageUrl?: string;
   videoUrl?: string;
 }
@@ -31,15 +29,11 @@ const customMarkdownComponents: Components = {
 };
 
 const MainCard = ({
-  LeftHeaderComponent, title, body, SubTitle, imageUrl, videoUrl
+  Header, body, imageUrl, videoUrl
 }: MainCardProps): React.ReactNode => (
   <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg">
     <div className="flex items-center gap-12">
-      {LeftHeaderComponent}
-      <div className="flex flex-col">
-        <H1>{title}</H1>
-        {SubTitle}
-      </div>
+      {Header}
     </div>
     {body && (
       <div className="mt-24 text-gray-600 dark:text-gray-200 text-sm">
