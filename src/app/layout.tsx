@@ -5,7 +5,7 @@ import cx from 'classnames';
 import { Inter } from 'next/font/google';
 
 import Header from '@/components/header';
-import BottomNav, { NAV_HEIGHT } from '@/components/bottom-nav';
+import BottomNav from '@/components/bottom-nav';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,7 +35,7 @@ const RootLayout = ({
   children: React.ReactNode
 }) => (
   <html lang="en">
-    <body className={cx(inter.className, `bg-secondary dark:bg-secondary-dark max-md:pb-${NAV_HEIGHT}`)}>
+    <body className={cx(inter.className, 'bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
       <Header />
       <BottomNav />
       <main className="relative bg-primary dark:bg-primary-dark h-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">

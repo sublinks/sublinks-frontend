@@ -35,30 +35,32 @@ const PostFeed = (): React.ReactNode => (
       const postUrl = `/post/${communitySlug}/${id}`;
 
       return (
-        <div key={id} className="flex">
-          <PostVotes points={score} />
-          <Link href={postUrl} className="w-full">
-            <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
-              <div className="h-full flex gap-12 px-12 py-6 items-start">
-                <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
-                  <PostThumbnail postThumbnailUrl={thumbnailUrl} />
-                </div>
-                <div className="h-full w-full flex">
-                  <div className="h-full flex flex-col">
-                    <BodyTitle className="font-semibold line-clamp-2">{title}</BodyTitle>
-                    <div className="mb-8 flex max-md:flex-col">
-                      <PaleBodyText>
-                        {`Posted to ${communitySlug}`}
-                      </PaleBodyText>
+        <>
+          <div key={id} className="flex">
+            <PostVotes points={score} />
+            <Link href={postUrl} className="w-full">
+              <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
+                <div className="h-full flex gap-12 px-12 py-6 items-start">
+                  <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
+                    <PostThumbnail postThumbnailUrl={thumbnailUrl} />
+                  </div>
+                  <div className="h-full w-full flex">
+                    <div className="h-full flex flex-col">
+                      <BodyTitle className="font-semibold line-clamp-2">{title}</BodyTitle>
+                      <div className="mb-8 flex max-md:flex-col">
+                        <PaleBodyText>
+                          {`Posted to ${communitySlug}`}
+                        </PaleBodyText>
+                      </div>
+                      {body && <BodyText className="max-md:hidden text-sm line-clamp-2">{body}</BodyText>}
                     </div>
-                    {body && <BodyText className="max-md:hidden text-sm line-clamp-2">{body}</BodyText>}
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
-          </Link>
-        </div>
+            </Link>
+          </div>
+          <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
+        </>
       );
     })}
   </div>
