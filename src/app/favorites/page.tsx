@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParagraphTitle } from '@/components/text';
+import { BodyTitle } from '@/components/text';
 
 const Favorites = () => (
   <div>
-    <ParagraphTitle>Favorites page WIP</ParagraphTitle>
+    <BodyTitle>Favorites page WIP</BodyTitle>
   </div>
 );
 

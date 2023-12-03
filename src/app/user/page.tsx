@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParagraphTitle } from '@/components/text';
+import { BodyTitle } from '@/components/text';
 
 const User = () => (
   <div>
-    <ParagraphTitle>User page WIP</ParagraphTitle>
+    <BodyTitle>User page WIP</BodyTitle>
   </div>
 );
 

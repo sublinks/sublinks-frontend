@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParagraphTitle } from '@/components/text';
+import { BodyTitle } from '@/components/text';
 
 const PostView = () => (
   <div>
-    <ParagraphTitle>Post view page WIP</ParagraphTitle>
+    <BodyTitle>Post view page WIP</BodyTitle>
   </div>
 );
 

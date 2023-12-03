@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline
 
 import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
-import { ParagraphTitle } from '../text';
+import { BodyTitle } from '../text';
 
 const Header = (): React.ReactNode => (
   <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark z-10">
@@ -22,14 +22,14 @@ const Header = (): React.ReactNode => (
       </Link>
       <div className="flex gap-16 ml-24 items-center">
         <Link href="/communities">
-          <ParagraphTitle className="text-base">Communities</ParagraphTitle>
+          <BodyTitle className="text-base">Communities</BodyTitle>
         </Link>
         <Link href="/post">
-          <ParagraphTitle className="text-base">Create post</ParagraphTitle>
+          <BodyTitle className="text-base">Create post</BodyTitle>
         </Link>
-        <ParagraphTitle className="text-base">|</ParagraphTitle>
+        <BodyTitle className="text-base">|</BodyTitle>
         <Link href="/favorites">
-          <ParagraphTitle className="text-base">Add favorite communities</ParagraphTitle>
+          <BodyTitle className="text-base">Add favorite communities</BodyTitle>
         </Link>
       </div>
     </div>

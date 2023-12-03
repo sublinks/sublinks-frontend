@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { getCommunitySlugFromUrl } from '@/utils/communities';
-import { PaleParagraph, Paragraph, ParagraphTitle } from '../text';
 import PostVotes from '../post-votes';
 import * as testData from '../../../test-data.json';
+import { BodyText, BodyTitle, PaleBodyText } from '../text';
 
 const postThumbnail = (postThumbnailUrl?: string) => (postThumbnailUrl ? (
   <Image
@@ -48,13 +48,13 @@ const PostFeed = (): React.ReactNode => (
                 </div>
                 <div className="h-full w-full flex">
                   <div className="h-full flex flex-col">
-                    <ParagraphTitle className="font-semibold line-clamp-2">{title}</ParagraphTitle>
+                    <BodyTitle className="font-semibold line-clamp-2">{title}</BodyTitle>
                     <div className="mb-8 flex max-md:flex-col">
-                      <PaleParagraph>
+                      <PaleBodyText>
                         {`Posted to ${communitySlug}`}
-                      </PaleParagraph>
+                      </PaleBodyText>
                     </div>
-                    {body && <Paragraph className="max-md:hidden text-sm line-clamp-2">{body}</Paragraph>}
+                    {body && <BodyText className="max-md:hidden text-sm line-clamp-2">{body}</BodyText>}
                   </div>
                 </div>
               </div>

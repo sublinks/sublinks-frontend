@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParagraphTitle } from '@/components/text';
+import { BodyTitle } from '@/components/text';
 
 const Communities = () => (
   <div>
-    <ParagraphTitle>Communities page WIP</ParagraphTitle>
+    <BodyTitle>Communities page WIP</BodyTitle>
   </div>
 );
 

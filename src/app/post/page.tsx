@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ParagraphTitle } from '@/components/text';
+import { BodyTitle } from '@/components/text';
 
 const PostCreate = () => (
   <div>
-    <ParagraphTitle>Post create page WIP</ParagraphTitle>
+    <BodyTitle>Post create page WIP</BodyTitle>
   </div>
 );
 

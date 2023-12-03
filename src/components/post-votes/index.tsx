@@ -4,7 +4,7 @@ import React from 'react';
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 
 import Icon, { ICON_SIZE } from '../icon';
-import { PaleParagraph } from '../text';
+import { PaleBodyText } from '../text';
 
 interface VoteButtonProps {
   children: React.ReactNode,
@@ -29,7 +29,7 @@ const PostVotes = ({ points }: { points: number; }): React.ReactNode => (
     <VoteButton label="Upvote arrow">
       <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} className="hover:text-blue-400" />
     </VoteButton>
-    <PaleParagraph>{points}</PaleParagraph>
+    <PaleBodyText>{points}</PaleBodyText>
     <VoteButton label="Downvote arrow">
       <Icon IconType={ArrowDownIcon} size={ICON_SIZE.SMALL} className="hover:text-red-400" />
     </VoteButton>
