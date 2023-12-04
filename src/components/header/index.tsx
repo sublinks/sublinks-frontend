@@ -24,7 +24,7 @@ const Header = (): React.ReactNode => (
         <Link href="/communities">
           <LinkText>Create community</LinkText>
         </Link>
-        <Link href="/post">
+        <Link href="/p">
           <LinkText>Create post</LinkText>
         </Link>
         <span>|</span>
