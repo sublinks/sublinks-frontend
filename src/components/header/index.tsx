@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MagnifyingGlassIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, StarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 import Icon, { ICON_SIZE } from '../icon';
 import { TextField } from '../input';
@@ -29,7 +29,7 @@ const Header = (): React.ReactNode => (
         </Link>
         <span>|</span>
         <Link href="/favorites">
-          <LinkText className="text-base">Add favorite communities</LinkText>
+          <Icon IconType={StarIcon} size={ICON_SIZE.SMALL} />
         </Link>
       </div>
     </div>
