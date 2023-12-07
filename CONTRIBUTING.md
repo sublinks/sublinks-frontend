@@ -3,7 +3,7 @@ Aka. Developer Guidelines
 
 ## Intro
 
-We're currently _very_ early in the development stages of the Sublinks frontend. Therefore there aren't too many guidelines yet. However, as you can see below there are some that we would appreciate you to consider before and while you contribute to this project.
+We're currently _very_ early in the development stages of the Sublinks frontend. Therefore there aren't too many hard guidelines yet. However, as you can see below there are some that we would appreciate you to consider before and while you contribute to this project.
 
 As with most things you'll read about in this document, even these guidelines are up for discussion. If you believe anything should be changed please feel free to create a pull request and let us know what and why. Same thing applies if you want to add or stricten/loosen a guideline.
 
@@ -45,7 +45,7 @@ In an attempt to create consistency and symmetry we want to only use pixels when
 
 ## Linting
 
-The initial linting rules were based on the personal opinions of the repository creator. These are expected to be followed when submitting code changes. However, these rules are also up for discussion. Feel free to add or change linting rules. All we ask is that you explain your reasoning behind any such updates beyond "This is what I like/am used to". We want to prevent the linting rules changing too often based on the flavor of the week.
+There are a basic set of linting rules, based on AirBnB. These are expected to be followed when submitting code changes. However, these rules are also up for discussion. Feel free to add or change linting rules. All we ask is that you explain your reasoning behind any such updates beyond "This is what I like/am used to". We want to prevent the linting rules changing too often based on the flavor of the week.
 
 ## Tests
 
