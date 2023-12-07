@@ -26,12 +26,16 @@ interface IconProps {
   title?: string;
   titleId?: string;
   className?: string;
+  isInteractable?: boolean;
 }
 
 const Icon = ({
-  IconType, size, title, titleId, className
+  IconType, size, title, titleId, className, isInteractable
 }: IconProps): React.ReactNode => (
-  <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', className)}>
+  <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', {
+    'hover:text-hover-link dark:hover:text-hover-link-dark': isInteractable
+  }, className)}
+  >
     <IconType
       title={title}
       titleId={titleId}

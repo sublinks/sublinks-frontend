@@ -8,7 +8,7 @@ import * as testData from '../../../test-data.json';
 import PostThumbnail from '../post-thumbnail';
 
 const PostFeed = (): React.ReactNode => (
-  <div className="bg-primary dark:bg-primary-dark">
+  <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
     {testData.posts.map(postData => {
       const {
         id, body, name: title, thumbnail_url: thumbnailUrl
@@ -45,7 +45,7 @@ const PostFeed = (): React.ReactNode => (
               </div>
             </Link>
           </div>
-          <div className="md:hidden border-b border-secondary dark:border-secondary-dark" />
+          <div className="border-b-2 border-secondary dark:border-secondary-dark" />
         </div>
       );
     })}

@@ -29,7 +29,7 @@ const Header = (): React.ReactNode => (
         </Link>
         <span>|</span>
         <Link href="/favorites">
-          <Icon IconType={StarIcon} size={ICON_SIZE.SMALL} />
+          <Icon IconType={StarIcon} size={ICON_SIZE.SMALL} title="Favorites" isInteractable />
         </Link>
       </div>
     </div>
@@ -44,7 +44,7 @@ const Header = (): React.ReactNode => (
         className="w-240 lg:hover:w-500 lg:focus-within:w-500 transition-all"
       />
       <button type="button" aria-label="User profile">
-        <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" />
+        <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
       </button>
     </div>
   </header>
