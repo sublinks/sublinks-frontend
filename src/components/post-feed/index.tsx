@@ -24,15 +24,15 @@ const PostFeed = (): React.ReactNode => (
             <div className="flex items-center ml-8">
               <PostVotes points={score} />
             </div>
-            <Link href={postUrl} className="w-full">
-              <div className="flex h-100 relative hover:bg-hover dark:hover:bg-hover-dark">
+            <Link href={postUrl} className="w-full group">
+              <div className="flex h-100 relative">
                 <div className="h-full flex gap-12 px-12 py-6 items-start">
                   <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">
                     <PostThumbnail postThumbnailUrl={thumbnailUrl} />
                   </div>
                   <div className="h-full w-full flex">
                     <div className="h-full flex flex-col">
-                      <BodyTitle className="text-sm font-semibold line-clamp-2">{title}</BodyTitle>
+                      <BodyTitle className="text-sm font-semibold line-clamp-2 group-hover:text-hover-link dark:group-hover:text-hover-link-dark">{title}</BodyTitle>
                       <div className="mb-8 flex max-md:flex-col">
                         <PaleBodyText className="text-xs">
                           {`Posted to ${communitySlug}`}
