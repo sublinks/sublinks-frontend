@@ -54,7 +54,7 @@ const config: Config = {
           dark: '#374151'
         },
         secondary: {
-          DEFAULT: '#e5e7eb',
+          DEFAULT: '#f3f4f6',
           dark: '#111827'
         },
         hover: {
