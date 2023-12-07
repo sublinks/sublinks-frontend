@@ -32,13 +32,13 @@ const PostFeed = (): React.ReactNode => (
                   </div>
                   <div className="h-full w-full flex">
                     <div className="h-full flex flex-col">
-                      <BodyTitle className="text-sm font-semibold line-clamp-2 group-hover:text-hover-link dark:group-hover:text-hover-link-dark">{title}</BodyTitle>
+                      <BodyTitle className="text-sm font-semibold line-clamp-2 group-hover:text-hover-link dark:group-hover:text-hover-link-dark group-visited:text-gray-500 group-visited:dark:text-gray-400">{title}</BodyTitle>
                       <div className="mb-8 flex max-md:flex-col">
                         <PaleBodyText className="text-xs">
                           {`Posted to ${communitySlug}`}
                         </PaleBodyText>
                       </div>
-                      {body && <BodyText className="text-xs max-md:hidden line-clamp-2">{body}</BodyText>}
+                      {body && <BodyText className="text-xs max-md:hidden line-clamp-2 group-visited:text-gray-500 group-visited:dark:text-gray-400">{body}</BodyText>}
                     </div>
                   </div>
                 </div>
