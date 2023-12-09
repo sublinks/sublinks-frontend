@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { MagnifyingGlassIcon, StarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 
 import Icon, { ICON_SIZE } from '../icon';
-import { TextField } from '../input';
+import { InputField } from '../input';
 import { LinkText } from '../text';
 
 const Header = (): React.ReactNode => (
@@ -34,7 +34,7 @@ const Header = (): React.ReactNode => (
       </div>
     </div>
     <div className="flex items-center gap-12">
-      <TextField
+      <InputField
         type="text"
         name="search"
         id="search"
