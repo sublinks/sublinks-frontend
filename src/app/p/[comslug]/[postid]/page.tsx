@@ -75,11 +75,7 @@ const PostView = ({ params: { comSlug, postId } }: PostViewProps) => {
     />
   );
 
-  return (
-    <div>
-      <MainCard Header={Header} body={body} />
-    </div>
-  );
+  return <MainCard Header={Header} body={body} />;
 };
 
 export default PostView;
