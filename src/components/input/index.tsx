@@ -2,8 +2,23 @@ import React from 'react';
 import cx from 'classnames';
 
 import Icon, { ICON_SIZE } from '../icon';
-import { PaleBodyText } from '../text';
+import { BodyText, PaleBodyText } from '../text';
 import MarkdownTextarea from './textarea';
+
+interface CheckboxProps {
+  label: string;
+  name: string;
+  id: string;
+}
+
+const Checkbox = ({ label, name, id }: CheckboxProps) => (
+  <div className="flex gap-8 ">
+    <input type="checkbox" id={id} name={name} />
+    <label htmlFor={name}>
+      <BodyText>{label}</BodyText>
+    </label>
+  </div>
+);
 
 interface InputFieldProps {
   type: string;
@@ -43,6 +58,7 @@ const InputField = ({
 );
 
 export {
+  Checkbox,
   InputField,
   MarkdownTextarea
 };

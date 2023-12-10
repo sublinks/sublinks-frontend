@@ -59,7 +59,7 @@ const MarkdownTextarea = ({
         }}
         visibleDragbar={false}
         extraCommands={[homemadePreviewCommand]} // Replace built-in preview options
-        className="!bg-primary dark:!bg-gray-800 !border !border-gray-300 dark:!border-gray-900"
+        className="!border !border-gray-300 dark:!border-gray-900"
       />
     </div>
   );
