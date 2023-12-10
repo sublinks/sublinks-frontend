@@ -63,7 +63,8 @@ const config: Config = {
           link: {
             DEFAULT: '#8e4d63',
             dark: '#f8c234'
-          }
+          },
+          'md-editor': '#58a6ff'
         }
       }
     }

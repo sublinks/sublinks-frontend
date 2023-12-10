@@ -18,12 +18,12 @@ interface InputFieldProps {
 
 const InputField = ({
   type, label, name, id, placeholder, LeftIcon, className, inputClassName, showBorderPlaceholder
-}: InputFieldProps): React.ReactNode => (
-  <div className={className}>
+}: InputFieldProps) => (
+  <div className={cx('bg-primary dark:bg-gray-800 rounded-md', className)}>
     <label htmlFor={name} className="sr-only">
       {label}
     </label>
-    <div className="relative flex items-center border border-gray-300 dark:border-gray-900 rounded-md px-8">
+    <div className="relative flex items-center border-2 border-gray-300 dark:border-gray-900 rounded-md px-8">
       {LeftIcon && (
         <span className="aria-hidden">
           <Icon IconType={LeftIcon} size={ICON_SIZE.SMALL} />
@@ -33,10 +33,10 @@ const InputField = ({
         type={type}
         name={name}
         id={id}
-        className={cx('peer block w-full rounded-md border-0 py-4 px-8 bg-primary dark:bg-primary-dark text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6', inputClassName)}
+        className={cx('peer block w-full rounded-md border-0 py-4 px-8 text-gray-900 dark:text-white bg-primary dark:bg-gray-800 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6', inputClassName)}
         placeholder={placeholder}
       />
-      {showBorderPlaceholder && <PaleBodyText className="absolute text-xs bg-primary dark:bg-primary-dark -top-8 px-4 peer-placeholder-shown:hidden">{placeholder}</PaleBodyText>}
+      {showBorderPlaceholder && <PaleBodyText className="absolute text-xs bg-primary dark:bg-gray-800 px-4 -top-12 peer-placeholder-shown:top-0 opactiy-100 peer-placeholder-shown:opacity-0 rounded-t-md border-t-2 border-x-2 dark:dark:border-gray-900 transition-all">{placeholder}</PaleBodyText>}
     </div>
   </div>
 );

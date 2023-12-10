@@ -7,7 +7,7 @@ import Icon, { ICON_SIZE } from '../icon';
 import { InputField } from '../input';
 import { LinkText } from '../text';
 
-const Header = (): React.ReactNode => (
+const Header = () => (
   <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark">
     <div className="flex items-center">
       <Link href="/">

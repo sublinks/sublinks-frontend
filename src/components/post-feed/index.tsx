@@ -7,7 +7,7 @@ import { BodyText, BodyTitle, PaleBodyText } from '../text';
 import * as testData from '../../../test-data.json';
 import PostThumbnail from '../post-thumbnail';
 
-const PostFeed = (): React.ReactNode => (
+const PostFeed = () => (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
     {testData.posts.map(postData => {
       const {
