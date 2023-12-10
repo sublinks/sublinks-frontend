@@ -2,7 +2,20 @@
 
 import React, { useState } from 'react';
 import MDEditor, { ICommand } from '@uiw/react-md-editor';
-import { LinkText } from '../text';
+import { BodyText } from '../text';
+
+interface PreviewCommandToolProps {
+  label: string;
+  onClick: () => void;
+}
+
+// Important classes for this and the textarea component
+// are necessary to override MDEditor's default styles
+const PreviewCommandTool = ({ label, onClick }: PreviewCommandToolProps) => (
+  <button type="button" onClick={onClick} className="absolute bottom-0 right-0 !h-24 w-80 !bg-secondary !rounded-tl-md group z-10">
+    <BodyText className="font-bold group-hover:text-hover-md-editor dark:text-gray-600">{label}</BodyText>
+  </button>
+);
 
 const MarkdownTextarea = () => {
   const [value, setValue] = useState('**Hello world!!!**');
@@ -13,25 +26,24 @@ const MarkdownTextarea = () => {
     name: previewCommand,
     keyCommand: 'preview',
     position: 'right',
-    icon: <button type="button" className="group absolute right-0 bottom-0 w-80 !h-40 z-10 !bg-secondary dark:!bg-secondary-dark !rounded-tl" onClick={() => setShowPreview(!showPreview)}><LinkText className="group-hover:text-hover-link dark:group-hover:text-hover-link-dark">{previewCommand}</LinkText></button>
+    render: () => (
+      <PreviewCommandTool label={previewCommand} onClick={() => setShowPreview(!showPreview)} />
+    )
   };
 
   return (
-    <div className="container">
-      <MDEditor
-        value={value}
-        onChange={newValue => setValue(newValue || '')}
-        autoFocus={false}
-        preview={showPreview ? 'preview' : 'edit'}
-        textareaProps={{
-          autoCapitalize: 'none'
-        }}
-        visibleDragbar={false}
-        extraCommands={[homemadePreviewCommand]} // Hide built-in preview options
-      />
-      <button type="button" onClick={() => setShowPreview(!showPreview)}>Edit / Preview</button>
-      <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
-    </div>
+    <MDEditor
+      value={value}
+      onChange={newValue => setValue(newValue || '')}
+      autoFocus={false}
+      preview={showPreview ? 'preview' : 'edit'}
+      textareaProps={{
+        autoCapitalize: 'none'
+      }}
+      visibleDragbar={false}
+      extraCommands={[homemadePreviewCommand]} // Replace built-in preview options
+      className="!bg-primary dark:!bg-gray-800 !border !border-gray-300 dark:!border-gray-900"
+    />
   );
 };
 
