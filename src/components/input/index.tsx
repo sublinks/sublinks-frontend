@@ -13,7 +13,7 @@ interface CheckboxProps {
 
 const Checkbox = ({ label, name, id }: CheckboxProps) => (
   <div className="flex gap-8 items-center">
-    <input type="checkbox" id={id} name={name} className="flex items-center justify-center appearance-none w-20 h-20 rounded-md border-2 border-gray-300 dark:border-gray-900 checked:bg-brand-dark dark:checked:bg-brand checked:after:content-['✓']" />
+    <input type="checkbox" id={id} name={name} className="flex items-center justify-center appearance-none w-20 h-20 rounded-md border-2 border-gray-300 dark:border-gray-900 checked:bg-brand dark:checked:bg-brand-dark checked:after:content-['✓']" />
     <label htmlFor={name}>
       <BodyText>{label}</BodyText>
     </label>

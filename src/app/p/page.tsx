@@ -14,7 +14,7 @@ const PostCreate = () => {
         <div className="flex flex-col gap-16">
           <InputField type="text" label="Title" name="title" id="title" placeholder="Post Title" showBorderPlaceholder />
           <InputField type="text" label="URL" name="url" id="url" placeholder="URL" showBorderPlaceholder />
-          <InputField type="file" label="Media" name="media" id="media" placeholder="Media" showBorderPlaceholder inputClassName="mt-8 file:text-gray-200 file:px-8 file:py-4 file:bg-gray-700 file:border file:rounded-md rounded" />
+          <InputField type="file" label="Media" name="media" id="media" placeholder="Media" showBorderPlaceholder inputClassName="mt-8 file:text-gray-200 file:dark:text-black file:px-8 file:py-4 file:bg-brand dark:file:bg-brand-dark file:border file:rounded-md rounded" />
           <MarkdownTextarea label="Body" id="body" />
           <Checkbox label="NSFW" id="nsfw" name="nsfw" />
           <Button type="submit" id="create-post">Create</Button>
