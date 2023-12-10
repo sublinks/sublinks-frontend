@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 import Icon, { ICON_SIZE } from '../icon';
 import { PaleBodyText } from '../text';
+import MarkdownTextarea from './textarea';
 
 interface InputFieldProps {
   type: string;
@@ -42,5 +43,6 @@ const InputField = ({
 );
 
 export {
-  InputField
+  InputField,
+  MarkdownTextarea
 };
