@@ -46,7 +46,7 @@ const MarkdownTextarea = ({
   return (
     <div>
       <label htmlFor={id}>
-        {label}
+        <BodyText>{label}</BodyText>
       </label>
       <MDEditor
         id={id}

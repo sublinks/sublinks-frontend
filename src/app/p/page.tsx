@@ -11,10 +11,10 @@ const PostCreate = () => {
   return (
     <MainCard Header={Header}>
       <form className="mt-24 max-w-500">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col gap-16">
           <InputField type="text" label="Title" name="title" id="title" placeholder="Post Title" showBorderPlaceholder />
           <InputField type="text" label="URL" name="url" id="url" placeholder="URL" showBorderPlaceholder />
-          <InputField type="file" label="Media" name="media" id="media" placeholder="Media" showBorderPlaceholder inputClassName="mt-4 file:text-gray-200 file:px-8 file:py-4 file:bg-gray-700 file:border file:rounded-md rounded" />
+          <InputField type="file" label="Media" name="media" id="media" placeholder="Media" showBorderPlaceholder inputClassName="mt-8 file:text-gray-200 file:px-8 file:py-4 file:bg-gray-700 file:border file:rounded-md rounded" />
           <MarkdownTextarea label="Description" id="description" />
         </div>
       </form>

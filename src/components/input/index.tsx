@@ -36,7 +36,7 @@ const InputField = ({
         className={cx('peer block w-full rounded-md border-0 py-4 px-8 text-gray-900 dark:text-white bg-primary dark:bg-gray-800 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6', inputClassName)}
         placeholder={placeholder}
       />
-      {showBorderPlaceholder && <PaleBodyText className="absolute text-xs bg-primary dark:bg-gray-800 -top-8 px-4 peer-placeholder-shown:hidden">{placeholder}</PaleBodyText>}
+      {showBorderPlaceholder && <PaleBodyText className="absolute text-xs bg-primary dark:bg-gray-800 -top-12 px-4 peer-placeholder-shown:hidden rounded-t-md border-t-2 border-x-2 dark:dark:border-gray-900">{placeholder}</PaleBodyText>}
     </div>
   </div>
 );
