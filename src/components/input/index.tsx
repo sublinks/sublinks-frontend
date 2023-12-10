@@ -18,7 +18,7 @@ interface InputFieldProps {
 
 const InputField = ({
   type, label, name, id, placeholder, LeftIcon, className, inputClassName, showBorderPlaceholder
-}: InputFieldProps): React.ReactNode => (
+}: InputFieldProps) => (
   <div className={cx('bg-primary dark:bg-gray-800 rounded-md', className)}>
     <label htmlFor={name} className="sr-only">
       {label}

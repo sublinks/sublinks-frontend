@@ -9,6 +9,11 @@ interface PreviewCommandToolProps {
   onClick: () => void;
 }
 
+interface MarkdownTextareaProps {
+  label: string;
+  id: string;
+}
+
 // Important classes for this and the textarea component
 // are necessary to override MDEditor's default styles
 const PreviewCommandTool = ({ label, onClick }: PreviewCommandToolProps) => (
@@ -17,7 +22,9 @@ const PreviewCommandTool = ({ label, onClick }: PreviewCommandToolProps) => (
   </button>
 );
 
-const MarkdownTextarea = () => {
+const MarkdownTextarea = ({
+  label, id
+}: MarkdownTextareaProps) => {
   const [value, setValue] = useState('**Hello world!!!**');
   const [showPreview, setShowPreview] = useState(false);
 
@@ -31,19 +38,31 @@ const MarkdownTextarea = () => {
     )
   };
 
+  const handleOnChange = (mdValue: string | undefined) => {
+    const newValue = mdValue || '';
+    setValue(newValue);
+  };
+
   return (
-    <MDEditor
-      value={value}
-      onChange={newValue => setValue(newValue || '')}
-      autoFocus={false}
-      preview={showPreview ? 'preview' : 'edit'}
-      textareaProps={{
-        autoCapitalize: 'none'
-      }}
-      visibleDragbar={false}
-      extraCommands={[homemadePreviewCommand]} // Replace built-in preview options
-      className="!bg-primary dark:!bg-gray-800 !border !border-gray-300 dark:!border-gray-900"
-    />
+    <div>
+      <label htmlFor={id}>
+        {label}
+      </label>
+      <MDEditor
+        id={id}
+        value={value}
+        onChange={handleOnChange}
+        autoFocus={false}
+        preview={showPreview ? 'preview' : 'edit'}
+        textareaProps={{
+          autoCapitalize: 'none'
+        }}
+        visibleDragbar={false}
+        extraCommands={[homemadePreviewCommand]} // Replace built-in preview options
+        className="!bg-primary dark:!bg-gray-800 !border !border-gray-300 dark:!border-gray-900"
+      />
+
+    </div>
   );
 };
 
