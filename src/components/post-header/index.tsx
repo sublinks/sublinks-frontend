@@ -56,7 +56,7 @@ const PostHeader = ({
         <div className="flex flex-col">
           {postUrl ? (
             <Link href={postUrl} target="_blank" rel="noopener noreferrer">
-              <H1 className="hover:text-hover-link dark:hover:text-hover-link-dark">{title}</H1>
+              <H1 className="hover:text-brand dark:hover:text-brand-dark">{title}</H1>
             </Link>
           ) : <H1>{title}</H1>}
           {SubTitle}

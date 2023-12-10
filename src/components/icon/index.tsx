@@ -33,7 +33,7 @@ const Icon = ({
   IconType, size, title, titleId, className, isInteractable
 }: IconProps) => (
   <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', {
-    'hover:text-hover-link dark:hover:text-hover-link-dark': isInteractable
+    'hover:text-brand dark:hover:text-brand-dark': isInteractable
   }, className)}
   >
     <IconType

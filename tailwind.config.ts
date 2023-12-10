@@ -49,6 +49,10 @@ const config: Config = {
     },
     extend: {
       colors: {
+        brand: {
+          DEFAULT: '#8e4d63',
+          dark: '#f8c234'
+        },
         primary: {
           DEFAULT: '#ffffff',
           dark: '#374151'
@@ -60,10 +64,6 @@ const config: Config = {
         hover: {
           DEFAULT: '#d1d5db',
           dark: '#4b5563',
-          link: {
-            DEFAULT: '#8e4d63',
-            dark: '#f8c234'
-          },
           'md-editor': '#58a6ff'
         }
       }

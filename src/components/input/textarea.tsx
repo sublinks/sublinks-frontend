@@ -18,7 +18,7 @@ interface MarkdownTextareaProps {
 // are necessary to override MDEditor's default styles
 const PreviewCommandTool = ({ label, onClick }: PreviewCommandToolProps) => (
   <button type="button" onClick={onClick} className="absolute bottom-0 right-0 !h-24 w-80 !bg-secondary !rounded-tl-md group z-10">
-    <BodyText className="font-bold group-hover:text-hover-md-editor dark:text-gray-600">{label}</BodyText>
+    <BodyText className="font-bold group-hover:text-hover-md-editor group-focus:text-hover-md-editor dark:text-gray-600">{label}</BodyText>
   </button>
 );
 
@@ -57,6 +57,7 @@ const MarkdownTextarea = ({
         textareaProps={{
           autoCapitalize: 'none'
         }}
+        defaultTabEnable
         visibleDragbar={false}
         extraCommands={[homemadePreviewCommand]} // Replace built-in preview options
         className="!border !border-gray-300 dark:!border-gray-900"
