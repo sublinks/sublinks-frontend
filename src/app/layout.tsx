@@ -6,6 +6,7 @@ import cx from 'classnames';
 
 import Header from '@/components/header';
 import BottomNav from '@/components/bottom-nav';
+import { ThemeProvider } from '@/utils/TailwindMaterial';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,6 +36,7 @@ const RootLayout = ({
   children: React.ReactNode
 }) => (
   <html lang="en" className="h-full">
+    <ThemeProvider>
     <body className={cx(inter.className, 'flex flex-col h-full bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
       <Header />
       <BottomNav />
@@ -44,6 +46,8 @@ const RootLayout = ({
         {children}
       </main>
     </body>
+    </ThemeProvider>
+
   </html>
 );
 

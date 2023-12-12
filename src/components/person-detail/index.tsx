@@ -5,12 +5,7 @@ import remarkGfm from 'remark-gfm';
 
 import { LinkText } from '../text';
 
-import { PersonView } from "sublinks-js-client"
 import Image from 'next/image';
-
-interface PersonDetailProps {
-  Person: PersonView;
-}
 
 const customMarkdownComponents: Components = {
   a: ({ children, href }) => (
@@ -53,7 +48,7 @@ export const PersonBio = ({ bio }: { bio: string }) => (
 const PersonBadges = ({ is_admin }: { is_admin: boolean }) => (
   <div className="flex justify-center">
     {is_admin ? (
-      <div className="bg-red-400 dark:bg-red-600 text-gray-600 dark:text-gray-100 rounded-md flex flex-col px-8 text-sm font-bold my-2 justify-center items-center ml-8">
+      <div className="bg-red-400 dark:bg-red-600 text-white dark:text-gray-100 rounded-md flex flex-col px-8 text-sm font-bold my-2 justify-center items-center ml-8">
         <p>
           A
         </p>
