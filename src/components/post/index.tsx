@@ -12,14 +12,12 @@ import { Post, Person, Community, PostAggregates } from 'sublinks-js-client';
 
 interface MainCardProps {
   post: Post;
-  creator: Person;
   community: Community;
   counts: PostAggregates
 }
 
 const Post = ({
   post,
-  creator,
   community,
   counts
 }: MainCardProps) => {

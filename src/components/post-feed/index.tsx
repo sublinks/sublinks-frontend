@@ -10,7 +10,7 @@ import Post from '../post';
 
 const PostFeed = () => (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
-    {testData.posts.map(postData => <Post community={postData.community} counts={postData.counts} creator={postData.creator} post={postData.post} />)}
+    {testData.posts.map(postData => <Post community={postData.community} counts={postData.counts} post={postData.post} />)}
   </div>
 );
 
