@@ -3,10 +3,10 @@ import Link from 'next/link';
 import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { LinkText } from '../text';
+import { H1, LinkText } from '../text';
 
 import Image from 'next/image';
-
+// @Todo: Break out into separate component
 const customMarkdownComponents: Components = {
   a: ({ children, href }) => (
     <Link href={href as string} target="_blank" rel="noopener noreferrer">
@@ -58,12 +58,15 @@ const PersonBadges = ({ is_admin }: { is_admin: boolean }) => (
 );
 
 const PersonBanner = ({ bannerUrl }: { bannerUrl: string }) => (
-  <div className="relative w-full h-360 mb-8 ">
+  <div className="relative w-full mb-8 ">
     <Image
       src={bannerUrl}
       className="rounded-md mr-8 w-full border-2 md:border-gray-300 md:dark:border-gray-900 rounded-md"
       alt="User Banner"
-      fill={true}
+      width={0}
+      height={0}
+      sizes="100vw"
+      style={{ width: '100%', height: 'auto' }}
     />
   </div>
 
@@ -74,9 +77,9 @@ export const PersonTitle = ({ name, avatar, banner }: { name: string, avatar: st
     {avatar ? <div className="flex justify-center">
       <PersonAvatar avatarUrl={avatar} />
     </div> : null}
-    <div className="text-gray-600 dark:text-gray-200 text-2xl ">
+    <H1 className="text-gray-600 dark:text-gray-200 text-2xl ">
       {name}
-    </div>
+    </H1>
   </div>
 );
 

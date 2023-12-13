@@ -6,7 +6,7 @@ import remarkGfm from 'remark-gfm';
 import { LinkText } from '../text';
 
 interface MainCardProps {
-  Header: React.JSX.Element;
+  Header?: React.JSX.Element;
   body?: string;
   children?: React.ReactNode;
 }
@@ -31,9 +31,9 @@ const MainCard = ({
   Header, body, children
 }: MainCardProps) => (
   <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg dark:shadow-gray-800">
-    <div className="flex items-center gap-12">
+    {Header && <div className="flex items-center gap-12">
       {Header}
-    </div>
+    </div>}
     {body && (
       <div className="mt-24 text-gray-600 dark:text-gray-200 text-sm">
         <Markdown

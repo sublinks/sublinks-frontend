@@ -10,19 +10,19 @@ import { PersonDetailSelection } from '@/components/person-comments-posts';
 const User = () => (
   <div>
   <div className="mb-12">
-  <MainCard Header={<></>}>
+  <MainCard>
     <div className="flex">
-      <div className="w-9/12 relative mr-16">
-        <PersonHeader avatar={testData.person_view.person.avatar} is_admin={testData.person_view.is_admin} name={testData.person_view.person.name} banner={testData.person_view.person.banner} />
+      <div className="w-8/12 lg:w-9/12 relative mr-16">
+        <PersonHeader avatar={testData.person_view.person.avatar} is_admin={testData.person_view.is_admin} name={testData.person_view.person.display_name} banner={testData.person_view.person.banner} />
         <PersonBio bio={testData.person_view.person.bio} />
       </div>
-      <div className="w-3/12 relative">
+      <div className="w-4/12 lg:w-3/12 relative">
         <ModeratesList moderates={testData.moderates as any} />
       </div>
     </div>
   </MainCard>
   </div>
-  <MainCard Header={<></>}>
+  <MainCard>
     <PersonDetailSelection posts={testData.posts as any} comments={testData.comments as any} />
   </MainCard>
   </div>
