@@ -6,8 +6,9 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
   },
+  "ignorePatterns": ["./etc/*"],
   "plugins": ["@stylistic/js"],
   "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
   "rules": {
