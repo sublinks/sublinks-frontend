@@ -43,7 +43,7 @@ export const ModeratesList = ({ moderates }: { moderates: ModeratesProps[] }) =>
     <H1 className="mb-4 border-collapse border-b dark:border-gray-400 border-gray-800">Moderates:</H1>
     <div className="max-h-500 overflow-y-scroll">
       {moderates.map(moderate => (
-        <div key={moderate.community.actor_id} className="border-b border-spacing dark:border-gray-50 border-gray-400 my-2 min-h-fit relative p-2 border-collapse cursor-pointer">
+        <div key={moderate.community.actor_id} className="border-b border-spacing dark:border-gray-50 border-gray-400 my-2 min-h-40 relative p-2 border-collapse cursor-pointer">
           <ModeratesListItem communityName={moderate.community.title} communityAvatar={moderate.community.icon} url={`${moderate.community.actor_id}`} />
         </div>
       ))}

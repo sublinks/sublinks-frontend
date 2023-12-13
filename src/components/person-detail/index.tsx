@@ -29,6 +29,8 @@ const PersonAvatar = ({ avatarUrl }: { avatarUrl: string }) => (
       src={avatarUrl}
       className="rounded-md h-32 w-32 mr-8"
       alt="Avatar"
+      width={32}
+      height={32}
     />
   </div>
 );
