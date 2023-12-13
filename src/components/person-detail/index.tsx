@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Markdown, { Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+import Image from 'next/image';
 import { H1, LinkText } from '../text';
 
-import Image from 'next/image';
 // @Todo: Break out into separate component
 const customMarkdownComponents: Components = {
   a: ({ children, href }) => (
@@ -25,7 +25,7 @@ const customMarkdownComponents: Components = {
 
 const PersonAvatar = ({ avatarUrl }: { avatarUrl: string }) => (
   <div className="flex justify-center">
-    <img
+    <Image
       src={avatarUrl}
       className="rounded-md h-32 w-32 mr-8"
       alt="Avatar"
@@ -43,7 +43,6 @@ export const PersonBio = ({ bio }: { bio: string }) => (
     </Markdown>
   </div>
 );
-
 
 const PersonBadges = ({ is_admin }: { is_admin: boolean }) => (
   <div className="flex justify-center">
@@ -72,25 +71,29 @@ const PersonBanner = ({ bannerUrl }: { bannerUrl: string }) => (
 
 );
 
-export const PersonTitle = ({ name, avatar, banner }: { name: string, avatar: string | undefined, banner: string | undefined }) => (
+export const PersonTitle = ({ name, avatar }: { name: string, avatar: string | undefined }) => (
   <div className="flex justify-left">
-    {avatar ? <div className="flex justify-center">
-      <PersonAvatar avatarUrl={avatar} />
-    </div> : null}
+    {avatar ? (
+      <div className="flex justify-center">
+        <PersonAvatar avatarUrl={avatar} />
+      </div>
+    ) : null}
     <H1 className="text-gray-600 dark:text-gray-200 text-2xl ">
       {name}
     </H1>
   </div>
 );
 
-export const PersonHeader = ({ name, avatar, is_admin, banner }: { name: string, avatar: string | undefined, is_admin: boolean, banner: string | undefined }) => (
+export const PersonHeader = ({
+  name, avatar, is_admin, banner
+}: { name: string, avatar: string | undefined, is_admin: boolean, banner: string | undefined }) => (
   <div className="w-full">
     {banner && (
       <PersonBanner bannerUrl={banner} />
     )}
     <div className="flex justify-start">
-      <PersonTitle name={name} avatar={avatar} banner={banner} />
+      <PersonTitle name={name} avatar={avatar} />
       <PersonBadges is_admin={is_admin} />
     </div>
   </div>
-)
+);
