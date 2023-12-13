@@ -1,26 +1,27 @@
 import React from 'react';
 import Link from 'next/link';
-import Markdown, { Components } from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 
-import { BodyText, BodyTitle, LinkText, PaleBodyText } from '../text';
+import { getCommunitySlugFromUrl } from '@/utils/communities';
+import {
+  Post, Community, PostAggregates
+} from 'sublinks-js-client';
+import {
+  BodyText, BodyTitle, PaleBodyText
+} from '../text';
 import PostVotes from '../post-votes';
 import PostThumbnail from '../post-thumbnail';
-import { getCommunitySlugFromUrl } from '@/utils/communities';
 
-import { Post, Person, Community, PostAggregates } from 'sublinks-js-client';
-
-interface MainCardProps {
+interface PostCardProps {
   post: Post;
   community: Community;
   counts: PostAggregates
 }
 
-const Post = ({
+export const PostCard = ({
   post,
   community,
   counts
-}: MainCardProps) => {
+}: PostCardProps) => {
   const {
     id, body, name: title, thumbnail_url: thumbnailUrl
   } = post;
@@ -43,7 +44,12 @@ const Post = ({
               </div>
               <div className="h-full w-full flex">
                 <div className="h-full flex flex-col">
-                  <BodyTitle className="text-sm font-semibold line-clamp-2 group-hover:text-brand dark:group-hover:text-brand-dark group-visited:text-gray-500 group-visited:dark:text-gray-400">{title}</BodyTitle>
+                  <BodyTitle
+                    className="text-sm font-semibold line-clamp-2 group-hover:text-brand dark:group-hover:text-brand-dark group-visited:text-gray-500 group-visited:dark:text-gray-400"
+                  >
+                    {title}
+
+                  </BodyTitle>
                   <div className="mb-8 flex max-md:flex-col">
                     <PaleBodyText className="text-xs">
                       {`Posted to ${communitySlug}`}
@@ -59,6 +65,4 @@ const Post = ({
       <div className="border-b-2 border-secondary dark:border-secondary-dark" />
     </div>
   );
-}
-
-export default Post;
+};

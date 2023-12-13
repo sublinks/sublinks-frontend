@@ -1,16 +1,17 @@
 import React from 'react';
-import Link from 'next/link';
 
-import { getCommunitySlugFromUrl } from '@/utils/communities';
-import PostVotes from '../post-votes';
-import { BodyText, BodyTitle, PaleBodyText } from '../text';
 import * as testData from '../../../test-data.json';
-import PostThumbnail from '../post-thumbnail';
-import Post from '../post';
+import { PostCard } from '../post';
 
 const PostFeed = () => (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
-    {testData.posts.map(postData => <Post community={postData.community} counts={postData.counts} post={postData.post} />)}
+    {testData.posts.map(postData => (
+      <PostCard
+        community={postData.community}
+        counts={postData.counts}
+        post={postData.post}
+      />
+    ))}
   </div>
 );
 
