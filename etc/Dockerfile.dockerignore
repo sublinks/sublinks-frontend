@@ -1,0 +1,11 @@
+.git
+.vscode
+
+*.md
+
+/node_modules
+Dockerfile*
+docker-compose*.yml
+nginx*.conf
+
+seed.json
