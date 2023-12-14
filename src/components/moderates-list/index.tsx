@@ -18,7 +18,7 @@ export const ModeratesListItem = (props: ModeratesListItemProps) => {
       {communityAvatar && (
       <Image
         src={communityAvatar}
-        className="hidden lg:flex rounded-md h-32 w-32 mr-2"
+        className="rounded-md h-32 w-32 mr-2"
         alt="Avatar"
         width={32}
         height={32}
@@ -39,7 +39,7 @@ export interface ModeratesProps {
 }
 
 export const ModeratesList = ({ moderates }: { moderates: ModeratesProps[] }) => (
-  <div className="w-full border-l-2 pl-16 ">
+  <div className="w-full border-l-2 pl-16">
     <H1 className="mb-4 border-collapse border-b dark:border-gray-400 border-gray-800">Moderates:</H1>
     <div className="max-h-500 overflow-y-scroll">
       {moderates.map(moderate => (

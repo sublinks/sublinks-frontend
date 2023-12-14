@@ -5,7 +5,7 @@ import {
   TabsBody,
   Tab,
   TabPanel
-} from '@/utils/TailwindMaterial';
+} from '@/components/TailwindMaterial';
 
 const tabs = [
   { label: 'Posts', value: 'posts' },
@@ -29,7 +29,7 @@ export const PersonDetailSelection = () => (
       </TabsHeader>
       <TabsBody>
         {tabs.map(({ value }) => (
-          <TabPanel key={value} value={value} className="">
+          <TabPanel key={value} value={value}>
             TODO:
             {' '}
             {value}

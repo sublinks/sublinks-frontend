@@ -6,7 +6,8 @@ import cx from 'classnames';
 
 import Header from '@/components/header';
 import BottomNav from '@/components/bottom-nav';
-import { ThemeProvider } from '@/utils/TailwindMaterial';
+
+import { ThemeProvider } from '@/components/TailwindMaterial';
 
 const inter = Inter({ subsets: ['latin'] });
 
