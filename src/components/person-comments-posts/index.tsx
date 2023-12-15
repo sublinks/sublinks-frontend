@@ -44,9 +44,9 @@ export const PersonDetailSelection = ({ postViews }: PersonDetailSelectionProps)
           ))}
         </TabsHeader>
         <TabsBody>
-          {tabs.map(({ value, element }) => (
+          {tabs.map(({ value, content }) => (
             <TabPanel key={value} value={value} className="mt-8">
-              {element || `TODO: ${value}`}
+              {content || `TODO: ${value}`}
             </TabPanel>
           ))}
         </TabsBody>
