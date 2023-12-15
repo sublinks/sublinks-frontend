@@ -14,7 +14,7 @@ export const ModeratesListItem = (props: ModeratesListItemProps) => {
   const { communityName, communityAvatar, url } = props;
 
   return (
-    <Link className="flex gap-12 relative center items-center" href={url}>
+    <Link className="flex gap-12 relative center items-center dark:text-white" href={url}>
       {communityAvatar && (
       <Image
         src={communityAvatar}

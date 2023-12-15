@@ -28,7 +28,7 @@ const User = () => (
       </MainCard>
     </div>
     <MainCard>
-      <PersonDetailSelection />
+      <PersonDetailSelection postViews={testData.posts} />
     </MainCard>
   </div>
 );
