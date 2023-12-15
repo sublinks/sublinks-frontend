@@ -1,3 +1,4 @@
+import type { Config } from 'tailwindcss';
 import withMT from '@material-tailwind/react/utils/withMT';
 
 const spacing = {
@@ -32,7 +33,7 @@ const spacing = {
   500: '500px'
 };
 
-const config = withMT({
+const config: Config = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
@@ -80,6 +81,6 @@ const config = withMT({
     }
   },
   plugins: []
-});
+};
 
-export default config;
+export default withMT(config);
