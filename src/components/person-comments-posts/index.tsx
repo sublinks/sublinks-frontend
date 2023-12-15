@@ -22,9 +22,9 @@ export const PersonDetailSelection = ({ postViews }: PersonDetailSelectionProps)
   const tabs: {
     label: string;
     value: string;
-    element?: React.JSX.Element;
+    content?: React.JSX.Element;
   }[] = [
-    { label: 'Posts', value: 'posts', element: <PostFeed data={postViews.slice(0, 25)} /> },
+    { label: 'Posts', value: 'posts', content: <PostFeed data={postViews.slice(0, 25)} /> },
     { label: 'Comments', value: 'comments' }
   ];
 
