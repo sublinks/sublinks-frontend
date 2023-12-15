@@ -1,11 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MagnifyingGlassIcon, StarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
 
 import Icon, { ICON_SIZE } from '../icon';
 import { InputField } from '../input';
 import { LinkText } from '../text';
+import ProfileMenu from '../profile-menu';
 
 const Header = () => (
   <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark">
@@ -43,9 +44,7 @@ const Header = () => (
         LeftIcon={MagnifyingGlassIcon}
         className="w-240 lg:hover:w-500 lg:focus-within:w-500 transition-all"
       />
-      <button type="button" aria-label="User profile">
-        <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
-      </button>
+      <ProfileMenu />
     </div>
   </header>
 );
