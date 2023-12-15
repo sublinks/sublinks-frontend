@@ -47,9 +47,9 @@ const RootLayout = ({
   };
 
   return (
-    <html lang="en" className="h-full">
-      <body className={cx(inter.className, 'flex flex-col h-full bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
-        <ThemeProvider value={theme}>
+    <ThemeProvider value={theme}>
+      <html lang="en" className="h-full">
+        <body className={cx(inter.className, 'flex flex-col h-full bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
           <Header />
           <BottomNav />
           <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">
@@ -57,9 +57,9 @@ const RootLayout = ({
             <CurvedCorner right />
             {children}
           </main>
-        </ThemeProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ThemeProvider>
   );
 };
 
