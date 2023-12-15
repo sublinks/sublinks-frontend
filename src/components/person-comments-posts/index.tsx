@@ -7,7 +7,7 @@ import {
   TabPanel
 } from '@/components/TailwindMaterial';
 import { Community, Post, PostAggregates } from 'sublinks-js-client';
-import { PersonPostFeed } from '../person-post-feed';
+import PostFeed from '../post-feed';
 
 interface PersonDetailSelectionProps {
   postViews: {
@@ -24,20 +24,21 @@ export const PersonDetailSelection = ({ postViews }: PersonDetailSelectionProps)
     value: string;
     element?: React.JSX.Element;
   }[] = [
-    { label: 'Posts', value: 'posts', element: <PersonPostFeed data={postViews.slice(0, 25)} /> },
+    { label: 'Posts', value: 'posts', element: <PostFeed data={postViews.slice(0, 25)} /> },
     { label: 'Comments', value: 'comments' }
   ];
 
   return (
-    <div className="mt-24 text-gray-600 dark:text-gray-200 text-sm">
+    <div className="mt-8 text-sm">
       <Tabs value="posts">
         <TabsHeader
           indicatorProps={{
-            className: 'bg-gray-900/10 shadow-none !text-gray-900'
+            className: 'bg-gray-900/10 dark:bg-gray-200/10 shadow-none'
           }}
+          className="bg-secondary dark:bg-secondary-dark"
         >
           {tabs.map(({ label, value }) => (
-            <Tab key={value} value={value}>
+            <Tab key={value} value={value} className="text-black dark:text-white">
               {label}
             </Tab>
           ))}
