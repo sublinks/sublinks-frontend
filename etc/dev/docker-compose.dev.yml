@@ -56,10 +56,19 @@ services:
       - sublinks
 
   sublinks-ui:
-    image: kenny-test
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ../../.:/app/.
+      # - ../node_modules:/app/node_modules
+      # - ../.next:/app/.next
+    command: npm run dev
     environment:
       - SUBLINKS_API_BASE_URL=sublinks:8080
+      - WATCHPACK_POLLING=true
     restart: always
+    ports:
+      - "3000:3000"
     depends_on:
       - sublinks
 
