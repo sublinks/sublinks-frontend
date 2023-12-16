@@ -132,6 +132,7 @@ const posts = [
       id: 2,
       name: 'My great day',
       community_id: getCommunityId('bloggingbill'),
+      url: 'https://images.pexels.com/photos/33044/sunflower-sun-summer-yellow.jpg',
       body: `# Dear Diary\n\nToday I had a **great** day!`,
       nsfw: false,
       language_id: ENGLISH
