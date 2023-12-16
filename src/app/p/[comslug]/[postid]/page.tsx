@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 import MainCard from '@/components/main-card';
 import { PaleBodyText, PaleLinkText } from '@/components/text';
-import { isImage } from '@/utils/links';
 import PostHeader from '@/components/post-header';
-import * as testData from '../../../../../test-data.json';
+import { isImage } from '@/utils/links';
+import sublinksClient from '@/utils/client';
 
 interface PostSubTitleProps {
   authorUrl: string;
@@ -17,7 +17,7 @@ interface PostSubTitleProps {
 interface PostViewProps {
   params: {
     comSlug: string;
-    postId: string;
+    postId: number;
   }
 }
 
@@ -39,20 +39,23 @@ const PostSubTitle = ({
   </div>
 );
 
-const PostView = ({ params: { comSlug, postId } }: PostViewProps) => {
-  const post = testData.posts.find(p => p.post.id === parseInt(postId, 10));
+const PostView =async  ({ params: { comSlug, postId } }: PostViewProps) => {
+  const postData = await sublinksClient().getPost({
+    id: postId
+  });
   const readableSlug = decodeURIComponent(comSlug);
 
-  if (!post) {
+  if (!postData) {
     return null;
   }
 
+  const { post_view: postView } = postData;
   const {
     body, name: postName, url: postUrl, thumbnail_url: thumbnailUrl
-  } = post.post;
-  const { name: authorName, actor_id: authorUrl } = post.creator;
-  const { actor_id: communityUrl } = post.community;
-  const { score } = post.counts;
+  } = postView.post;
+  const { name: authorName, actor_id: authorUrl } = postView.creator;
+  const { actor_id: communityUrl } = postView.community;
+  const { score } = postView.counts;
   const postHasImage = postUrl ? isImage(postUrl) : false;
 
   const SubTitle = (

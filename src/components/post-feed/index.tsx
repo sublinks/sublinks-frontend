@@ -1,12 +1,20 @@
 import React from 'react';
 
-import * as testData from '../../../test-data.json';
+import sublinksClient from '@/utils/client';
 import { PostCard } from '../post';
 
-const PostFeed = () => (
+const PostFeed = async () => {
+  const posts = await sublinksClient().getPosts({
+    type_: 'All',
+    sort: 'Active'
+  });
+  console.log(posts);
+
+  return (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
-    {testData.posts.map(postData => (
+    {posts.posts.map(postData => (
       <PostCard
+        key={postData.post.id}
         community={postData.community}
         counts={postData.counts}
         post={postData.post}
@@ -14,5 +22,6 @@ const PostFeed = () => (
     ))}
   </div>
 );
+    };
 
 export default PostFeed;
