@@ -27,13 +27,41 @@ const waitForApi = async seedFn => {
   }
 };
 
+const doesEntityAlreadyExist = async entity => {
+  const { data, type } = entity;
+
+  switch(type) {
+    case 'createCommunity':
+      try {
+        await apiClient.getCommunity({
+          id: data.id
+        });
+        return true;
+      } catch (e) {
+        return false;
+      }
+    case 'createPost':
+      try {
+        const { posts } = await apiClient.getPersonDetails({
+          person_id: data.id
+        });
+        console.log(posts);
+        return false;
+      } catch (e) {
+        return false;
+      }
+    default:
+      return false;
+  }
+};
+
 const createUser = async user => {
   try {
     await apiClient.getPersonDetails({ username: user.data.username });
   } catch (e) {
     // Reaching this means the user doesn't exist
     await apiClient.register(user.data);
-    const userDetails = await apiClient.getPersonDetails({ username: user.data.username });
+    await apiClient.getPersonDetails({ username: user.data.username });
   }
 };
 
@@ -74,9 +102,15 @@ const saveSeedData = async () => {
     for (let i = 0; i < entityKeys.length; i++) {
       const entityKey = entityKeys[i];
       const entity = entities[entityKey];
-      const { data, type } = entity;
 
-      await apiClient[type](data);
+      if (!await doesEntityAlreadyExist(entity)) {
+        const { creator, data, type } = entity;
+        console.log(`Running ${type}`);
+
+        const { jwt } = await apiClient.login(creator.credentials);
+        await apiClient.setAuth(jwt);
+        await apiClient[type](data);
+      }
     }
     console.log('Entity seeding completed!');
   } catch (e) {

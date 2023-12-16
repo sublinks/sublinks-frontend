@@ -7,6 +7,7 @@ const siteSetup = {
       password: 'password123',
     },
     data: {
+      id: 1,
       username: 'devAdmin',
       password: 'password123',
       password_verify: 'password123',
@@ -57,6 +58,7 @@ const users = {
       password: 'password123',
     },
     data: {
+      id: 2,
       username: 'bill',
       password: 'password123',
       password_verify: 'password123',
@@ -69,6 +71,7 @@ const users = {
       password: 'password123',
     },
     data: {
+      id: 3,
       username: 'joy',
       password: 'password123',
       password_verify: 'password123',
@@ -80,8 +83,9 @@ const users = {
 const entities = [
   {
     type: 'createCommunity',
-    auth: siteSetup.adminUser.credentials,
+    creator: siteSetup.adminUser,
     data: {
+      id: 1,
       name: 'seededcommunity',
       title: 'Seeded Community',
       description: 'The very first community',
@@ -92,8 +96,9 @@ const entities = [
   },
   {
     type: 'createPost',
-    auth: siteSetup.adminUser.credentials,
+    creator: siteSetup.adminUser,
     data: {
+      id: 1,
       name: 'Seeded admin post',
       community_id: 1,
       url: 'https://example.com',
