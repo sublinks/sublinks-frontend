@@ -34,7 +34,6 @@ const createUser = async user => {
     // Reaching this means the user doesn't exist
     await apiClient.register(user.data);
     const userDetails = await apiClient.getPersonDetails({ username: user.data.username });
-    console.log(userDetails)
   }
 };
 
