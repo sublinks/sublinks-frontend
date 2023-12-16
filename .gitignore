@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/etc/dev/seeder/node_modules
 /.pnp
 .pnp.js
 .yarn/install-state.gz

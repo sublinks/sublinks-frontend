@@ -8,7 +8,6 @@ const PostFeed = async () => {
     type_: 'All',
     sort: 'Active'
   });
-  console.log(posts);
 
   return (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
