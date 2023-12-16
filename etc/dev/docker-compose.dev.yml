@@ -60,15 +60,24 @@ services:
     working_dir: /app
     volumes:
       - ../../.:/app/.
-      # - ../node_modules:/app/node_modules
-      # - ../.next:/app/.next
-    command: sh -c "node ./etc/dev/seed-sublinks.js && npm run dev"
+    command: npm run dev
     environment:
       - SUBLINKS_API_BASE_URL=sublinks:8080
       - WATCHPACK_POLLING=true
     restart: always
     ports:
       - "3000:3000"
+    depends_on:
+      - sublinks
+
+  seeder:
+    image: node:20-alpine
+    working_dir: /job
+    volumes:
+      - ./seeder/.:/job/.
+    command: npm run seed
+    environment:
+      - SUBLINKS_API_BASE_URL=sublinks:8080
     depends_on:
       - sublinks
 
