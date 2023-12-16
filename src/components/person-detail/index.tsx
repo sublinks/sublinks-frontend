@@ -62,7 +62,7 @@ const PersonBanner = ({ bannerUrl }: { bannerUrl: string }) => (
   <div className="relative w-full mb-8 ">
     <Image
       src={bannerUrl}
-      className="rounded-md mr-8 w-full border-2 md:border-gray-300 md:dark:border-gray-900 rounded-md"
+      className="rounded-md mr-8 w-full border-2 md:border-gray-300 md:dark:border-gray-900"
       alt="User Banner"
       width={0}
       height={0}
@@ -86,9 +86,16 @@ export const PersonTitle = ({ name, avatar }: { name: string, avatar: string | u
   </div>
 );
 
+interface PersonHeaderProps {
+  name: string,
+  avatar: string | undefined,
+  is_admin: boolean,
+  banner: string | undefined
+}
+
 export const PersonHeader = ({
   name, avatar, is_admin, banner
-}: { name: string, avatar: string | undefined, is_admin: boolean, banner: string | undefined }) => (
+}: PersonHeaderProps) => (
   <div className="w-full">
     {banner && (
       <PersonBanner bannerUrl={banner} />
