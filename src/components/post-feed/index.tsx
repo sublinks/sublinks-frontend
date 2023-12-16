@@ -10,17 +10,17 @@ const PostFeed = async () => {
   });
 
   return (
-  <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
-    {posts.posts.map(postData => (
-      <PostCard
-        key={postData.post.id}
-        community={postData.community}
-        counts={postData.counts}
-        post={postData.post}
-      />
-    ))}
-  </div>
-);
-    };
+    <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
+      {posts.posts.map(postData => (
+        <PostCard
+          key={postData.post.id}
+          community={postData.community}
+          counts={postData.counts}
+          post={postData.post}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default PostFeed;

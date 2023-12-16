@@ -75,7 +75,7 @@ services:
     working_dir: /job
     volumes:
       - ./seeder/.:/job/.
-    command: npm run seed
+    command: sh -c "npm i && npm run seed"
     environment:
       - SUBLINKS_API_BASE_URL=sublinks:8080
     depends_on:

@@ -17,7 +17,11 @@ const User = async ({ params: { username } }: UserViewProps) => {
   const userData = await sublinksClient().getPersonDetails({
     username
   });
-  const { person: {avatar, banner, bio, display_name: displayName, name}, is_admin: isAdmin } = userData.person_view;
+  const {
+    person: {
+      avatar, banner, bio, display_name: displayName, name
+    }, is_admin: isAdmin
+  } = userData.person_view;
   const { moderates } = userData;
 
   return (
@@ -34,9 +38,11 @@ const User = async ({ params: { username } }: UserViewProps) => {
               />
               {bio && <PersonBio bio={bio} />}
             </div>
-            {moderates?.length > 0 && <div className="w-full md:mt-0 md:w-4/12 mt-8 relative">
+            {moderates?.length > 0 && (
+            <div className="w-full md:mt-0 md:w-4/12 mt-8 relative">
               <ModeratesList moderates={moderates as ModeratesProps[]} />
-            </div>}
+            </div>
+            )}
           </div>
         </MainCard>
       </div>

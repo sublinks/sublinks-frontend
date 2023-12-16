@@ -39,7 +39,7 @@ const PostSubTitle = ({
   </div>
 );
 
-const PostView =async  ({ params: { comSlug, postId } }: PostViewProps) => {
+const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
   const postData = await sublinksClient().getPost({
     id: postId
   });
