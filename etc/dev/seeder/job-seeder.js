@@ -45,8 +45,7 @@ const doesEntityAlreadyExist = async entity => {
         const { posts } = await apiClient.getPersonDetails({
           person_id: data.id
         });
-        console.log(posts);
-        return false;
+        return posts.some(post => post.post.id === data.id);
       } catch (e) {
         return false;
       }
@@ -105,7 +104,7 @@ const saveSeedData = async () => {
 
       if (!await doesEntityAlreadyExist(entity)) {
         const { creator, data, type } = entity;
-        console.log(`Running ${type}`);
+        console.log(`Running ${type}() for entity with ID ${data.id}`);
 
         const { jwt } = await apiClient.login(creator.credentials);
         await apiClient.setAuth(jwt);

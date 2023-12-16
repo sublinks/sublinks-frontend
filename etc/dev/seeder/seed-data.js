@@ -1,5 +1,7 @@
 const ENGLISH = 38;
 
+const getCommunityId = communityName => communities.find(com => com.data.name === communityName).data.id;
+
 const siteSetup = {
   adminUser: {
     credentials: {
@@ -80,7 +82,7 @@ const users = {
   }
 };
 
-const entities = [
+const communities = [
   {
     type: 'createCommunity',
     creator: siteSetup.adminUser,
@@ -95,18 +97,51 @@ const entities = [
     }
   },
   {
+    type: 'createCommunity',
+    creator: users.bill,
+    data: {
+      id: 2,
+      name: 'bloggingbill',
+      title: "Bill's Blog",
+      description: 'Hi and welcome to my blog. Only I, Bill, can post here.',
+      nsfw: true,
+      posting_restricted_to_mods: true,
+      discussion_languages: [ENGLISH]
+    }
+  }
+];
+
+const posts = [
+  {
     type: 'createPost',
     creator: siteSetup.adminUser,
     data: {
       id: 1,
       name: 'Seeded admin post',
-      community_id: 1,
+      community_id: getCommunityId('seededcommunity'),
       url: 'https://example.com',
       body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       nsfw: false,
       language_id: ENGLISH
     }
+  },
+  {
+    type: 'createPost',
+    creator: users.bill,
+    data: {
+      id: 2,
+      name: 'My great day',
+      community_id: getCommunityId('bloggingbill'),
+      body: `# Dear Diary\n\nToday I had a **great** day!`,
+      nsfw: false,
+      language_id: ENGLISH
+    }
   }
+];
+
+const entities = [
+  ...communities,
+  ...posts
 ];
 
 module.exports = {
