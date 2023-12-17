@@ -60,7 +60,8 @@ services:
     working_dir: /app
     volumes:
       - ../../.:/app/.
-    command: npm run dev
+      - /app/node_modules/
+    command: sh -c "npm i && npm run dev"
     environment:
       - SUBLINKS_API_BASE_URL=sublinks:8080
       - WATCHPACK_POLLING=true
