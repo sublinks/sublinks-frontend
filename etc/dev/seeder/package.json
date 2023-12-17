@@ -1,5 +1,5 @@
 {
-  "name": "sublinks-dev-seeder",
+  "name": "sublinks-job-seeder",
   "version": "1.0.0",
   "scripts": {
     "seed": "node ./job-seeder.js"

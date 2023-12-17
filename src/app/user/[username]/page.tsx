@@ -7,6 +7,8 @@ import { ModeratesList, ModeratesProps } from '@/components/moderates-list';
 import { PersonDetailSelection } from '@/components/person-comments-posts';
 import sublinksClient from '@/utils/client';
 
+import * as testData from '../../../../test-person-data.json';
+
 interface UserViewProps {
   params: {
     username: string;
@@ -14,15 +16,18 @@ interface UserViewProps {
 }
 
 const User = async ({ params: { username } }: UserViewProps) => {
-  const userData = await sublinksClient().getPersonDetails({
+  // @todo: Allow test data when in non-docker dev env
+  // as Sublinks Core doesn't yet handle all user properties
+  const userData = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPersonDetails({
     username
-  });
+  }) : testData;
+
   const {
     person: {
       avatar, banner, bio, display_name: displayName, name
     }, is_admin: isAdmin
   } = userData.person_view;
-  const { moderates } = userData;
+  const { posts, moderates } = userData;
 
   return (
     <div>
@@ -47,7 +52,7 @@ const User = async ({ params: { username } }: UserViewProps) => {
         </MainCard>
       </div>
       <MainCard>
-        <PersonDetailSelection />
+        <PersonDetailSelection postViews={posts} />
       </MainCard>
     </div>
   );
