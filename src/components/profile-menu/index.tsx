@@ -52,12 +52,13 @@ const ProfileMenu = () => {
         handler={setOpen}
       >
         <MenuHandler>
-          <Button
+          <button
+            type="button"
             aria-label="ProfileButton"
             className="bg-transparent"
           >
             <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
-          </Button>
+          </button>
         </MenuHandler>
         <MenuList ref={ref} className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none" aria-label="ProfileMenu">
           {items.map(({ item }) => (
