@@ -60,7 +60,6 @@ const createUser = async user => {
   } catch (e) {
     // Reaching this means the user doesn't exist
     await apiClient.register(user.data);
-    await apiClient.getPersonDetails({ username: user.data.username });
   }
 };
 
@@ -81,7 +80,7 @@ const runInitialSiteSetup = async () => {
   console.log('Site configuration completed!');
 };
 
-const saveSeedData = async () => {
+const insertSeedData = async () => {
   try {
     await runInitialSiteSetup();
 
@@ -128,4 +127,4 @@ const saveSeedData = async () => {
   } 
 };
 
-waitForApi(saveSeedData);
+waitForApi(insertSeedData);
