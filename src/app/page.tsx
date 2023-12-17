@@ -1,12 +1,19 @@
 import React from 'react';
 
 import PostFeed from '@/components/post-feed';
-import * as testData from '../../test-data.json';
+import sublinksClient from '@/utils/client';
 
-const Feed = () => (
-  <div>
-    <PostFeed data={testData.posts} />
-  </div>
-);
+const Feed = async () => {
+  const postsRes = await sublinksClient().getPosts({
+    type_: 'All',
+    sort: 'Active'
+  });
+
+  return (
+    <div>
+      <PostFeed data={postsRes.posts} />
+    </div>
+  );
+};
 
 export default Feed;
