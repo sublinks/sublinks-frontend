@@ -1,10 +1,11 @@
 import React from 'react';
 
 import PostFeed from '@/components/post-feed';
+import * as testData from '../../test-data.json';
 
 const Feed = () => (
   <div>
-    <PostFeed />
+    <PostFeed data={testData.posts} />
   </div>
 );
 
