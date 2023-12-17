@@ -7,7 +7,8 @@ import {
   TabsHeader,
   TabsBody,
   Tab,
-  TabPanel
+  TabPanel,
+  Switch
 } from '@material-tailwind/react';
 
 export {
@@ -17,5 +18,6 @@ export {
   TabsHeader,
   TabsBody,
   Tab,
-  TabPanel
+  TabPanel,
+  Switch
 };
