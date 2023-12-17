@@ -27,7 +27,7 @@ services:
       SUBLINKS_DB_USERNAME: sublinks
       SUBLINKS_DB_PASSWORD: sublinks
       SUBLINKS_JWT_SECRET: cHVkZGluLXdpbnN0b24taXJpcy1hcnlhLWZpbm4tcGlja2xlcy1jaGVlc2UtYm9vYnM=
-      SUBLINKS_BASE_URL: http://localhost:3000
+      SUBLINKS_BASE_URL: http://sublinks:8080
       SUBLINKS_PICTRS_URL: http://pictrs:8080
     depends_on:
       - db

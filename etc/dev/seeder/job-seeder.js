@@ -108,6 +108,17 @@ const saveSeedData = async () => {
 
         const { jwt } = await apiClient.login(creator.credentials);
         await apiClient.setAuth(jwt);
+
+        if (data.image_url) {
+          const fileRes = await fetch(data.image_url);
+          const fileBuffer = Buffer.from(await fileRes.arrayBuffer());
+          const upload = await apiClient.uploadImage({ image: fileBuffer });
+
+          if (upload.url) {
+            data.url = upload.url;
+          }
+        }
+
         await apiClient[type](data);
       }
     }
