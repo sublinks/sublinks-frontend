@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  Button,
   Menu, MenuHandler, MenuList
 } from '@material-tailwind/react';
 import React, { useEffect } from 'react';
@@ -45,13 +46,13 @@ const ProfileMenu = () => {
         placement="bottom"
       >
         <MenuHandler>
-          <div>
+          <Button aria-label="ProfileButton" className="bg-transparent">
             <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
-          </div>
+          </Button>
         </MenuHandler>
-        <MenuList className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none">
+        <MenuList className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none" aria-label="ProfileMenu">
           {items.map(({ item }) => (
-            <div className="w-full mt-0 top-0 pt-0 bg-none border-t first:border-t-0 border-gray-500" key={item.key}>
+            <div className="w-full mt-0 top-0 pt-0 bg-none border-t first:border-t-0 border-gray-500 z-50" key={item.key}>
               {item}
             </div>
           ))}
