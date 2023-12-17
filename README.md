@@ -15,29 +15,56 @@ Please post any feature requests or bug reports in the repository's [Issues sect
 
 ## Developing
 
-Install dependencies
+### NextJS Telemetry
+
+Before you start be aware that NextJS has started collecting telemetry data when using it.  
+Here's how you can opt-out: https://nextjs.org/telemetry#how-do-i-opt-out
+
+### Prerequisites
+
+* Node version >=20.0.0
+* NPM version >=9.0.0
+
+**Install dependencies**
 ```sh
   npm i
 ```
 
-Run dev server
+### Docker
+
+A Docker Compose configuration is made available. This provides an environment which contains a real connection to the Sublinks API and other services. As close to a production-like environment we can test and develop towards locally.
+
+To use this Docker setup you first need to authenticate towards GitHub's container registry(GHCR). Please follow [this guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) to create an access token and authenticate before running the below command.
+
+**Run Docker services**
+```sh
+  npm run dev:docker
+```
+
+This will expose a NextJS dev environment at http://localhost:3000. It also runs a seeding script which inserts several data entities on startup. To give you something to work with, without having to manually create users and such.
+
+### Non-Docker
+
+**Run dev server**
 ```sh
   npm run dev
 ```
 
+This will expose a NextJS dev environment at http://localhost:3000. It makes no API requests and instead uses a couple test data files.
+
 ## Testing
 
-Lint
+**Lint**
 ```sh
   npm run lint
 ```
 
-Unit Tests
+**Unit Tests**
 ```sh
   TBD
 ```
 
-E2E Tests
+**E2E Tests**
 ```sh
   TBD
 ```
