@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  Button,
   Menu, MenuHandler, MenuList
 } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
