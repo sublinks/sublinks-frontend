@@ -7,6 +7,8 @@ import PostHeader from '@/components/post-header';
 import { isImage } from '@/utils/links';
 import sublinksClient from '@/utils/client';
 
+import * as testData from '../../../../../test-data.json';
+
 interface PostSubTitleProps {
   authorUrl: string;
   authorName: string;
@@ -17,7 +19,7 @@ interface PostSubTitleProps {
 interface PostViewProps {
   params: {
     comSlug: string;
-    postId: number;
+    postId: string;
   }
 }
 
@@ -40,9 +42,12 @@ const PostSubTitle = ({
 );
 
 const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
-  const postData = await sublinksClient().getPost({
-    id: postId
-  });
+  // @todo: Allow test data when in non-docker dev env
+  // as Sublinks Core doesn't yet handle all post features
+  const postIdInt = parseInt(postId, 10);
+  const postData = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPost({
+    id: postIdInt
+  }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
   const readableSlug = decodeURIComponent(comSlug);
 
   if (!postData) {
