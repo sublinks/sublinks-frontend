@@ -42,10 +42,10 @@ const doesEntityAlreadyExist = async entity => {
       }
     case 'createPost':
       try {
-        const { posts } = await apiClient.getPersonDetails({
-          person_id: data.id
+        await apiClient.getPost({
+          id: data.id
         });
-        return posts.some(post => post.post.id === data.id);
+        return true;
       } catch (e) {
         return false;
       }
@@ -59,6 +59,7 @@ const createUser = async user => {
     await apiClient.getPersonDetails({ username: user.data.username });
   } catch (e) {
     // Reaching this means the user doesn't exist
+    console.log(`Creating user with ID ${user.data.id}`);
     await apiClient.register(user.data);
   }
 };
