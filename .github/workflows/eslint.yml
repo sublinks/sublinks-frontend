@@ -24,6 +24,11 @@ jobs:
       contents: read
       security-events: write
     steps:
+      - name: Set Node Version
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+
       - name: Checkout code
         uses: actions/checkout@v3
 
