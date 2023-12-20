@@ -1,6 +1,8 @@
 const TEST_PASSWORD = 'password123';
 const ENGLISH = 38;
 
+const getCommunityIdByName = communityName => communities.find(com => com.data.name === communityName).data.id;
+
 let userCounter = 0;
 const buildUser = (name, options) => {
   userCounter++;
@@ -42,7 +44,7 @@ const buildPostData = ({ name, body, url, image_url, communityName, options }) =
   return {
     id: postCounter,
     name,
-    community_id: getCommunityId(communityName),
+    community_id: getCommunityIdByName(communityName),
     nsfw: Boolean(options?.nsfw),
     language_id: ENGLISH,
     ...(body && { body }),
@@ -50,8 +52,6 @@ const buildPostData = ({ name, body, url, image_url, communityName, options }) =
     ...(image_url && { image_url }),
   };
 };
-
-const getCommunityId = communityName => communities.find(com => com.data.name === communityName).data.id;
 
 const siteSetup = {
   adminUser: buildUser('devAdmin', { showNsfw: true }),
@@ -544,9 +544,52 @@ const posts = [
   }
 ];
 
+const allUsers = Object.values(users);
+const allPosts = Object.values(posts);
+const likes = [];
+
+allPosts.forEach(post => {
+  const {
+    data: {
+      id: postId
+    },
+    creator: {
+      data: {
+        id: postAuthorId
+      }
+    }
+  } = post;
+
+  // Every 4th post gets no (dis)likes
+  if (postId % 4 === 0) {
+    return;
+  }
+
+  allUsers.forEach(user => {
+    const { id: userId } = user.data;
+
+    // User who made the post keeps their like as-is
+    if (userId === postAuthorId) {
+      return;
+    }
+
+    // Arbitrary formula to get some diversity
+    const likePost = userId * 1.5 < postId;
+    likes.push({
+      type: 'likePost',
+      creator: user,
+      data: {
+        post_id: postId,
+        score: likePost ? 1 : -1
+      }
+    });
+  });
+});
+
 const entities = [
   ...communities,
-  ...posts
+  ...posts,
+  ...likes
 ];
 
 module.exports = {

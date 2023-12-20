@@ -104,7 +104,7 @@ const insertSeedData = async () => {
 
       if (!await doesEntityAlreadyExist(entity)) {
         const { creator, data, type } = entity;
-        console.log(`Running ${type}() for entity with ID ${data.id}`);
+        console.log(`Running ${type}() for entity with ID ${data.id || data.post_id}`);
 
         const { jwt } = await apiClient.login(creator.credentials);
         await apiClient.setAuth(jwt);
