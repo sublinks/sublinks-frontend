@@ -1,9 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { MagnifyingGlassIcon, StarIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
-import Icon, { ICON_SIZE } from '../icon';
 import { InputField } from '../input';
 import { LinkText } from '../text';
 import ProfileMenu from '../profile-menu';
@@ -27,10 +26,6 @@ const Header = () => (
         </Link>
         <Link href="/p">
           <LinkText>Create post</LinkText>
-        </Link>
-        <span>|</span>
-        <Link href="/favorites">
-          <Icon IconType={StarIcon} size={ICON_SIZE.SMALL} title="Favorites" isInteractable />
         </Link>
       </div>
     </div>
