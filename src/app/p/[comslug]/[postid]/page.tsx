@@ -3,8 +3,10 @@ import Link from 'next/link';
 
 import MainCard from '@/components/main-card';
 import { PaleBodyText, PaleLinkText } from '@/components/text';
-import { isImage } from '@/utils/links';
 import PostHeader from '@/components/post-header';
+import { isImage } from '@/utils/links';
+import sublinksClient from '@/utils/client';
+
 import * as testData from '../../../../../test-data.json';
 
 interface PostSubTitleProps {
@@ -39,20 +41,26 @@ const PostSubTitle = ({
   </div>
 );
 
-const PostView = ({ params: { comSlug, postId } }: PostViewProps) => {
-  const post = testData.posts.find(p => p.post.id === parseInt(postId, 10));
+const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
+  // @todo: Allow test data when in non-docker dev env
+  // as Sublinks Core doesn't yet handle all post features
+  const postIdInt = parseInt(postId, 10);
+  const postData = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPost({
+    id: postIdInt
+  }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
   const readableSlug = decodeURIComponent(comSlug);
 
-  if (!post) {
+  if (!postData) {
     return null;
   }
 
+  const { post_view: postView } = postData;
   const {
     body, name: postName, url: postUrl, thumbnail_url: thumbnailUrl
-  } = post.post;
-  const { name: authorName, actor_id: authorUrl } = post.creator;
-  const { actor_id: communityUrl } = post.community;
-  const { score } = post.counts;
+  } = postView.post;
+  const { name: authorName, actor_id: authorUrl } = postView.creator;
+  const { actor_id: communityUrl } = postView.community;
+  const { score } = postView.counts;
   const postHasImage = postUrl ? isImage(postUrl) : false;
 
   const SubTitle = (

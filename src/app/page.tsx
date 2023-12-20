@@ -1,12 +1,23 @@
 import React from 'react';
 
 import PostFeed from '@/components/post-feed';
+import sublinksClient from '@/utils/client';
+
 import * as testData from '../../test-data.json';
 
-const Feed = () => (
-  <div>
-    <PostFeed data={testData.posts} />
-  </div>
-);
+const Feed = async () => {
+  // @todo: Allow test data when in non-docker dev env
+  // as Sublinks Core doesn't yet handle all post features
+  const postsRes = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
+    type_: 'All',
+    sort: 'Active'
+  }) : testData;
+
+  return (
+    <div>
+      <PostFeed data={postsRes.posts} />
+    </div>
+  );
+};
 
 export default Feed;
