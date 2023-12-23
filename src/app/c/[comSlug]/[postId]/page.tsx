@@ -1,18 +1,12 @@
 import React from 'react';
-import Link from 'next/link';
 
 import MainCard from '@/components/main-card';
-import { PaleBodyText, PaleLinkText } from '@/components/text';
 import PostHeader from '@/components/post-header';
+import LinkedPostSubTitle from '@/components/post-subtitle';
 import { getPostThumbnailUrl, isImage } from '@/utils/links';
 import sublinksClient from '@/utils/client';
 
 import * as testData from '../../../../../test-data.json';
-
-interface PostSubTitleProps {
-  authorUrl: string;
-  authorName: string;
-}
 
 interface PostViewProps {
   params: {
@@ -20,16 +14,6 @@ interface PostViewProps {
     postId: string;
   }
 }
-
-const PostSubTitle = ({ authorUrl, authorName }: PostSubTitleProps) => (
-  <div className="text-xs">
-    <PaleBodyText>Posted by</PaleBodyText>
-    {' '}
-    <Link href={authorUrl} target="_blank" rel="noopener noreferrer">
-      <PaleLinkText>{authorName}</PaleLinkText>
-    </Link>
-  </div>
-);
 
 const PostView = async ({ params: { postId } }: PostViewProps) => {
   // @todo: Allow test data when in non-docker dev env
@@ -53,9 +37,10 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   const thumbnailUrl = getPostThumbnailUrl(postView.post);
 
   const SubTitle = (
-    <PostSubTitle
-      authorName={authorName}
-      authorUrl={authorUrl}
+    <LinkedPostSubTitle
+      label="Posted by"
+      linkText={authorName}
+      url={authorUrl}
     />
   );
   const Header = (

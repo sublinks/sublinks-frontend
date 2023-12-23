@@ -1,4 +1,3 @@
-// TODO: Set up and write tests
 const getCommunitySlugFromUrl = (communityUrl: string, isLocal: boolean) => {
   const urlMatches = communityUrl.match(/:\/\/(.+)\/c\/(.+)/);
   const communityName = urlMatches?.[2];
@@ -11,6 +10,9 @@ const getCommunitySlugFromUrl = (communityUrl: string, isLocal: boolean) => {
   return `${communityName}@${instanceName}`;
 };
 
+const getCommunityNameFromSlug = (communitySlug: string) => communitySlug.split('@')[0];
+
 export {
-  getCommunitySlugFromUrl
+  getCommunitySlugFromUrl,
+  getCommunityNameFromSlug
 };

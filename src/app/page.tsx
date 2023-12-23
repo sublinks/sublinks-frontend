@@ -3,6 +3,7 @@ import React from 'react';
 import PostFeed from '@/components/post-feed';
 import sublinksClient from '@/utils/client';
 
+import { PostView } from 'sublinks-js-client';
 import * as testData from '../../test-data.json';
 
 const Feed = async () => {
@@ -11,7 +12,7 @@ const Feed = async () => {
   const postsRes = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
     type_: 'All',
     sort: 'Active'
-  }) : testData;
+  }) : testData as unknown as { posts: PostView[] };
 
   return (
     <div>
