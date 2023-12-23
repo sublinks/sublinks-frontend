@@ -2,26 +2,24 @@ version: "3.7"
 
 volumes:
   db:
+  pictrs:
 
 services:
   proxy:
     image: nginx:1-alpine
     ports:
-      - "1236:1236"
-      - "8536:8536"
+      - "3000:3000"
+      - "8080:8080"
     volumes:
       - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro,Z
     restart: always
     depends_on:
       - pictrs
-      - lemmy-ui
       - sublinks-ui
 
   sublinks:
     image: ghcr.io/sublinks/sublinks-api:0.0.1-snapshot
     restart: always
-    ports:
-      - "8080:8080"
     environment:
       SUBLINKS_DB_URL: jdbc:mysql://db:3306/sublinks
       SUBLINKS_DB_USERNAME: sublinks
@@ -32,7 +30,7 @@ services:
     depends_on:
       - db
       - pictrs
-  
+
   db:
     image: mysql:latest
     environment:
@@ -43,17 +41,6 @@ services:
     volumes:
       - db:/var/lib/mysql
     restart: always
-
-  lemmy-ui:
-    image: dessalines/lemmy-ui:0.19.0-rc.11
-    environment:
-      #- LEMMY_UI_DEBUG=true
-      - LEMMY_UI_DISABLE_CSP=true
-      - LEMMY_UI_LEMMY_INTERNAL_HOST=sublinks:8080
-      - LEMMY_UI_LEMMY_EXTERNAL_HOST=localhost:8080
-    restart: always
-    depends_on:
-      - sublinks
 
   sublinks-ui:
     image: node:20-alpine
@@ -66,8 +53,6 @@ services:
       - SUBLINKS_API_BASE_URL=sublinks:8080
       - WATCHPACK_POLLING=true
     restart: always
-    ports:
-      - "3000:3000"
     depends_on:
       - sublinks
 
@@ -80,10 +65,20 @@ services:
     environment:
       - SUBLINKS_API_BASE_URL=sublinks:8080
     depends_on:
+      - db
       - sublinks
 
   pictrs:
-    image: docker.io/asonix/pictrs:0.4.3
+    image: docker.io/asonix/pictrs:0.4.7
     hostname: pictrs
+    environment:
+      - PICTRS_OPENTELEMETRY_URL=http://otel:4137
+      - PICTRS__MEDIA__VIDEO_CODEC=vp9
+      - PICTRS__MEDIA__GIF__MAX_WIDTH=256
+      - PICTRS__MEDIA__GIF__MAX_HEIGHT=256
+      - PICTRS__MEDIA__GIF__MAX_AREA=65536
+      - PICTRS__MEDIA__GIF__MAX_FRAME_COUNT=400
+    volumes:
+      - pictrs:/mnt:Z
     user: 991:991
     restart: always
