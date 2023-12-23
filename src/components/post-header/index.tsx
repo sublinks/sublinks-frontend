@@ -23,7 +23,6 @@ const PostHeader = ({
   points, title, SubTitle, postUrl, thumbnailUrl, hasBody, hasImage
 }: PostHeaderProps) => {
   const [showOriginalImage, setShowOriginalImage] = useState(hasImage && !hasBody);
-  const thumbnailUrlFallback = thumbnailUrl || postUrl;
 
   let thumbnailLabel = "Go to post's URL";
   if (hasImage) {
@@ -51,7 +50,7 @@ const PostHeader = ({
               }
             }}
           >
-            <PostThumbnail postThumbnailUrl={thumbnailUrlFallback} />
+            <PostThumbnail postThumbnailUrl={thumbnailUrl} />
           </button>
         </div>
         <div className="flex flex-col">

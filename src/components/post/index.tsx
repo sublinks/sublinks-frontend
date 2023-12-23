@@ -5,6 +5,7 @@ import { getCommunitySlugFromUrl } from '@/utils/communities';
 import {
   Post, Community, PostAggregates
 } from 'sublinks-js-client';
+import { getPostThumbnailUrl } from '@/utils/links';
 import {
   BodyText, BodyTitle, PaleBodyText
 } from '../text';
@@ -22,13 +23,12 @@ export const PostCard = ({
   community,
   counts
 }: PostCardProps) => {
-  const {
-    id, body, name: title, thumbnail_url: thumbnailUrl
-  } = post;
+  const { id, body, name: title } = post;
   const { actor_id: communityUrl } = community;
   const { score } = counts;
+  const thumbnailUrl = getPostThumbnailUrl(post);
   const communitySlug = getCommunitySlugFromUrl(communityUrl);
-  const postUrl = `/p/${communitySlug}/${id}`;
+  const postHref = `/p/${communitySlug}/${id}`;
 
   return (
     <div key={id}>
@@ -36,7 +36,7 @@ export const PostCard = ({
         <div className="flex items-center ml-8">
           <PostVotes points={score} />
         </div>
-        <Link href={postUrl} className="w-full group">
+        <Link href={postHref} className="w-full group">
           <div className="flex h-100 relative">
             <div className="h-full flex gap-12 px-12 py-6 items-start">
               <div className="h-80 w-80 mt-8 flex flex-shrink-0 relative">

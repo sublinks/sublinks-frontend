@@ -4,7 +4,7 @@ import Link from 'next/link';
 import MainCard from '@/components/main-card';
 import { PaleBodyText, PaleLinkText } from '@/components/text';
 import PostHeader from '@/components/post-header';
-import { isImage } from '@/utils/links';
+import { getPostThumbnailUrl, isImage } from '@/utils/links';
 import sublinksClient from '@/utils/client';
 
 import * as testData from '../../../../../test-data.json';
@@ -56,12 +56,13 @@ const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
 
   const { post_view: postView } = postData;
   const {
-    body, name: postName, url: postUrl, thumbnail_url: thumbnailUrl
+    body, name: postName, url: postUrl
   } = postView.post;
   const { name: authorName, actor_id: authorUrl } = postView.creator;
   const { actor_id: communityUrl } = postView.community;
   const { score } = postView.counts;
   const postHasImage = postUrl ? isImage(postUrl) : false;
+  const thumbnailUrl = getPostThumbnailUrl(postView.post);
 
   const SubTitle = (
     <PostSubTitle
