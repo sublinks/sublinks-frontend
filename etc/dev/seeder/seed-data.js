@@ -253,7 +253,7 @@ const posts = [
       name: "Experimenting with Homegrown Varieties",
       body: "In my backyard garden, I'm experimenting with unique plant varieties. From heirloom tomatoes to exotic herbs, each planting is an exploration of flavors and textures. Growing my own diverse crops adds a delightful twist to culinary adventures and sparks a sense of curiosity.",
       communityName: 'plants',
-      image_url: 'https://i0.wp.com/myshadeofgreen.com/wp-content/uploads/2023/02/carrot-carrots-produce-2743498.jpg?fit=1170%2C878&ssl=1'
+      image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqU2kZFWm00Wcbzi2JOukEf95m8SlPeNxnew&usqp=CAU'
     })
   },
   {
