@@ -12,8 +12,6 @@ import * as testData from '../../../../../test-data.json';
 interface PostSubTitleProps {
   authorUrl: string;
   authorName: string;
-  communityUrl: string;
-  community: string;
 }
 
 interface PostViewProps {
@@ -23,32 +21,23 @@ interface PostViewProps {
   }
 }
 
-const PostSubTitle = ({
-  authorUrl, authorName, communityUrl, community
-}: PostSubTitleProps) => (
+const PostSubTitle = ({ authorUrl, authorName }: PostSubTitleProps) => (
   <div className="text-xs">
     <PaleBodyText>Posted by</PaleBodyText>
     {' '}
     <Link href={authorUrl} target="_blank" rel="noopener noreferrer">
       <PaleLinkText>{authorName}</PaleLinkText>
     </Link>
-    {' '}
-    <PaleBodyText>to</PaleBodyText>
-    {' '}
-    <Link href={communityUrl} target="_blank" rel="noopener noreferrer">
-      <PaleLinkText>{community}</PaleLinkText>
-    </Link>
   </div>
 );
 
-const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
+const PostView = async ({ params: { postId } }: PostViewProps) => {
   // @todo: Allow test data when in non-docker dev env
   // as Sublinks Core doesn't yet handle all post features
   const postIdInt = parseInt(postId, 10);
   const postData = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPost({
     id: postIdInt
   }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
-  const readableSlug = decodeURIComponent(comSlug);
 
   if (!postData) {
     return null;
@@ -59,7 +48,6 @@ const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
     body, name: postName, url: postUrl
   } = postView.post;
   const { name: authorName, actor_id: authorUrl } = postView.creator;
-  const { actor_id: communityUrl } = postView.community;
   const { score } = postView.counts;
   const postHasImage = postUrl ? isImage(postUrl) : false;
   const thumbnailUrl = getPostThumbnailUrl(postView.post);
@@ -68,8 +56,6 @@ const PostView = async ({ params: { comSlug, postId } }: PostViewProps) => {
     <PostSubTitle
       authorName={authorName}
       authorUrl={authorUrl}
-      community={readableSlug}
-      communityUrl={communityUrl}
     />
   );
   const Header = (

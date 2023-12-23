@@ -28,7 +28,7 @@ export const PostCard = ({
   const { score } = counts;
   const thumbnailUrl = getPostThumbnailUrl(post);
   const communitySlug = getCommunitySlugFromUrl(communityUrl, isLocal);
-  const postHref = `/p/${communitySlug}/${id}`;
+  const postHref = `/c/${communitySlug}/${id}`;
 
   return (
     <div key={id}>
