@@ -4,7 +4,7 @@ import { BodyTitle } from '@/components/text';
 
 const Communities = () => (
   <div>
-    <BodyTitle>Communities page WIP</BodyTitle>
+    <BodyTitle>Create community page WIP</BodyTitle>
   </div>
 );
 
