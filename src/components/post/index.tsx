@@ -24,10 +24,10 @@ export const PostCard = ({
   counts
 }: PostCardProps) => {
   const { id, body, name: title } = post;
-  const { actor_id: communityUrl } = community;
+  const { actor_id: communityUrl, local: isLocal } = community;
   const { score } = counts;
   const thumbnailUrl = getPostThumbnailUrl(post);
-  const communitySlug = getCommunitySlugFromUrl(communityUrl);
+  const communitySlug = getCommunitySlugFromUrl(communityUrl, isLocal);
   const postHref = `/p/${communitySlug}/${id}`;
 
   return (
@@ -52,7 +52,7 @@ export const PostCard = ({
                   </BodyTitle>
                   <div className="mb-8 flex max-md:flex-col">
                     <PaleBodyText className="text-xs">
-                      {`Posted to ${communitySlug}`}
+                      {`Posted to c/${communitySlug}`}
                     </PaleBodyText>
                   </div>
                   {body && <BodyText className="text-xs max-md:hidden line-clamp-2 group-visited:text-gray-500 group-visited:dark:text-gray-400">{body}</BodyText>}
