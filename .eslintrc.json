@@ -9,7 +9,7 @@
     "project": "./tsconfig.json"
   },
   "ignorePatterns": ["etc/*"],
-  "plugins": ["@stylistic/js"],
+  "plugins": ["@typescript-eslint", "@stylistic/js"],
   "extends": ["next/core-web-vitals", "airbnb", "airbnb-typescript", "airbnb/hooks", "plugin:@typescript-eslint/recommended", "plugin:import/typescript"],
   "rules": {
     "arrow-parens": ["error", "as-needed"],
