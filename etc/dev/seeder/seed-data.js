@@ -445,7 +445,7 @@ const posts = [
       name: "Greening My Home for a Breath of Fresh Air",
       body: "Introducing more greenery into my home has transformed it into a haven of freshness. Indoor plants not only add aesthetic charm but also purify the air. Taking care of these green companions brings a sense of responsibility and a daily dose of nature's calming influence to my living space.",
       communityName: 'plants',
-      image_url: 'https://thursd.com/storage/media/38159/Best-Air-Purifying-Plants-for-2022---on-Thursd.jpg?1647948739683'
+      image_url: 'https://hips.hearstapps.com/hmg-prod/images/gettyimages-1138552930.jpg?crop=1.00xw:0.752xh;0,0.0457xh&resize=1200:*'
     })
   },
   {
