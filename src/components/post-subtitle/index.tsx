@@ -13,7 +13,7 @@ const LinkedPostSubTitle = ({ label, linkText, url }: LinkedPostSubTitleProps) =
   <div className="text-xs">
     <PaleBodyText>{label}</PaleBodyText>
     {' '}
-    <Link href={url} target="_blank" rel="noopener noreferrer">
+    <Link href={url}>
       <PaleLinkText>{linkText}</PaleLinkText>
     </Link>
   </div>

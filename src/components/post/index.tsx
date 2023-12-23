@@ -27,12 +27,16 @@ export const PostCard = ({
   showAuthor
 }: PostCardProps) => {
   const { id, body, name: title } = post;
-  const { actor_id: authorUrl, display_name: authorDisplayName, name: authorName } = creator;
-  const { actor_id: communityUrl, local: isLocal } = community;
+  const { display_name: authorDisplayName, name: authorName } = creator;
+  const { actor_id: nativeCommunityUrl, local: isLocal } = community;
   const { score } = counts;
   const thumbnailUrl = getPostThumbnailUrl(post);
-  const communitySlug = getCommunitySlugFromUrl(communityUrl, isLocal);
+  const communitySlug = getCommunitySlugFromUrl(nativeCommunityUrl, isLocal);
+
+  // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const postHref = `/c/${communitySlug}/${id}`;
+  const authorUrl = `/user/${authorName}`;
+  const communityUrl = `/c/${communitySlug}`;
 
   return (
     <div key={id}>

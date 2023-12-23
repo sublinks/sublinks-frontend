@@ -31,10 +31,13 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   const {
     body, name: postName, url: postUrl
   } = postView.post;
-  const { name: authorName, actor_id: authorUrl } = postView.creator;
+  const { name: authorName } = postView.creator;
   const { score } = postView.counts;
   const postHasImage = postUrl ? isImage(postUrl) : false;
   const thumbnailUrl = getPostThumbnailUrl(postView.post);
+
+  // @todo: Make our own URLs until Sublinks API connects URLs to all entities
+  const authorUrl = `/user/${authorName}`;
 
   const SubTitle = (
     <LinkedPostSubTitle
