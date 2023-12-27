@@ -30,6 +30,10 @@ Here's how you can opt-out: https://nextjs.org/telemetry#how-do-i-opt-out
   npm i
 ```
 
+### Environment Setup
+
+To run this project, you need to set up the necessary environment variables. A template for these variables can be found in the `.env.example` file.
+
 ### Docker
 
 A Docker Compose configuration is made available. This provides an environment which contains a real connection to the Sublinks API and other services. As close to a production-like environment we can test and develop towards locally.
