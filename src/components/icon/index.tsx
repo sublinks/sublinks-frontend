@@ -2,11 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 
 export const ICON_SIZE = {
+  VERYSMALL: 0,
   SMALL: 1,
   MEDIUM: 2
 };
 
 const wrapperSizeClassMap = {
+  [ICON_SIZE.VERYSMALL]: 'h-20 w-20',
   [ICON_SIZE.SMALL]: 'h-24 w-24',
   [ICON_SIZE.MEDIUM]: 'h-32 w-32'
 };
