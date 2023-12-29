@@ -23,22 +23,25 @@ interface IconProps {
     titleId?: string;
     height?: string | number;
     width?: string | number;
+    className?: string;
   }>;
   size: typeof ICON_SIZE[keyof typeof ICON_SIZE];
   title?: string;
   titleId?: string;
   className?: string;
+  SvgClassName?: string;
   isInteractable?: boolean;
 }
 
 const Icon = ({
-  IconType, size, title, titleId, className, isInteractable
+  IconType, size, title, titleId, className, SvgClassName, isInteractable
 }: IconProps) => (
   <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', {
     'hover:text-brand dark:hover:text-brand-dark': isInteractable
   }, className)}
   >
     <IconType
+      className={SvgClassName}
       title={title}
       titleId={titleId}
       height={iconSizeClassMap[size]}

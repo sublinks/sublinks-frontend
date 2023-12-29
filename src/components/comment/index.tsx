@@ -4,35 +4,34 @@ import {
   Person, Comment, CommentAggregates
 } from 'sublinks-js-client';
 import Markdown from 'react-markdown';
-import CommentVotes from '../comment-votes';
 import { CommentHeader } from '../comment-header';
-import { BodyText } from '../text';
 import { CommentAction } from '../comment-actions';
 
 interface CommentCardProps {
   comment: Comment;
   creator: Person;
   counts: CommentAggregates;
+  myVote?: number;
 }
 
 export const CommentCard = ({
   comment,
   creator,
-  counts
+  counts,
+  myVote
 }: CommentCardProps) => {
   const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     id, content, ap_id, published, updated
   } = comment;
-  const { display_name: authorDisplayName, name: authorName } = creator;
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const commentHref = `/comment/${id}`;
-  const authorUrl = `/user/${authorName}`;
 
   return (
     <div key={id}>
       <div className="mb-4 relative">
-        <div className="w-full">
+        <div className="w-full mb-4">
           <div className="mb-4">
             <CommentHeader
               href={commentHref}
@@ -42,14 +41,14 @@ export const CommentCard = ({
               creator={creator}
             />
           </div>
-          <div>
+          <div className="pl-8">
             <Markdown className="text-gray-600 dark:text-gray-200 text-sm max-md:hidden line-clamp-2 group-visited:text-gray-500 group-visited:dark:text-gray-400">
               {content}
             </Markdown>
           </div>
         </div>
         <div className="items-center relative flex">
-          <CommentAction votes={counts} />
+          <CommentAction votes={counts} myVote={myVote} />
         </div>
       </div>
       <div className="border-b-2 border-secondary dark:border-secondary-dark" />
