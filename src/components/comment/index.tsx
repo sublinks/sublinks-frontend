@@ -21,8 +21,7 @@ export const CommentCard = ({
   myVote
 }: CommentCardProps) => {
   const {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    id, content, ap_id, published, updated
+    id, content, ap_id: apId, published, updated
   } = comment;
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
@@ -35,7 +34,7 @@ export const CommentCard = ({
           <div className="mb-4">
             <CommentHeader
               href={commentHref}
-              ap_id={ap_id}
+              apId={apId}
               createdAt={published}
               updatedAt={updated}
               creator={creator}

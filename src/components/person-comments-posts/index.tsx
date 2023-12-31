@@ -15,7 +15,6 @@ interface PersonDetailSelectionProps {
   commentViews: CommentView[]
 }
 
-// @todo: implement posts and comments
 export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailSelectionProps) => {
   const tabs: {
     label: string;
@@ -31,9 +30,9 @@ export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailS
       <Tabs value="posts">
         <TabsHeader
           indicatorProps={{
-            className: 'bg-gray-900/10 dark:bg-gray-200/10 shadow-none'
+            className: 'bg-gray-900/10 dark:bg-secondary-dark shadow-none'
           }}
-          className="bg-secondary dark:bg-secondary-dark"
+          className="bg-secondary dark:bg-gray-900/10"
         >
           {tabs.map(({ label, value }) => (
             <Tab key={value} value={value} className="text-black dark:text-white">

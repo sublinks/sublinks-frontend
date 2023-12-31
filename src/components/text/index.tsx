@@ -15,8 +15,6 @@ const BodyTitle = ({ children, className, title }: TextProps) => <span className
 
 const BodyText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-600 dark:text-gray-200', className)} title={title}>{children}</span>;
 
-const SmallerBodyText = ({ children, className, title }: TextProps) => <span className={cx('text-sm text-gray-600 dark:text-gray-200', className)} title={title}>{children}</span>;
-
 const PaleBodyText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-500 dark:text-gray-400', className)} title={title}>{children}</span>;
 
 const LinkText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-900 dark:text-gray-100 hover:text-brand dark:hover:text-brand-dark', className)} title={title}>{children}</span>;
@@ -30,6 +28,5 @@ export {
   BodyText,
   PaleBodyText,
   LinkText,
-  PaleLinkText,
-  SmallerBodyText
+  PaleLinkText
 };

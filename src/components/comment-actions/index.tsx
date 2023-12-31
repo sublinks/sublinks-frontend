@@ -7,7 +7,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import sublinksClient from '@/utils/client';
 import CommentVotes from '../comment-votes';
 import Icon, { ICON_SIZE } from '../icon';
-import LinkButton from '../linkbutton';
+import LinkButton from '../button-link';
 
 interface CommentActionProps {
   votes: CommentAggregates;
@@ -32,7 +32,7 @@ export const CommentAction = ({
       <CommentVotes points={votes.score} onVote={handleVote} myVote={myVote} />
       <LinkButton
         className="py-0 px-2 text-xs"
-        ariaLabel="ReplyToCommentButton"
+        ariaLabel="Reply To Comment Button"
         type="button"
         onClick={e => {
           e.preventDefault();
@@ -42,7 +42,7 @@ export const CommentAction = ({
       </LinkButton>
       <LinkButton
         className="py-0 px-2 ml-4 text-xs"
-        ariaLabel="ReplyToCommentButton"
+        ariaLabel="More Comment Actions Button"
         type="button"
         onClick={e => {
           e.preventDefault();

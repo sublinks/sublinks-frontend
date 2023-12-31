@@ -5,16 +5,17 @@ import {
 } from 'sublinks-js-client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HomeIcon, LinkIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, LinkIcon } from '@heroicons/react/24/outline';
 import {
-  H2, SmallerBodyText
+  BodyText,
+  H2
 } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 
 interface CommentHeaderProps {
   creator: Person;
   href: string;
-  ap_id: string;
+  apId: string;
   createdAt: string;
   updatedAt: string | undefined;
 }
@@ -22,7 +23,7 @@ interface CommentHeaderProps {
 export const CommentHeader = ({
   creator,
   href,
-  ap_id,
+  apId,
   createdAt,
   updatedAt
 }: CommentHeaderProps) => {
@@ -45,11 +46,11 @@ export const CommentHeader = ({
         <H2 className="text-left h-full ml-4">{showName}</H2>
         <Icon IconType={LinkIcon} size={ICON_SIZE.VERYSMALL} className="ml-4 pl-4 h-full" />
       </Link>
-      <Link href={ap_id}>
+      <Link href={apId}>
         <Icon IconType={HomeIcon} size={ICON_SIZE.VERYSMALL} className="ml-4p pl-4 h-full" />
       </Link>
-      <SmallerBodyText className="text-right h-full ml-4">{new Date(updated ? updatedAt : createdAt).toLocaleString()}</SmallerBodyText>
-      {updated && <Icon IconType={PencilIcon} size={ICON_SIZE.VERYSMALL} className="ml-4" />}
+      <BodyText className="text-right h-full ml-4 text-sm">{new Date(updated ? updatedAt : createdAt).toLocaleString()}</BodyText>
+      {updated && <BodyText className="text-left h-full ml-4 text-xs -translate-y-4">Edited</BodyText>}
     </div>
 
   );
