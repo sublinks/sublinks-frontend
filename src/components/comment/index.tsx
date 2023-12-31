@@ -41,7 +41,7 @@ export const CommentCard = ({
             />
           </div>
           <div className="pl-8">
-            <Markdown className="text-gray-600 dark:text-gray-200 text-sm max-md:hidden line-clamp-2 group-visited:text-gray-500 group-visited:dark:text-gray-400">
+            <Markdown className="text-gray-600 dark:text-gray-200 text-sm line-clamp-2">
               {content}
             </Markdown>
           </div>
