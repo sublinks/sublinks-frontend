@@ -45,11 +45,11 @@ const VoteButtons = ({
   })}
   >
     <VoteButton label="Upvote arrow" onClick={() => onVote(myVote === 1 ? 0 : 1)}>
-      <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} SvgClassName={`hover:fill-blue-400 ${myVote === 1 && 'fill-blue-600'}`} />
+      <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} textClassName={`${myVote === 1 ? 'text-blue-600' : 'text-gray-700 dark:text-white'}  hover:text-blue-400 dark:hover:text-blue-400 `} />
     </VoteButton>
     <PaleBodyText title="Post score" className="text-xs">{points}</PaleBodyText>
     <VoteButton label="Downvote arrow" onClick={() => onVote(myVote === -1 ? 0 : -1)}>
-      <Icon IconType={ArrowDownIcon} size={ICON_SIZE.SMALL} SvgClassName={`hover:fill-red-400  ${myVote === -1 && 'fill-red-600'}`} />
+      <Icon IconType={ArrowDownIcon} size={ICON_SIZE.SMALL} textClassName={`${myVote === -1 ? 'text-red-600' : 'text-gray-700 dark:text-white'} dark:hover:text-red-400 hover:text-red-400`} />
     </VoteButton>
   </div>
 );

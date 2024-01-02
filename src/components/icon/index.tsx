@@ -29,19 +29,19 @@ interface IconProps {
   title?: string;
   titleId?: string;
   className?: string;
-  SvgClassName?: string;
+  textClassName?: string;
   isInteractable?: boolean;
 }
 
 const Icon = ({
-  IconType, size, title, titleId, className, SvgClassName, isInteractable
+  IconType, size, title, titleId, className, isInteractable, textClassName
 }: IconProps) => (
-  <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', {
-    'hover:text-brand dark:hover:text-brand-dark': isInteractable
-  }, className)}
+  <div className={cx(wrapperSizeClassMap[size], {
+    'text-gray-700 dark:text-white': !textClassName,
+    'hover:text-brand dark:hover:text-brand-dark': isInteractable && !textClassName
+  }, className, textClassName)}
   >
     <IconType
-      className={SvgClassName}
       title={title}
       titleId={titleId}
       height={iconSizeClassMap[size]}

@@ -44,7 +44,7 @@ export const PostCard = ({
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <VoteButtons points={score} onVote={() => {}} />
+          <VoteButtons points={score} onVote={() => {}} myVote={1} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">
