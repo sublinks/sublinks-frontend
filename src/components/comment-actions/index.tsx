@@ -5,9 +5,9 @@ import React from 'react';
 import { CommentAggregates } from 'sublinks-js-client';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import sublinksClient from '@/utils/client';
-import CommentVotes from '../comment-votes';
 import Icon, { ICON_SIZE } from '../icon';
 import LinkButton from '../button-link';
+import VoteButtons from '../button-votes';
 
 interface CommentActionProps {
   votes: CommentAggregates;
@@ -29,7 +29,7 @@ export const CommentAction = ({
 
   return (
     <div className="flex relative">
-      <CommentVotes points={votes.score} onVote={handleVote} myVote={myVote} />
+      <VoteButtons points={votes.score} onVote={handleVote} myVote={myVote} vertical />
       <LinkButton
         className="py-0 px-2 text-xs"
         ariaLabel="Reply To Comment Button"

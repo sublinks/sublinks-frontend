@@ -3,6 +3,7 @@
 import React from 'react';
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
 
+import cx from 'classnames';
 import Icon, { ICON_SIZE } from '../icon';
 import { PaleBodyText } from '../text';
 
@@ -32,10 +33,17 @@ interface CommentVotesProps {
   points: number;
   onVote: (score: number) => void;
   myVote?: number;
+  vertical?: boolean;
 }
 
-const CommentVotes = ({ points, onVote, myVote }: CommentVotesProps) => (
-  <div className="flex flex-row justify-center items-center">
+const VoteButtons = ({
+  points, onVote, myVote, vertical
+}: CommentVotesProps) => (
+  <div className={cx('flex flex-row justify-center items-center', {
+    'flex-col': !vertical,
+    'flex-row': vertical
+  })}
+  >
     <VoteButton label="Upvote arrow" onClick={() => onVote(myVote === 1 ? 0 : 1)}>
       <Icon IconType={ArrowUpIcon} size={ICON_SIZE.SMALL} SvgClassName={`hover:fill-blue-400 ${myVote === 1 && 'fill-blue-600'}`} />
     </VoteButton>
@@ -46,4 +54,4 @@ const CommentVotes = ({ points, onVote, myVote }: CommentVotesProps) => (
   </div>
 );
 
-export default CommentVotes;
+export default VoteButtons;
