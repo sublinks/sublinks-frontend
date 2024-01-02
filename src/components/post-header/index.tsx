@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import cx from 'classnames';
 
-import PostVotes from '../post-votes';
 import { H1 } from '../text';
 import PostThumbnail from '../post-thumbnail';
+import VoteButtons from '../button-votes';
 
 interface PostHeaderProps {
   points: number;
@@ -33,7 +33,7 @@ const PostHeader = ({
     <div className="flex flex-col w-full">
       <div className="flex gap-8">
         <div className="flex items-start gap-8">
-          <PostVotes points={points} />
+          <VoteButtons points={points} onVote={() => {}} />
           <button
             type="button"
             aria-hidden={!hasImage}
