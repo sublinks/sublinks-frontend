@@ -39,12 +39,13 @@ export const PostCard = ({
   const postHref = `/c/${communitySlug}/${id}`;
   const authorUrl = `/user/${authorName}`;
   const communityUrl = `/c/${communitySlug}`;
-
+  
+  // @todo: Add real "myVote"
   return (
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <VoteButtons points={score} onVote={() => {}} myVote={1} />
+          <VoteButtons points={score} onVote={() => {}} myVote={0} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">
