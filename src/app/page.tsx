@@ -5,7 +5,9 @@ import React, { useEffect, useState } from 'react';
 import PostFeed from '@/components/post-feed';
 import sublinksClient from '@/utils/client';
 
-import { GetPostsResponse, ListingType, PostView, SortType } from 'sublinks-js-client';
+import {
+  GetPostsResponse, ListingType, PostView, SortType
+} from 'sublinks-js-client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import * as testData from '../../test-data.json';
 

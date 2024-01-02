@@ -22,10 +22,6 @@
     "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
     "react/require-default-props": [2, { "functions": "ignore" }],
-    "react/jsx-props-no-spreading": [2, {
-      "html": "ignore" ,
-      "custom": "ignore",
-      "explicitSpread": "ignore"
-  }]
+    "react/jsx-props-no-spreading": "off"
   }
 }

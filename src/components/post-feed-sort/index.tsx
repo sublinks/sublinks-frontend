@@ -29,25 +29,25 @@ interface PostFeedSortProps {
 
 const PostFeedSort = ({ currentSort, onSortChange: onTypeChange }: PostFeedSortProps) => (
   <Select value={currentSort} aria-label="Sort Select" className="h-full rounded-md bg-gray-200 dark:bg-gray-400 pl-4" onChange={newValue => onTypeChange(newValue.currentTarget.value as SortType)}>
-    <Option value="Active" selected={currentSort === "Active"}>Active</Option>
-    <Option value="Hot" selected={currentSort === "Hot"}>Hot</Option>
-    <Option value="New" selected={currentSort === "New"}>New</Option>
-    <Option value="Old" selected={currentSort === "Old"}>Old</Option>
-    <Option value="TopHour" selected={currentSort === "TopHour"}>Top Hour</Option>
-    <Option value="TopSixHour" selected={currentSort === "TopSixHour"}>Top Six Hour</Option>
-    <Option value="TopTwelveHour" selected={currentSort === "TopTwelveHour"}>Top Twelve Hour</Option>
-    <Option value="TopDay" selected={currentSort === "TopDay"}>Top Day</Option>
-    <Option value="TopWeek" selected={currentSort === "TopWeek"}>Top Week</Option>
-    <Option value="TopMonth" selected={currentSort === "TopMonth"}>Top Month</Option>
-    <Option value="TopThreeMonths" selected={currentSort === "TopThreeMonths"}>Top Three Months</Option>
-    <Option value="TopSixMonths" selected={currentSort === "TopSixMonths"}>Top Six Months</Option>
-    <Option value="TopNineMonths" selected={currentSort === "TopNineMonths"}>Top Nine Months</Option>
-    <Option value="TopYear" selected={currentSort === "TopYear"}>Top Year</Option>
-    <Option value="TopAll" selected={currentSort === "TopAll"}>Top All</Option>
-    <Option value="MostComments" selected={currentSort === "MostComments"}>Most Comments</Option>
-    <Option value="NewComments" selected={currentSort === "NewComments"}>New Comments</Option>
-    <Option value="Controversial" selected={currentSort === "Controversial"}>Controversial</Option>
-    <Option value="Scaled" selected={currentSort === "Scaled"}>Scaled</Option>
+    <Option value="Active" selected={currentSort === 'Active'}>Active</Option>
+    <Option value="Hot" selected={currentSort === 'Hot'}>Hot</Option>
+    <Option value="New" selected={currentSort === 'New'}>New</Option>
+    <Option value="Old" selected={currentSort === 'Old'}>Old</Option>
+    <Option value="TopHour" selected={currentSort === 'TopHour'}>Top Hour</Option>
+    <Option value="TopSixHour" selected={currentSort === 'TopSixHour'}>Top Six Hour</Option>
+    <Option value="TopTwelveHour" selected={currentSort === 'TopTwelveHour'}>Top Twelve Hour</Option>
+    <Option value="TopDay" selected={currentSort === 'TopDay'}>Top Day</Option>
+    <Option value="TopWeek" selected={currentSort === 'TopWeek'}>Top Week</Option>
+    <Option value="TopMonth" selected={currentSort === 'TopMonth'}>Top Month</Option>
+    <Option value="TopThreeMonths" selected={currentSort === 'TopThreeMonths'}>Top Three Months</Option>
+    <Option value="TopSixMonths" selected={currentSort === 'TopSixMonths'}>Top Six Months</Option>
+    <Option value="TopNineMonths" selected={currentSort === 'TopNineMonths'}>Top Nine Months</Option>
+    <Option value="TopYear" selected={currentSort === 'TopYear'}>Top Year</Option>
+    <Option value="TopAll" selected={currentSort === 'TopAll'}>Top All</Option>
+    <Option value="MostComments" selected={currentSort === 'MostComments'}>Most Comments</Option>
+    <Option value="NewComments" selected={currentSort === 'NewComments'}>New Comments</Option>
+    <Option value="Controversial" selected={currentSort === 'Controversial'}>Controversial</Option>
+    <Option value="Scaled" selected={currentSort === 'Scaled'}>Scaled</Option>
   </Select>
 );
 
