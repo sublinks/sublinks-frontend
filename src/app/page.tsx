@@ -6,7 +6,7 @@ import PostFeed from '@/components/post-feed';
 import sublinksClient from '@/utils/client';
 
 import {
-  GetPostsResponse, ListingType, PostView, SortType
+  GetPostsResponse, ListingType, SortType
 } from 'sublinks-js-client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import * as testData from '../../test-data.json';
@@ -35,7 +35,12 @@ const Feed = () => {
   return (
     <div>
       <div className="mb-16 ml-4">
-        <PostFeedOptions currentType={postFeedType} onSortChange={setPostFeedSort} onTypeChange={setPostFeedType} currentSort={postFeedSort} />
+        <PostFeedOptions
+          currentType={postFeedType}
+          onSortChange={setPostFeedSort}
+          onTypeChange={setPostFeedType}
+          currentSort={postFeedSort}
+        />
       </div>
       <PostFeed data={postFeed.posts} />
     </div>
