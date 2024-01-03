@@ -39,7 +39,6 @@ export const PostCard = ({
   const postHref = `/c/${communitySlug}/${id}`;
   const authorUrl = `/user/${authorName}`;
   const communityUrl = `/c/${communitySlug}`;
-  
   // @todo: Add real "myVote"
   return (
     <div key={id}>
