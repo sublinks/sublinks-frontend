@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 
@@ -7,9 +9,9 @@ import {
 } from 'sublinks-js-client';
 import { getPostThumbnailUrl } from '@/utils/links';
 import { BodyText, BodyTitle } from '../text';
-import PostVotes from '../post-votes';
 import PostThumbnail from '../post-thumbnail';
 import LinkedPostSubTitle from '../post-subtitle';
+import VoteButtons from '../button-votes';
 
 interface PostCardProps {
   post: Post;
@@ -37,12 +39,12 @@ export const PostCard = ({
   const postHref = `/c/${communitySlug}/${id}`;
   const authorUrl = `/user/${authorName}`;
   const communityUrl = `/c/${communitySlug}`;
-
+  // @todo: Add real "myVote"
   return (
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <PostVotes points={score} />
+          <VoteButtons points={score} onVote={() => {}} myVote={0} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">
