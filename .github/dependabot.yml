@@ -10,11 +10,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
   # Maintain dependencies for Docker
   - package-ecosystem: "docker"
     directory: "/"
@@ -27,3 +29,4 @@ updates:
                         # ecosystem. Note: using "*" may open a large pull request
     schedule:
       interval: "weekly"
+    rebase-strategy: "disabled"
