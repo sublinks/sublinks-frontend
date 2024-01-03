@@ -2,11 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 
 export const ICON_SIZE = {
+  VERYSMALL: 0,
   SMALL: 1,
   MEDIUM: 2
 };
 
 const wrapperSizeClassMap = {
+  [ICON_SIZE.VERYSMALL]: 'h-20 w-20',
   [ICON_SIZE.SMALL]: 'h-24 w-24',
   [ICON_SIZE.MEDIUM]: 'h-32 w-32'
 };
@@ -21,20 +23,23 @@ interface IconProps {
     titleId?: string;
     height?: string | number;
     width?: string | number;
+    className?: string;
   }>;
   size: typeof ICON_SIZE[keyof typeof ICON_SIZE];
   title?: string;
   titleId?: string;
   className?: string;
+  textClassName?: string;
   isInteractable?: boolean;
 }
 
 const Icon = ({
-  IconType, size, title, titleId, className, isInteractable
+  IconType, size, title, titleId, className, isInteractable, textClassName
 }: IconProps) => (
-  <div className={cx(wrapperSizeClassMap[size], 'text-gray-700 dark:text-white', {
-    'hover:text-brand dark:hover:text-brand-dark': isInteractable
-  }, className)}
+  <div className={cx(wrapperSizeClassMap[size], {
+    'text-gray-700 dark:text-white': !textClassName,
+    'hover:text-brand dark:hover:text-brand-dark': isInteractable && !textClassName
+  }, className, textClassName)}
   >
     <IconType
       title={title}

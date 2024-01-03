@@ -7,6 +7,7 @@ import { ModeratesList, ModeratesProps } from '@/components/moderates-list';
 import { PersonDetailSelection } from '@/components/person-comments-posts';
 import sublinksClient from '@/utils/client';
 
+import { CommentView, PostView } from 'sublinks-js-client';
 import * as testData from '../../../../test-person-data.json';
 
 interface UserViewProps {
@@ -27,8 +28,7 @@ const User = async ({ params: { username } }: UserViewProps) => {
       avatar, banner, bio, display_name: displayName, name
     }, is_admin: isAdmin
   } = userData.person_view;
-  const { posts, moderates } = userData;
-
+  const { posts, comments, moderates } = userData;
   return (
     <div>
       <div className="mb-12">
@@ -52,7 +52,10 @@ const User = async ({ params: { username } }: UserViewProps) => {
         </MainCard>
       </div>
       <MainCard>
-        <PersonDetailSelection postViews={posts} />
+        <PersonDetailSelection
+          postViews={posts as PostView[]}
+          commentViews={comments as CommentView[]}
+        />
       </MainCard>
     </div>
   );
