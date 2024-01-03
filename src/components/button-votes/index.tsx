@@ -39,7 +39,7 @@ interface CommentVotesProps {
 const VoteButtons = ({
   points, onVote, myVote, vertical
 }: CommentVotesProps) => (
-  <div className={cx('flex flex-row justify-center items-center', {
+  <div className={cx('flex justify-center items-center', {
     'flex-col': !vertical,
     'flex-row': vertical
   })}
