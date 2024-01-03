@@ -6,26 +6,23 @@ import {
   Tab,
   TabPanel
 } from '@/components/TailwindMaterial';
-import { Community, Post, PostAggregates } from 'sublinks-js-client';
+import { CommentView, PostView } from 'sublinks-js-client';
 import PostFeed from '../post-feed';
+import CommentFeed from '../comment-feed';
 
 interface PersonDetailSelectionProps {
-  postViews: {
-    post: Post;
-    counts: PostAggregates;
-    community: Community;
-  }[]
+  postViews: PostView[],
+  commentViews: CommentView[]
 }
 
-// @todo: implement posts and comments
-export const PersonDetailSelection = ({ postViews }: PersonDetailSelectionProps) => {
+export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailSelectionProps) => {
   const tabs: {
     label: string;
     value: string;
     content?: React.JSX.Element;
   }[] = [
     { label: 'Posts', value: 'posts', content: <PostFeed data={postViews.slice(0, 25)} /> },
-    { label: 'Comments', value: 'comments' }
+    { label: 'Comments', value: 'comments', content: <CommentFeed data={commentViews.slice(0, 25)} /> }
   ];
 
   return (
@@ -33,9 +30,9 @@ export const PersonDetailSelection = ({ postViews }: PersonDetailSelectionProps)
       <Tabs value="posts">
         <TabsHeader
           indicatorProps={{
-            className: 'bg-gray-900/10 dark:bg-gray-200/10 shadow-none'
+            className: 'bg-gray-900/10 dark:bg-secondary-dark shadow-none'
           }}
-          className="bg-secondary dark:bg-secondary-dark"
+          className="bg-secondary dark:bg-gray-900/10"
         >
           {tabs.map(({ label, value }) => (
             <Tab key={value} value={value} className="text-black dark:text-white">
