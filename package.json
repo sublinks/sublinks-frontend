@@ -18,7 +18,7 @@
     "@heroicons/react": "^2.1.1",
     "@material-tailwind/react": "^2.1.5",
     "@uiw/react-md-editor": "^4.0.2",
-    "classnames": "^2.3.2",
+    "classnames": "^2.5.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
