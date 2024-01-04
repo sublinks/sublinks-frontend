@@ -15,12 +15,91 @@ const buttonGroupClass = 'px-12 py-4';
 
 const PostFeedType = ({ currentType, onTypeChange }: PostFeedTypeProps) => (
   <ButtonGroup>
-    <Button id="post-feed-type-all" type="button" onClick={() => onTypeChange('All')} className={`${currentType === 'All' ? 'bg-blue-300 dark:bg-blue-500' : 'bg-gray-200 dark:bg-gray-400'} ${buttonGroupClass}`}>All</Button>
-    <Button id="post-feed-type-local" type="button" onClick={() => onTypeChange('Local')} className={`${currentType === 'Local' ? 'bg-blue-300 dark:bg-blue-500' : 'bg-gray-200 dark:bg-gray-400'} ${buttonGroupClass}`}>Local</Button>
-    <Button id="post-feed-type-modview" type="button" onClick={() => onTypeChange('ModeratorView')} className={`${currentType === 'ModeratorView' ? 'bg-blue-300 dark:bg-blue-500' : 'bg-gray-200 dark:bg-gray-400'} ${buttonGroupClass}`}>Moderator View</Button>
-    <Button id="post-feed-type-subscribed" type="button" onClick={() => onTypeChange('Subscribed')} className={`${currentType === 'Subscribed' ? 'bg-blue-300 dark:bg-blue-500' : 'bg-gray-200 dark:bg-gray-400'} ${buttonGroupClass}`}>Subscribed</Button>
+    <Button id="post-feed-type-all" type="button" active={currentType === 'All'} onClick={() => onTypeChange('All')} className={buttonGroupClass}>All</Button>
+    <Button id="post-feed-type-local" type="button" active={currentType === 'Local'} onClick={() => onTypeChange('Local')} className={buttonGroupClass}>Local</Button>
+    <Button id="post-feed-type-modview" type="button" active={currentType === 'ModeratorView'} onClick={() => onTypeChange('ModeratorView')} className={buttonGroupClass}>Moderator View</Button>
+    <Button id="post-feed-type-subscribed" type="button" active={currentType === 'Subscribed'} onClick={() => onTypeChange('Subscribed')} className={buttonGroupClass}>Subscribed</Button>
   </ButtonGroup>
 );
+
+const sortOptions: { label: string, value: string }[] = [
+  {
+    label: 'Active',
+    value: 'Active'
+  },
+  {
+    label: 'Hot',
+    value: 'Hot'
+  },
+  {
+    label: 'New',
+    value: 'New'
+  },
+  {
+    label: 'Old',
+    value: 'Old'
+  },
+  {
+    label: 'Top Hour',
+    value: 'TopHour'
+  },
+  {
+    label: 'Top Six Hour',
+    value: 'TopSixHour'
+  },
+  {
+    label: 'Top Twelve Hour',
+    value: 'TopTwelveHour'
+  },
+  {
+    label: 'Top Day',
+    value: 'TopDay'
+  },
+  {
+    label: 'Top Week',
+    value: 'TopWeek'
+  },
+  {
+    label: 'Top Month',
+    value: 'TopMonth'
+  },
+  {
+    label: 'Top Three Months',
+    value: 'TopThreeMonths'
+  },
+  {
+    label: 'Top Six Months',
+    value: 'TopSixMonths'
+  },
+  {
+    label: 'Top Nine Months',
+    value: 'TopNineMonths'
+  },
+  {
+    label: 'Top Year',
+    value: 'TopYear'
+  },
+  {
+    label: 'Top All',
+    value: 'TopAll'
+  },
+  {
+    label: 'Most Comments',
+    value: 'MostComments'
+  },
+  {
+    label: 'New Comments',
+    value: 'NewComments'
+  },
+  {
+    label: 'Controversial',
+    value: 'Controversial'
+  },
+  {
+    label: 'Scaled',
+    value: 'Scaled'
+  }
+];
 
 interface PostFeedSortProps {
   currentSort?: SortType
@@ -29,25 +108,9 @@ interface PostFeedSortProps {
 
 const PostFeedSort = ({ currentSort, onSortChange: onTypeChange }: PostFeedSortProps) => (
   <Select value={currentSort} aria-label="Sort Select" className="h-full rounded-md bg-gray-200 dark:bg-gray-400 pl-4" onChange={newValue => onTypeChange(newValue.currentTarget.value as SortType)}>
-    <Option value="Active" selected={currentSort === 'Active'}>Active</Option>
-    <Option value="Hot" selected={currentSort === 'Hot'}>Hot</Option>
-    <Option value="New" selected={currentSort === 'New'}>New</Option>
-    <Option value="Old" selected={currentSort === 'Old'}>Old</Option>
-    <Option value="TopHour" selected={currentSort === 'TopHour'}>Top Hour</Option>
-    <Option value="TopSixHour" selected={currentSort === 'TopSixHour'}>Top Six Hour</Option>
-    <Option value="TopTwelveHour" selected={currentSort === 'TopTwelveHour'}>Top Twelve Hour</Option>
-    <Option value="TopDay" selected={currentSort === 'TopDay'}>Top Day</Option>
-    <Option value="TopWeek" selected={currentSort === 'TopWeek'}>Top Week</Option>
-    <Option value="TopMonth" selected={currentSort === 'TopMonth'}>Top Month</Option>
-    <Option value="TopThreeMonths" selected={currentSort === 'TopThreeMonths'}>Top Three Months</Option>
-    <Option value="TopSixMonths" selected={currentSort === 'TopSixMonths'}>Top Six Months</Option>
-    <Option value="TopNineMonths" selected={currentSort === 'TopNineMonths'}>Top Nine Months</Option>
-    <Option value="TopYear" selected={currentSort === 'TopYear'}>Top Year</Option>
-    <Option value="TopAll" selected={currentSort === 'TopAll'}>Top All</Option>
-    <Option value="MostComments" selected={currentSort === 'MostComments'}>Most Comments</Option>
-    <Option value="NewComments" selected={currentSort === 'NewComments'}>New Comments</Option>
-    <Option value="Controversial" selected={currentSort === 'Controversial'}>Controversial</Option>
-    <Option value="Scaled" selected={currentSort === 'Scaled'}>Scaled</Option>
+    {sortOptions.map(({ label, value }) => (
+      <Option key={value} value={value}>{label}</Option>
+    ))}
   </Select>
 );
 
