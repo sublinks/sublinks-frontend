@@ -11,10 +11,9 @@ const page = async () => {
   // as Sublinks Core doesn't yet handle all post features
   const posts = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts()
     : testData as unknown as GetPostsResponse;
-
   return (
     <div>
-      <Feed posts={posts} />
+      <Feed posts={JSON.stringify(posts) as unknown as GetPostsResponse} />
     </div>
   );
 };
