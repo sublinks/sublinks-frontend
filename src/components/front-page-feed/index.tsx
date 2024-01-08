@@ -16,14 +16,14 @@ interface FeedProps {
 }
 
 const Feed = ({ posts }: FeedProps) => {
-  // @todo: Allow test data when in non-docker dev env
-  // as Sublinks Core doesn't yet handle all post features
   const [postFeed, setPostFeed] = useState<GetPostsResponse>(posts);
 
   // @todo: Set this to the users default feed type
   const [postFeedType, setPostFeedType] = useState<ListingType>();
   const [postFeedSort, setPostFeedSort] = useState<SortType>();
 
+  // @todo: Allow test data when in non-docker dev env
+  // as Sublinks Core doesn't yet handle all post features
   useEffect(() => {
     async function getPosts() {
       setPostFeed(process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
@@ -44,7 +44,7 @@ const Feed = ({ posts }: FeedProps) => {
           currentSort={postFeedSort}
         />
       </div>
-      <PostFeed data={postFeed?.posts || []} />
+      <PostFeed data={postFeed.posts} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 interface ButtonProps {
   children: React.ReactNode;
-  type: 'button' | 'submit' | 'reset' | undefined;
+  type: 'button' | 'submit' | 'reset';
   id?: string;
   ariaLabel?: string;
   active?: boolean;
