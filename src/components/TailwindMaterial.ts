@@ -8,11 +8,17 @@ import {
   TabsBody,
   Tab,
   TabPanel,
-  Switch
+  Switch,
+  ButtonGroup,
+  Select,
+  Option
 } from '@material-tailwind/react';
 
 export {
   ThemeProvider,
+  ButtonGroup,
+  Select,
+  Option,
   Button,
   Tabs,
   TabsHeader,
