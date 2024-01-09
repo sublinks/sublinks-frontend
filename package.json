@@ -27,11 +27,11 @@
     "sublinks-js-client": "^0.0.3"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^1.5.1",
+    "@stylistic/eslint-plugin-js": "^1.5.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
     "@typescript-eslint/parser": "^6.17.0",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
