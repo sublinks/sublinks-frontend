@@ -19,7 +19,7 @@ interface UserViewProps {
 const User = async ({ params: { username } }: UserViewProps) => {
   // @todo: Allow test data when in non-docker dev env
   // as Sublinks Core doesn't yet handle all user properties
-  const userData = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPersonDetails({
+  const userData = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getPersonDetails({
     username
   }) : testData;
 

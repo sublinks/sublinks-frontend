@@ -6,17 +6,20 @@ import PostFeed from '@/components/post-feed';
 import sublinksClient from '@/utils/client';
 
 import {
-  GetPostsResponse, ListingType, SortType
+  GetPostsResponse, GetSiteResponse, ListingType, SortType
 } from 'sublinks-js-client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import * as testData from '../../../test-data.json';
+import Sidebar from '../sidebar';
 
 interface FeedProps {
-  posts: GetPostsResponse
+  posts: GetPostsResponse,
+  site: GetSiteResponse
 }
 
-const Feed = ({ posts }: FeedProps) => {
+const Feed = ({ posts, site }: FeedProps) => {
   const [postFeed, setPostFeed] = useState<GetPostsResponse>(posts);
+  const [siteResponse] = useState<GetSiteResponse>(site);
 
   // @todo: Set this to the users default feed type
   const [postFeedType, setPostFeedType] = useState<ListingType>();
@@ -26,7 +29,7 @@ const Feed = ({ posts }: FeedProps) => {
   // as Sublinks Core doesn't yet handle all post features
   useEffect(() => {
     async function getPosts() {
-      setPostFeed(process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
+      setPostFeed(process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
         type_: postFeedType,
         sort: postFeedSort
       }) : testData as unknown as GetPostsResponse);
@@ -35,7 +38,7 @@ const Feed = ({ posts }: FeedProps) => {
   }, [postFeedSort, postFeedType]);
 
   return (
-    <div>
+    <div className="relative">
       <div className="mb-16 ml-4">
         <PostFeedOptions
           currentType={postFeedType}
@@ -44,7 +47,14 @@ const Feed = ({ posts }: FeedProps) => {
           currentSort={postFeedSort}
         />
       </div>
-      <PostFeed data={postFeed.posts} />
+      <div className="flex">
+
+        <PostFeed data={postFeed.posts} />
+        <div className="float-right">
+          <Sidebar site={siteResponse.site_view.site} />
+        </div>
+      </div>
+
     </div>
   );
 };

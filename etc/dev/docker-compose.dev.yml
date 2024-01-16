@@ -41,6 +41,8 @@ services:
     volumes:
       - db:/var/lib/mysql
     restart: always
+    ports:
+      - "3306:3306"
 
   sublinks-ui:
     image: node:20-alpine
@@ -50,7 +52,7 @@ services:
       - /app/node_modules/
     command: sh -c "npm i && npm run dev"
     environment:
-      - SUBLINKS_API_BASE_URL=sublinks:8080
+      - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
       - WATCHPACK_POLLING=true
     restart: always
     depends_on:
@@ -63,7 +65,7 @@ services:
       - ./seeder/.:/job/.
     command: sh -c "npm i && npm run seed"
     environment:
-      - SUBLINKS_API_BASE_URL=sublinks:8080
+      - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
     depends_on:
       - db
       - sublinks
