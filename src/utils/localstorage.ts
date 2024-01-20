@@ -18,18 +18,15 @@ export const useLocalStorage = <S>(
   useDebugValue(state);
   if (!key) throw new Error('useLocalStorage key may not be falsy');
 
-
   const initial = React.useRef(true);
 
   useEffect(() => {
     if (initial.current) {
       const item = localStorage.getItem(key);
-      console.log('localstorage', key, item);
       if (item !== null) setState(parse(item));
       initial.current = false;
       return;
     }
-    console.log('useEffect', key, JSON.stringify(state));
     localStorage.setItem(key, JSON.stringify(state));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, initial.current]);

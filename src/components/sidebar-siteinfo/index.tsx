@@ -29,10 +29,7 @@ SidebarSiteInfoProps) => {
         {site.description && (
         <Collapsable
           open={descriptionOpen}
-          onSwitch={desc => {
-            console.log('Description open:', desc);
-            setDescriptionOpen(desc);
-          }}
+          onSwitch={setDescriptionOpen}
           title="Description"
           showIcon
           contentClassName="flex flex-row"
