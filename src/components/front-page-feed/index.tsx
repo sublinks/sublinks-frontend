@@ -39,6 +39,9 @@ const Feed = ({ posts, site }: FeedProps) => {
 
   return (
     <div className="relative">
+      <div className="float-none md:float-right relative ">
+        <Sidebar site={siteResponse.site_view.site} admins={siteResponse.admins} />
+      </div>
       <div className="mb-16 ml-4">
         <PostFeedOptions
           currentType={postFeedType}
@@ -48,11 +51,7 @@ const Feed = ({ posts, site }: FeedProps) => {
         />
       </div>
       <div className="flex">
-
         <PostFeed data={postFeed.posts} />
-        <div className="float-right">
-          <Sidebar site={siteResponse.site_view.site} />
-        </div>
       </div>
 
     </div>

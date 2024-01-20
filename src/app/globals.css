@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.markdown * {
+    display: block;
+    position: relative;
+    white-space: break-spaces;
+  }
