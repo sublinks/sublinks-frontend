@@ -3,7 +3,9 @@
 import {
   Button
 } from '@/components/TailwindMaterial';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import {
+  ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon
+} from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react';
 import cx from 'classnames';
 import { PersonView, Site } from 'sublinks-js-client';
