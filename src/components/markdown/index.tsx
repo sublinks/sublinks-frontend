@@ -4,9 +4,9 @@ import { PluggableList } from 'react-markdown/lib';
 import cx from 'classnames';
 
 interface MarkdownProps {
-  remarkPlugins: PluggableList | null | undefined;
+  remarkPlugins?: PluggableList | null;
   className: string;
-  children: string | undefined;
+  children?: string;
 }
 
 const Markdown = ({
