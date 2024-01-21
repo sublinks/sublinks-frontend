@@ -35,7 +35,7 @@ SidebarSiteInfoProps) => {
         {onSidebarSwitch && (
         <Button
           type="button"
-          className="h-24 px-2 pt-0 pb-0 block md:hidden rounded-sm"
+          className="h-24 px-2 pt-0 pb-0 sticky md:hidden rounded-sm top-4 right-4"
           onClick={() => {
             if (onSidebarSwitch) {
               onSidebarSwitch(true);
@@ -46,7 +46,7 @@ SidebarSiteInfoProps) => {
         </Button>
         )}
       </div>
-      <div className="flex flex-col max-h-1000 overflow-auto border-t border-gray-500">
+      <div className="flex flex-col max-h-screenheight md:max-h-1000 overflow-auto border-t border-gray-500">
         {site.description && (
         <Collapsable
           open={descriptionOpen}

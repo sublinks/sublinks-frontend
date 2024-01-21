@@ -37,7 +37,9 @@ const spacing = {
   800: '800px',
   960: '960px',
   1000: '1000px',
-  1200: '1200px'
+  1200: '1200px',
+  screenwidth: '100vw',
+  screenheight: '100vh'
 };
 
 const config: Config = {

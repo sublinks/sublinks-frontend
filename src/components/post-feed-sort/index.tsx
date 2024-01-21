@@ -136,7 +136,7 @@ const PostFeedOptions = ({
             onSidebarSwitch(!sidebarOpen);
           }
         }}
-        className="p-4 py-4 block md:hidden text-sm ml-4"
+        className="p-4 py-4 block md:hidden text-xs ml-4"
         type="button"
         active={!sidebarOpen}
       >
