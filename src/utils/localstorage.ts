@@ -12,24 +12,27 @@ const parse = (value: string) => {
 
 export const useLocalStorage = <S>(
   key: string,
-  initialState?: S | (() => S)
+  initialState: S | (() => S)
 ): [S, React.Dispatch<React.SetStateAction<S>>] => {
-  const [state, setState] = useState<S>(initialState as S);
+  const [state, setState] = useState(initialState);
   useDebugValue(state);
   if (!key) throw new Error('useLocalStorage key may not be falsy');
 
-  const initial = React.useRef(true);
+  const initialStateRef = React.useRef(true);
 
   useEffect(() => {
-    if (initial.current) {
-      const item = localStorage.getItem(key);
-      if (item !== null) setState(parse(item));
-      initial.current = false;
-      return;
-    }
+    const value = localStorage.getItem(key);
+    if (value !== null) setState(parse(value));
+    setTimeout(() => {
+      // Workaround for that the other useEffect does not run on first render
+      initialStateRef.current = false;
+    }, 0);
+  }, [key]);
+
+  useEffect(() => {
+    if (initialStateRef.current) return;
     localStorage.setItem(key, JSON.stringify(state));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, initial.current]);
+  }, [key, state]);
 
   return [state, setState];
 };

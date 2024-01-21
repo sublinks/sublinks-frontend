@@ -9,6 +9,7 @@ import {
   GetPostsResponse, GetSiteResponse, ListingType, SortType
 } from 'sublinks-js-client';
 import PostFeedOptions from '@/components/post-feed-sort';
+import { useLocalStorage } from '@/utils/localstorage';
 import * as testData from '../../../test-data.json';
 import Sidebar from '../sidebar';
 
@@ -25,6 +26,12 @@ const Feed = ({ posts, site }: FeedProps) => {
   const [postFeedType, setPostFeedType] = useState<ListingType>();
   const [postFeedSort, setPostFeedSort] = useState<SortType>();
 
+  const [sidebarOpen, setSidebarOpen] = useLocalStorage<boolean>('sidebar', true);
+
+  const handleSidebarSwitch = (newState: boolean) => {
+    setSidebarOpen(newState);
+  };
+
   // @todo: Allow test data when in non-docker dev env
   // as Sublinks Core doesn't yet handle all post features
   useEffect(() => {
@@ -40,7 +47,12 @@ const Feed = ({ posts, site }: FeedProps) => {
   return (
     <div className="relative">
       <div className="float-none md:float-right relative ">
-        <Sidebar site={siteResponse.site_view.site} admins={siteResponse.admins} />
+        <Sidebar
+          site={siteResponse.site_view.site}
+          admins={siteResponse.admins}
+          onSwitch={handleSidebarSwitch}
+          open={sidebarOpen}
+        />
       </div>
       <div className="mb-16 ml-4">
         <PostFeedOptions
@@ -48,6 +60,8 @@ const Feed = ({ posts, site }: FeedProps) => {
           onSortChange={setPostFeedSort}
           onTypeChange={setPostFeedType}
           currentSort={postFeedSort}
+          sidebarOpen={sidebarOpen}
+          onSidebarSwitch={handleSidebarSwitch}
         />
       </div>
       <div className="flex">

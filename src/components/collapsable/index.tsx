@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import cx from 'classnames';
 import LinkButton from '../button-link';
 
@@ -10,14 +10,15 @@ interface CollapsableProps {
   onSwitch?: (newState: boolean) => void;
   children: React.ReactNode;
   containerClassName?: string;
-  buttonClassName?: string;
   contentClassName?: string;
-  showIcon?: boolean;
+  hideIcon?: boolean;
   title?: string;
 }
 
+const ChevronDownIconClassname = 'float-end inline-block ml-2 w-24 text-black dark:text-white hover:text-gray-400 dark:hover:text-gray-400';
+
 const Collapsable = ({
-  open, onSwitch, children, containerClassName, buttonClassName, contentClassName, showIcon, title
+  open, onSwitch, children, containerClassName, contentClassName, hideIcon, title
 }:
 CollapsableProps) => {
   const [active, setActive] = useState(open !== undefined ? open : false);
@@ -36,19 +37,20 @@ CollapsableProps) => {
 
   return (
     <div className={cx('flex flex-col', containerClassName)}>
-      <LinkButton type="button" ariaLabel="Collapsable open/close button" onClick={handleSwitch} className={cx(buttonClassName)}>
+      <LinkButton type="button" ariaLabel="Collapsable open/close button" onClick={handleSwitch}>
         {title}
-        {showIcon && (
-        <ChevronUpIcon
-          className={cx(
-            'float-end inline-block ml-2 w-24 text-black dark:text-white hover:text-gray-400 dark:hover:text-gray-400',
-            {
-              'transform rotate-180': !active,
-              'transform rotate-0': active
-            }
-          )}
-        />
-        )}
+        {!hideIcon && (
+          active
+            ? (
+              <ChevronUpIcon
+                className={ChevronDownIconClassname}
+              />
+            )
+            : (
+              <ChevronDownIcon
+                className={ChevronDownIconClassname}
+              />
+            ))}
       </LinkButton>
       <div
         aria-expanded={active}
