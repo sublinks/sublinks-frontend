@@ -10,7 +10,6 @@ import {
 } from 'sublinks-js-client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import { useLocalStorage } from '@/utils/localstorage';
-import getLocalstorage from '@/utils/getLocalstorage';
 import * as testData from '../../../test-data.json';
 import Sidebar from '../sidebar';
 
@@ -27,7 +26,7 @@ const Feed = ({ posts, site }: FeedProps) => {
   const [postFeedType, setPostFeedType] = useState<ListingType>();
   const [postFeedSort, setPostFeedSort] = useState<SortType>();
 
-  const [sidebarOpen, setSidebarOpen] = useLocalStorage<boolean>('sidebar', getLocalstorage('sidebar', true));
+  const [sidebarOpen, setSidebarOpen] = useLocalStorage<boolean>('sidebar', true);
 
   const handleSidebarSwitch = (newState: boolean) => {
     setSidebarOpen(newState);
