@@ -4,6 +4,7 @@ import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
 import { useLocalStorage } from '@/utils/localstorage';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import getLocalstorage from '@/utils/getLocalstorage';
 import PersonBadge from '../person-badge';
 import Markdown from '../markdown';
 import Collapsable from '../collapsable';
@@ -24,9 +25,9 @@ const SidebarSiteInfo = ({
   onSidebarSwitch
 }:
 SidebarSiteInfoProps) => {
-  const [descriptionOpen, setDescriptionOpen] = useLocalStorage('description', true);
-  const [informationOpen, setInformationOpen] = useLocalStorage('information', true);
-  const [adminOpen, setAdminOpen] = useLocalStorage('admin', true);
+  const [descriptionOpen, setDescriptionOpen] = useLocalStorage('description', getLocalstorage('description', true));
+  const [informationOpen, setInformationOpen] = useLocalStorage('information', getLocalstorage('information', true));
+  const [adminOpen, setAdminOpen] = useLocalStorage('admin', getLocalstorage('admin', true));
   return (
     <div className="flex flex-col">
       {site.banner && (<Image src={site.banner} alt="Site Banner" />)}
