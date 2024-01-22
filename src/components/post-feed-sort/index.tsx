@@ -138,9 +138,9 @@ const PostFeedOptions = ({
         }}
         className="p-4 py-4 block md:hidden text-xs ml-4"
         type="button"
-        active={!sidebarOpen}
+        active={sidebarOpen}
       >
-        {`${sidebarOpen ? 'Open' : 'Close'} Sidebar`}
+        {`${sidebarOpen ? 'Close' : 'Open'} Sidebar`}
       </Button>
     </div>
   </div>

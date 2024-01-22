@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PersonView, Site } from 'sublinks-js-client';
 import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
-import { useLocalStorage } from '@/utils/localstorage';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import PersonBadge from '../person-badge';
 import Markdown from '../markdown';
@@ -24,9 +23,9 @@ const SidebarSiteInfo = ({
   onSidebarSwitch
 }:
 SidebarSiteInfoProps) => {
-  const [descriptionOpen, setDescriptionOpen] = useLocalStorage('description', true);
-  const [informationOpen, setInformationOpen] = useLocalStorage('information', true);
-  const [adminOpen, setAdminOpen] = useLocalStorage('admin', true);
+  const [descriptionOpen, setDescriptionOpen] = useState<boolean>(true);
+  const [informationOpen, setInformationOpen] = useState<boolean>(true);
+  const [adminOpen, setAdminOpen] = useState<boolean>(true);
   return (
     <div className="flex flex-col">
       {site.banner && (<Image src={site.banner} alt="Site Banner" />)}
@@ -38,7 +37,7 @@ SidebarSiteInfoProps) => {
           className="h-24 px-2 pt-0 pb-0 sticky md:hidden rounded-sm top-4 right-4"
           onClick={() => {
             if (onSidebarSwitch) {
-              onSidebarSwitch(true);
+              onSidebarSwitch(false);
             }
           }}
         >
@@ -59,7 +58,13 @@ SidebarSiteInfoProps) => {
         </Collapsable>
         )}
         {site.sidebar && (
-        <Collapsable open={informationOpen} onSwitch={setInformationOpen} title="Information" contentClassName="flex flex-row" containerClassName={SidebarItemClassname}>
+        <Collapsable
+          open={informationOpen}
+          onSwitch={setInformationOpen}
+          title="Informations"
+          contentClassName="flex flex-row"
+          containerClassName={SidebarItemClassname}
+        >
           <Markdown remarkPlugins={[remarkGfm]} className="text-sm dark:text-primary flex max-h-full">{site.sidebar}</Markdown>
         </Collapsable>
         )}
