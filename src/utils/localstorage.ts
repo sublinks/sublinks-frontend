@@ -1,5 +1,4 @@
 import React, { useDebugValue, useEffect, useState } from 'react';
-import getLocalstorage from './getLocalstorage';
 
 const parse = (value: string) => {
   try {
@@ -15,7 +14,7 @@ export const useLocalStorage = <S>(
   key: string,
   initialState: S | (() => S)
 ): [S, React.Dispatch<React.SetStateAction<S>>] => {
-  const [state, setState] = useState(getLocalstorage('sidebar', initialState));
+  const [state, setState] = useState(initialState);
   useDebugValue(state);
   if (!key) throw new Error('useLocalStorage key may not be falsy');
 

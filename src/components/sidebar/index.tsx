@@ -34,10 +34,10 @@ SidebarProps) => (
       <Icon IconType={open ? ChevronLeftIcon : ChevronRightIcon} size={ICON_SIZE.MEDIUM} />
     </Button>
     <div
-      aria-expanded={!open}
+      aria-expanded={open}
       className={cx({
-        hidden: open,
-        block: !open
+        hidden: !open,
+        block: open
       }, 'overflow-hidden bg-secondary dark:bg-secondary-dark w-full md:w-480 p-8')}
     >
       <SidebarSiteInfo site={site} admins={admins} onSidebarSwitch={onSwitch} />
