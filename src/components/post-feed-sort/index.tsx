@@ -14,7 +14,7 @@ interface PostFeedTypeProps {
 const buttonGroupClass = 'px-12 py-4';
 
 const PostFeedType = ({ currentType, onTypeChange }: PostFeedTypeProps) => (
-  <ButtonGroup className="flex" placeholder={undefined}>
+  <ButtonGroup className="flex">
     <Button id="post-feed-type-all" type="button" active={currentType === 'All'} onClick={() => onTypeChange('All')} className={buttonGroupClass}>All</Button>
     <Button id="post-feed-type-local" type="button" active={currentType === 'Local'} onClick={() => onTypeChange('Local')} className={buttonGroupClass}>Local</Button>
     <Button id="post-feed-type-modview" type="button" active={currentType === 'ModeratorView'} onClick={() => onTypeChange('ModeratorView')} className={buttonGroupClass}>Moderator View</Button>
