@@ -30,6 +30,7 @@ services:
     depends_on:
       - db
       - pictrs
+      - queue
 
   db:
     image: mysql:latest
@@ -82,3 +83,13 @@ services:
       - pictrs:/mnt:Z
     user: 991:991
     restart: always
+
+  queue:
+    image: rabbitmq:3-management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=sublinks
+      - RABBITMQ_DEFAULT_PASS=sublinks
+    ports:
+      - "15672:15672"
+      - "5672:5672"
