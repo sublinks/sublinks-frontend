@@ -1,22 +1,17 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { PluggableList } from 'react-markdown/lib';
 import cx from 'classnames';
 
 interface MarkdownProps {
-  remarkPlugins?: PluggableList | null;
-  className: string;
-  children?: string;
+  className?: string;
+  markdown?: string;
 }
 
 const Markdown = ({
-  remarkPlugins,
   className,
-  children
+  markdown
 }: MarkdownProps) => (
-  <ReactMarkdown remarkPlugins={remarkPlugins} unwrapDisallowed className={cx('markdown [&>code]:block', className)}>
-    {children}
-  </ReactMarkdown>
+  <div dangerouslySetInnerHTML={{ __html: markdown || '' }} className={cx('text-primary-dark dark:text-primary markdown', className)} />
 );
 
 export default Markdown;

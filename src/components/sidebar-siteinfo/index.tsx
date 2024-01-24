@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PersonView, Site } from 'sublinks-js-client';
 import Image from 'next/image';
-import remarkGfm from 'remark-gfm';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { mdToHtml } from 'sublinks-markdown';
 import PersonBadge from '../person-badge';
 import Markdown from '../markdown';
 import Collapsable from '../collapsable';
@@ -15,7 +15,6 @@ interface SidebarSiteInfoProps {
   admins: PersonView[],
   onSidebarSwitch?: (newState: boolean) => void
 }
-const SidebarItemClassname = 'border-t border-gray-500';
 
 const SidebarSiteInfo = ({
   site,
@@ -26,6 +25,20 @@ SidebarSiteInfoProps) => {
   const [descriptionOpen, setDescriptionOpen] = useState<boolean>(true);
   const [informationOpen, setInformationOpen] = useState<boolean>(true);
   const [adminOpen, setAdminOpen] = useState<boolean>(true);
+
+  const [sidebarMarkdown, setSidebarMarkdown] = useState<string>('');
+
+  useEffect(() => {
+    const setSidebarMd = async () => {
+      if (site.sidebar) {
+        setSidebarMarkdown(await mdToHtml(site.sidebar, site.actor_id));
+      } else {
+        setSidebarMarkdown('');
+      }
+    };
+    setSidebarMd();
+  }, [site.actor_id, site.sidebar]);
+
   return (
     <div className="flex flex-col">
       {site.banner && (<Image src={site.banner} alt="Site Banner" />)}
@@ -45,14 +58,13 @@ SidebarSiteInfoProps) => {
         </Button>
         )}
       </div>
-      <div className="flex flex-col max-h-screenheight md:max-h-1000 overflow-auto border-t border-gray-500">
+      <div className="flex flex-col max-h-90vh md:max-h-1000 overflow-auto border-t border-gray-500">
         {site.description && (
         <Collapsable
           open={descriptionOpen}
           onSwitch={setDescriptionOpen}
           title="Description"
           contentClassName="flex flex-row"
-          containerClassName={SidebarItemClassname}
         >
           <BodyText className="dark:text-primary border-y border-gray-500 pb-8 pt-4">{site.description}</BodyText>
         </Collapsable>
@@ -62,15 +74,14 @@ SidebarSiteInfoProps) => {
           open={informationOpen}
           onSwitch={setInformationOpen}
           title="Informations"
-          contentClassName="flex flex-row"
-          containerClassName={SidebarItemClassname}
+          contentClassName="flex flex-row flex-wrap max-w-full"
         >
-          <Markdown remarkPlugins={[remarkGfm]} className="text-sm dark:text-primary flex max-h-full">{site.sidebar}</Markdown>
+          <Markdown markdown={sidebarMarkdown} />
         </Collapsable>
         )}
       </div>
 
-      <Collapsable open={adminOpen} onSwitch={setAdminOpen} title="Admins" contentClassName="flex flex-row" containerClassName={SidebarItemClassname}>
+      <Collapsable open={adminOpen} onSwitch={setAdminOpen} title="Admins" contentClassName="flex flex-row flex-wrap max-w-full">
         {admins.map(x => (
           <PersonBadge key={x.person.name} person={x.person} />
         ))}

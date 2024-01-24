@@ -19,7 +19,6 @@ interface FeedProps {
 
 const Feed = ({ posts, site }: FeedProps) => {
   const [postFeed, setPostFeed] = useState<GetPostsResponse>(posts);
-  const [siteResponse] = useState<GetSiteResponse>(site);
 
   // @todo: Set this to the users default feed type
   const [postFeedType, setPostFeedType] = useState<ListingType>();
@@ -45,10 +44,10 @@ const Feed = ({ posts, site }: FeedProps) => {
 
   return (
     <div className="relative">
-      <div className="float-none md:float-right relative ">
+      <div className="float-none md:float-right">
         <Sidebar
-          site={siteResponse.site_view.site}
-          admins={siteResponse.admins}
+          site={site.site_view.site}
+          admins={site.admins}
           onSwitch={handleSidebarSwitch}
           open={sidebarOpen}
         />

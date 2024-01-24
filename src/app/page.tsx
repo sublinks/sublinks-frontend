@@ -15,7 +15,7 @@ const page = async () => {
 
   const siteResponse = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
     ? await sublinksClient().getSite()
-    : JSON.stringify(testSiteData) as unknown as GetSiteResponse;
+    : JSON.parse(JSON.stringify(testSiteData)) as unknown as GetSiteResponse;
 
   return (
     <div>

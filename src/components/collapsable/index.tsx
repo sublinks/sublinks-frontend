@@ -36,7 +36,7 @@ CollapsableProps) => {
   }, [open, setActive]);
 
   return (
-    <div className={cx('flex flex-col', containerClassName)}>
+    <div className={cx('flex flex-col border-t border-gray-500', containerClassName)}>
       <LinkButton type="button" ariaLabel="Collapsable open/close button" onClick={handleSwitch}>
         {title}
         {!hideIcon && (
@@ -56,7 +56,7 @@ CollapsableProps) => {
         aria-expanded={active}
         className={cx({
           hidden: !active,
-          visible: active
+          block: active
         }, contentClassName)}
       >
         {children}

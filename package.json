@@ -24,7 +24,8 @@
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "sublinks-js-client": "^0.0.3"
+    "sublinks-js-client": "^0.0.3",
+    "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",

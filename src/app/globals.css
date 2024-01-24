@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.markdown * {
-    display: block;
-    position: relative;
-    white-space: break-spaces;
+.markdown a {
+  @apply text-blue-500;
+  @apply underline;
   }
