@@ -2,8 +2,7 @@ import React from 'react';
 
 import { BodyText, H1, LinkText } from '@/components/text';
 import Link from 'next/link';
-import { InputField } from '@/components/input';
-import Button from '@/components/button';
+import LoginForm from '@/components/auth/login-form';
 
 const Login = () => (
   <div className="flex flex-col p-56 max-w-500">
@@ -14,11 +13,7 @@ const Login = () => (
         <LinkText>Join</LinkText>
       </Link>
     </div>
-    <div className="flex flex-col gap-16 mb-32">
-      <InputField type="text" label="Username" name="username" id="username" placeholder="Username" showBorderPlaceholder />
-      <InputField type="password" label="Password" name="password" id="password" placeholder="Password" showBorderPlaceholder />
-    </div>
-    <Button type="submit">Login</Button>
+    <LoginForm />
   </div>
 );
 
