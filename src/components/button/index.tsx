@@ -23,7 +23,7 @@ const Button = ({
     onClick={onClick}
     className={cx('bg-brand dark:bg-brand-dark hover:bg-opacity-90 rounded-md px-23 py-12', {
       'bg-blue-300 dark:bg-blue-500': active,
-      'bg-gray-200 dark:bg-gray-400': !active
+      'bg-gray-200 dark:bg-gray-400': active === false
     }, className)}
   >
     {children}
