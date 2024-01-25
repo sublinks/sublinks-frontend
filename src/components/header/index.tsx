@@ -8,12 +8,12 @@ import {
 
 import sublinksClient from '@/utils/client';
 import { GetSiteResponse } from 'sublinks-js-client';
+import Link from 'next/link';
 import ProfileMenu from '../profile-menu';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
 import Icon, { ICON_SIZE } from '../icon';
-import HeaderLink from './header-link';
-import HeaderHeader from './header-header';
+import HeaderLayout from './header-layout';
 import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
@@ -22,49 +22,55 @@ const Header = async () => {
     : testData as unknown as GetSiteResponse;
 
   return (
-    <HeaderHeader>
+    <HeaderLayout>
       {/* Header Left Side */}
       <div className="flex gap-8 lg:gap-16 items-center text-sm lg:text-base">
         <HeaderLogo name={instance.site_view.site.name} icon={instance.site_view.site.icon || '/logo.png'} />
 
         <p className="text-gray-200 dark:text-gray-400 hover:cursor-default">/</p>
 
-        <HeaderLink href="/communities">
+        <Link href="/c">
           <LinkText>Communities</LinkText>
-        </HeaderLink>
+        </Link>
 
-        <HeaderLink href="/create_post">
-          <LinkText className="hover:scale-105">Create post</LinkText>
-        </HeaderLink>
+        <Link href="/p">
+          <LinkText>Create post</LinkText>
+        </Link>
 
-        <HeaderLink href="/create_community">
-          <LinkText className="hover:scale-105">Create community</LinkText>
-        </HeaderLink>
+        <Link href="/create_community">
+          <LinkText>Create community</LinkText>
+        </Link>
 
-        <HeaderLink href="/donate">
+        <Link href="/donate">
           <Icon IconType={HeartIcon} size={ICON_SIZE.SMALL} title="Donate icon" isInteractable />
-        </HeaderLink>
+        </Link>
       </div>
 
       {/* Header Right Side */}
       <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
         <HeaderSearch />
 
-        <HeaderLink href="/inbox">
-          <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
-        </HeaderLink>
+        {false && ( // Change to check if a user is logged in
+          <Link href="/inbox">
+            <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
+          </Link>
+        )}
 
-        <HeaderLink href="/reports">
-          <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
-        </HeaderLink>
+        {false && ( // Change to check if a user is a mod or an admin
+          <Link href="/reports">
+            <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
+          </Link>
+        )}
 
-        <HeaderLink href="/registration_applications">
-          <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Donate icon" isInteractable />
-        </HeaderLink>
+        {false && ( // Change to check if applications are enabled and the user is an admin
+          <Link href="/registration_applications">
+            <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
+          </Link>
+        )}
 
         <ProfileMenu />
       </div>
-    </HeaderHeader>
+    </HeaderLayout>
   );
 };
 
