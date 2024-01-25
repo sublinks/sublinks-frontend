@@ -119,15 +119,29 @@ interface PostFeedOptionProps {
   onTypeChange: (type: ListingType) => void
   currentSort?: SortType
   onSortChange: (type: SortType) => void
+  sidebarOpen?: boolean
+  onSidebarSwitch?: (newState: boolean) => void;
 }
 
 const PostFeedOptions = ({
-  currentType, onTypeChange, currentSort, onSortChange
+  currentType, onTypeChange, currentSort, onSortChange, sidebarOpen, onSidebarSwitch
 }: PostFeedOptionProps) => (
   <div className="flex flex-col md:flex-row mt-8 md:mt-0">
     <PostFeedType currentType={currentType} onTypeChange={onTypeChange} />
-    <div className="ml-0 md:ml-4 mt-8 md:mt-0 w-full md:w-auto">
+    <div className="ml-0 md:ml-4 mt-8 md:mt-0 flex w-full md:w-auto">
       <PostFeedSort currentSort={currentSort} onSortChange={onSortChange} />
+      <Button
+        onClick={() => {
+          if (onSidebarSwitch) {
+            onSidebarSwitch(!sidebarOpen);
+          }
+        }}
+        className="p-4 block md:hidden text-xs ml-4"
+        type="button"
+        active={sidebarOpen}
+      >
+        {`${sidebarOpen ? 'Close' : 'Open'} Sidebar`}
+      </Button>
     </div>
   </div>
 );

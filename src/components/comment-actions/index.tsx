@@ -19,7 +19,7 @@ export const CommentAction = ({
   myVote
 }: CommentActionProps) => {
   const handleVote = async (vote: number) => {
-    if (!process.env.SUBLINKS_API_BASE_URL) return;
+    if (!process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL) return;
 
     await sublinksClient().likeComment({
       comment_id: votes.comment_id,

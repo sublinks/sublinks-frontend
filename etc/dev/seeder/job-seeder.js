@@ -3,9 +3,9 @@
 const { SublinksClient } = require('sublinks-js-client');
 const { entities, siteSetup, users } = require('./seed-data');
 
-const { SUBLINKS_API_BASE_URL } = process.env;
+const { NEXT_PUBLIC_SUBLINKS_API_BASE_URL } = process.env;
 
-const apiClient = new SublinksClient(SUBLINKS_API_BASE_URL, { insecure: true });
+const apiClient = new SublinksClient(NEXT_PUBLIC_SUBLINKS_API_BASE_URL, { insecure: true });
 
 const MAX_ATTEMPTS = 20;
 const RETRY_DELAY = 5000;
