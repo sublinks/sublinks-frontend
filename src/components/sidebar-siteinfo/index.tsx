@@ -41,7 +41,7 @@ SidebarSiteInfoProps) => {
 
   return (
     <div className="flex flex-col">
-      {site.banner && (<Image src={site.banner} alt="Site Banner" />)}
+      {site.banner && (<Image src={site.banner} alt="Site Banner" width={400} height={400} className="w-full h-full" />)}
       <div className="flex flex-row">
         <H1 className="font-bold dark:text-primary pb-8 flex-grow">{site.name}</H1>
         {onSidebarSwitch && (

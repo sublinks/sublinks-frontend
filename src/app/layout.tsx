@@ -49,7 +49,7 @@ const RootLayout = ({
   return (
     <ThemeProvider value={theme}>
       <html lang="en" className="h-full dark">
-        <body className={cx(inter.className, 'flex flex-col h-full bg-secondary dark:bg-secondary-dark max-md:pb-48')}>
+        <body className={cx(inter.className, 'flex flex-col min-h-full bg-secondary dark:bg-secondary-dark')}>
           <Header />
           <BottomNav />
 
