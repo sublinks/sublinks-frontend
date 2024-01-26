@@ -5,7 +5,7 @@ import sublinksClient from '@/utils/client';
 import { GetPostsResponse, GetSiteResponse } from 'sublinks-js-client';
 import Feed from '@/components/front-page-feed';
 import * as testData from '../../test-data.json';
-import * as testSiteData from '../../test-site-data.json';
+import * as testInstanceData from '../../test-instance-data.json';
 
 const page = async () => {
   // @todo: Allow test data when in non-docker dev env
@@ -15,7 +15,7 @@ const page = async () => {
 
   const siteResponse = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
     ? await sublinksClient().getSite()
-    : JSON.parse(JSON.stringify(testSiteData)) as unknown as GetSiteResponse;
+    : JSON.parse(JSON.stringify(testInstanceData)) as unknown as GetSiteResponse;
 
   return (
     <div>

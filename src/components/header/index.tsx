@@ -18,7 +18,7 @@ import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
 const Header = async () => {
-  const instance = process.env.SUBLINKS_API_BASE_URL ? await sublinksClient().getSite()
+  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getSite()
     : testData as unknown as GetSiteResponse;
 
   return (
