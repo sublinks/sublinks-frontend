@@ -13,6 +13,8 @@ const H2 = ({ children, className, title }: TextProps) => <span className={cx('t
 
 const BodyTitle = ({ children, className, title }: TextProps) => <span className={cx('text-gray-900 dark:text-gray-100', className)} title={title}>{children}</span>;
 
+const BodyTitleInverse = ({ children, className, title }: TextProps) => <span className={cx('dark:text-gray-900 text-gray-100', className)} title={title}>{children}</span>;
+
 const BodyText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-600 dark:text-gray-200', className)} title={title}>{children}</span>;
 
 const PaleBodyText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-500 dark:text-gray-400', className)} title={title}>{children}</span>;
@@ -25,6 +27,7 @@ export {
   H1,
   H2,
   BodyTitle,
+  BodyTitleInverse,
   BodyText,
   PaleBodyText,
   LinkText,
