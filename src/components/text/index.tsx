@@ -23,6 +23,8 @@ const LinkText = ({ children, className, title }: TextProps) => <span className=
 
 const PaleLinkText = ({ children, className, title }: TextProps) => <span className={cx('text-gray-500 dark:text-gray-400 hover:text-brand dark:hover:text-brand-dark transition-text duration-200', className)} title={title}>{children}</span>;
 
+const ErrorText = ({ children, className, title }: TextProps) => <span className={cx('text-red-700 dark:text-red-400', className)} title={title}>{children}</span>;
+
 export {
   H1,
   H2,
@@ -31,5 +33,6 @@ export {
   BodyText,
   PaleBodyText,
   LinkText,
-  PaleLinkText
+  PaleLinkText,
+  ErrorText
 };
