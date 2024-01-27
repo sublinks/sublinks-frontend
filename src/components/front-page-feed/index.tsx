@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-
-import PostFeed from '@/components/post-feed';
-import sublinksClient from '@/utils/client';
-
 import {
   GetPostsResponse, GetSiteResponse, ListingType, SortType
 } from 'sublinks-js-client';
+
+import PostFeed from '@/components/post-feed';
+import SublinksApi from '@/utils/client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import * as testData from '../../../test-data.json';
 import Sidebar from '../sidebar';
@@ -34,10 +33,11 @@ const Feed = ({ posts, site }: FeedProps) => {
   // as Sublinks Core doesn't yet handle all post features
   useEffect(() => {
     async function getPosts() {
-      setPostFeed(process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getPosts({
-        type_: postFeedType,
-        sort: postFeedSort
-      }) : testData as unknown as GetPostsResponse);
+      setPostFeed(process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+        ? await SublinksApi.Instance().Client().getPosts({
+          type_: postFeedType,
+          sort: postFeedSort
+        }) : testData as unknown as GetPostsResponse);
     }
     getPosts();
   }, [postFeedSort, postFeedType]);

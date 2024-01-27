@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-
 import { CommentAggregates } from 'sublinks-js-client';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
-import sublinksClient from '@/utils/client';
+
+import SublinksApi from '@/utils/client';
 import Icon, { ICON_SIZE } from '../icon';
 import LinkButton from '../button-link';
 import VoteButtons from '../button-votes';
@@ -21,7 +21,7 @@ export const CommentAction = ({
   const handleVote = async (vote: number) => {
     if (!process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL) return;
 
-    await sublinksClient().likeComment({
+    await SublinksApi.Instance().Client().likeComment({
       comment_id: votes.comment_id,
       score: vote
     });

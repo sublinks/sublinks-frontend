@@ -6,7 +6,7 @@ import {
   ShieldExclamationIcon
 } from '@heroicons/react/24/outline';
 
-import sublinksClient from '@/utils/client';
+import SublinksApi from '@/utils/client';
 import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
 import ProfileMenu from '../profile-menu';
@@ -18,7 +18,8 @@ import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
 const Header = async () => {
-  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getSite()
+  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+    ? await SublinksApi.Instance().Client().getSite()
     : testData as unknown as GetSiteResponse;
 
   return (

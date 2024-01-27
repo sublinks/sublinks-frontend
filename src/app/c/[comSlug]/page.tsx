@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import PostFeed from '@/components/post-feed';
 import { H1 } from '@/components/text';
-import sublinksClient from '@/utils/client';
+import SublinksApi from '@/utils/client';
 import { getCommunityNameFromSlug } from '@/utils/communities';
 
 interface CommunityFeedProps {
@@ -16,11 +16,11 @@ interface CommunityFeedProps {
 const CommunityFeed = async ({ params: { comSlug } }: CommunityFeedProps) => {
   try {
     const communityName = getCommunityNameFromSlug(comSlug);
-    const communityData = await sublinksClient().getCommunity({
+    const communityData = await SublinksApi.Instance().Client().getCommunity({
       name: communityName
     });
 
-    const communityPostsData = await sublinksClient().getPosts({
+    const communityPostsData = await SublinksApi.Instance().Client().getPosts({
       community_name: communityName,
       type_: 'All',
       sort: 'Active'
