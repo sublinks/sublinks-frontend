@@ -1,6 +1,7 @@
 'use client';
 
 import React, { FormEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
@@ -8,6 +9,7 @@ import sublinksClient from '@/utils/client';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LoginForm = () => {
+  const router = useRouter();
   const [error, setError] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -27,10 +29,17 @@ const LoginForm = () => {
     }
 
     try {
-      await sublinksClient().login({
+      const { jwt } = await sublinksClient().login({
         username_or_email: username,
         password
       });
+
+      if (!jwt) {
+        throw Error('JWT not returned from server');
+      }
+
+      await sublinksClient().setAuth(jwt);
+      router.push(`/user/${username}`);
     } catch (e) {
       setError('Login attempt failed. Please try again.');
     }
