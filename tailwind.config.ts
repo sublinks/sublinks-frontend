@@ -1,5 +1,28 @@
 import type { Config } from 'tailwindcss';
 
+const viewports = {
+  '10vw': '10vw',
+  '20vw': '20vw',
+  '30vw': '30vw',
+  '40vw': '40vw',
+  '50vw': '50vw',
+  '60vw': '60vw',
+  '70vw': '70vw',
+  '80vw': '80vw',
+  '90vw': '90vw',
+  '100vw': '100vw',
+  '10vh': '10vh',
+  '20vh': '20vh',
+  '30vh': '30vh',
+  '40vh': '40vh',
+  '50vh': '50vh',
+  '60vh': '60vh',
+  '70vh': '70vh',
+  '80vh': '80vh',
+  '90vh': '90vh',
+  '100vh': '100vh'
+};
+
 const spacing = {
   0: '0',
   2: '2px',
@@ -19,6 +42,7 @@ const spacing = {
   80: '80px',
   96: '96px',
   100: '100px',
+  108: '108px',
   120: '120px',
   140: '140px',
   160: '160px',
@@ -28,8 +52,18 @@ const spacing = {
   300: '300px',
   360: '360px',
   400: '400px',
+  460: '460px',
   480: '480px',
-  500: '500px'
+  500: '500px',
+  560: '560px',
+  600: '600px',
+  640: '640px',
+  720: '720px',
+  800: '800px',
+  960: '960px',
+  1000: '1000px',
+  1200: '1200px',
+  ...viewports
 };
 
 const config: Config = {
