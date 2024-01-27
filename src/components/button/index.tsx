@@ -21,7 +21,7 @@ const Button = ({
     aria-label={ariaLabel}
     id={id}
     onClick={onClick}
-    className={cx('bg-brand dark:bg-brand-dark hover:bg-opacity-90 rounded-md px-23 py-12', {
+    className={cx('hover:bg-opacity-90 rounded-md px-23 py-12', {
       'bg-blue-300 dark:bg-blue-500': active,
       'bg-gray-200 dark:bg-gray-400': active === false
     }, className)}

@@ -11,12 +11,20 @@ updates:
     schedule:
       interval: "weekly"
     rebase-strategy: "disabled"
+
   # Maintain dependencies for npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
     rebase-strategy: "disabled"
+    groups:
+      patches:
+        patterns:
+          - "*"
+        update-types:
+          - "patch"
+
   # Maintain dependencies for Docker
   - package-ecosystem: "docker"
     directory: "/"
