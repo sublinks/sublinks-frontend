@@ -1,6 +1,7 @@
+import Cookies from 'js-cookie';
 import { SublinksClient } from 'sublinks-js-client';
 
-let client: SublinksClient;
+export const AUTH_COOKIE_NAME = 'auth';
 
 const isServerSide = () => typeof window === 'undefined';
 
@@ -12,14 +13,55 @@ const getApiHost = () => {
   return envUrl || 'localhost:8080';
 };
 
-const sublinksClient = () => {
-  const apiHost = getApiHost();
+class SublinksApi {
+  private client: SublinksClient;
 
-  if (!client) {
-    client = new SublinksClient(apiHost, { insecure: process.env.NODE_ENV !== 'production' });
+  private static instance: SublinksApi;
+
+  private hasValidAuth = false;
+
+  constructor() {
+    this.client = new SublinksClient(getApiHost(), { insecure: process.env.NODE_ENV !== 'production' });
+    this.setAuthHeader();
   }
 
-  return client;
-};
+  private setAuthHeader() {
+    const jwtAuth = Cookies.get(AUTH_COOKIE_NAME);
 
-export default sublinksClient;
+    if (jwtAuth) {
+      this.client.setAuth(jwtAuth);
+      this.hasValidAuth = true;
+    }
+  }
+
+  public async login(username: string, password: string) {
+    const { jwt } = await this.client.login({
+      username_or_email: username,
+      password
+    });
+
+    if (!jwt) {
+      throw Error('JWT not returned from server');
+    }
+
+    Cookies.set(AUTH_COOKIE_NAME, jwt, {
+      secure: window.location.protocol.includes('https'),
+      path: '/',
+      sameSite: 'lax'
+    });
+  }
+
+  public Client() {
+    if (!this.hasValidAuth) {
+      this.setAuthHeader();
+    }
+
+    return this.client;
+  }
+
+  public static Instance() {
+    return SublinksApi.instance || new SublinksApi();
+  }
+}
+
+export default SublinksApi;

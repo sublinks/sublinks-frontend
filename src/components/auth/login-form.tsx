@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
-import sublinksClient from '@/utils/client';
+import SublinksApi from '@/utils/client';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LoginForm = () => {
@@ -29,17 +29,9 @@ const LoginForm = () => {
     }
 
     try {
-      const { jwt } = await sublinksClient().login({
-        username_or_email: username,
-        password
-      });
+      await SublinksApi.Instance().login(username, password);
 
-      if (!jwt) {
-        throw Error('JWT not returned from server');
-      }
-
-      await sublinksClient().setAuth(jwt);
-      router.push('/');
+      router.refresh();
     } catch (e) {
       setError('Login attempt failed. Please try again.');
       setIsSubmitting(false);
