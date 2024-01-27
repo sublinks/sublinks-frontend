@@ -4,13 +4,14 @@ import {
   Menu, MenuHandler, MenuList
 } from '@material-tailwind/react';
 import React, { useEffect, useState } from 'react';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '@/utils/theme';
 import Link from 'next/link';
 import { useClickOutside } from '@/utils/clickAway';
-import Icon, { ICON_SIZE } from '../icon';
+import Image from 'next/image';
+import { UserCircleIcon } from '@heroicons/react/24/outline';
 import ThemeSwitch from '../theme-switch';
 import { LinkText } from '../text';
+import Icon, { ICON_SIZE } from '../icon';
 
 const ProfileMenu = () => {
   const [theme, setTheme] = useTheme();
@@ -56,7 +57,12 @@ const ProfileMenu = () => {
             aria-label="ProfileButton"
             className="bg-transparent"
           >
-            <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
+            {false ? ( // Change to check if user has a profile picture. If so set the src to that
+              <Image src="/logo.png" alt="Profile image" width={30} height={30} className="rounded-full" />
+            ) : (
+              <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
+            )}
+
           </button>
         </MenuHandler>
         <MenuList ref={ref} className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none" aria-label="ProfileMenu">

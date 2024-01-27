@@ -24,12 +24,13 @@
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "sublinks-js-client": "^0.0.3"
+    "sublinks-js-client": "^0.0.3",
+    "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.5.3",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "=18.2.42",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
