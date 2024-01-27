@@ -10,7 +10,7 @@ const Login = () => (
     <div className="text-sm mt-12 mb-24">
       <BodyText>{'Don’t have an account? '}</BodyText>
       <Link href="/register">
-        <LinkText>Join</LinkText>
+        <LinkText>Sign up</LinkText>
       </Link>
     </div>
     <LoginForm />

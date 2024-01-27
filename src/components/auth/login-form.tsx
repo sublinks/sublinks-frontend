@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FormEvent, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
@@ -39,12 +39,11 @@ const LoginForm = () => {
       }
 
       await sublinksClient().setAuth(jwt);
-      router.push(`/user/${username}`);
+      router.push('/');
     } catch (e) {
       setError('Login attempt failed. Please try again.');
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (

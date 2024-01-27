@@ -4,7 +4,7 @@ let client: SublinksClient;
 
 const isServerSide = () => typeof window === 'undefined';
 
-const getClientApiUrl = () => {
+const getApiHost = () => {
   const envUrl = isServerSide()
     ? process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
     : process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_PUBLIC_URL;
@@ -13,10 +13,10 @@ const getClientApiUrl = () => {
 };
 
 const sublinksClient = () => {
-  const apiUrl = getClientApiUrl();
+  const apiHost = getApiHost();
 
   if (!client) {
-    client = new SublinksClient(apiUrl, { insecure: process.env.NODE_ENV !== 'production' });
+    client = new SublinksClient(apiHost, { insecure: process.env.NODE_ENV !== 'production' });
   }
 
   return client;
