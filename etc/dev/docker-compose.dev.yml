@@ -27,9 +27,18 @@ services:
       SUBLINKS_JWT_SECRET: cHVkZGluLXdpbnN0b24taXJpcy1hcnlhLWZpbm4tcGlja2xlcy1jaGVlc2UtYm9vYnM=
       SUBLINKS_BASE_URL: http://sublinks:8080
       SUBLINKS_PICTRS_URL: http://pictrs:8080
+      FEDERATION_QUEUE_HOST: localhost
+      FEDERATION_QUEUE_PORT: 5672
+      FEDERATION_QUEUE_USER: sublinks
+      FEDERATION_QUEUE_PASS: sublinks
+      FEDERATION_QUEUE_NAME: federation
+      FEDERATION_ROUTING_KEY: ""
+      BACKEND_QUEUE_NAME: backend
+      BACKEND_TOPIC_NAME: backend
     depends_on:
       - db
       - pictrs
+      - queue
 
   db:
     image: mysql:latest
@@ -41,6 +50,8 @@ services:
     volumes:
       - db:/var/lib/mysql
     restart: always
+    ports:
+      - "3306:3306"
 
   sublinks-ui:
     image: node:20-alpine
@@ -50,7 +61,7 @@ services:
       - /app/node_modules/
     command: sh -c "npm i && npm run dev"
     environment:
-      - SUBLINKS_API_BASE_URL=sublinks:8080
+      - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
       - WATCHPACK_POLLING=true
     restart: always
     depends_on:
@@ -63,7 +74,7 @@ services:
       - ./seeder/.:/job/.
     command: sh -c "npm i && npm run seed"
     environment:
-      - SUBLINKS_API_BASE_URL=sublinks:8080
+      - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
     depends_on:
       - db
       - sublinks
@@ -82,3 +93,13 @@ services:
       - pictrs:/mnt:Z
     user: 991:991
     restart: always
+
+  queue:
+    image: rabbitmq:3-management
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=sublinks
+      - RABBITMQ_DEFAULT_PASS=sublinks
+    ports:
+      - "15672:15672"
+      - "5672:5672"

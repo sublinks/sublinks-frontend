@@ -1,47 +1,77 @@
 import React from 'react';
-import Image from 'next/image';
+import {
+  BellIcon,
+  ClipboardIcon,
+  HeartIcon,
+  ShieldExclamationIcon
+} from '@heroicons/react/24/outline';
+
+import sublinksClient from '@/utils/client';
+import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-
-import { InputField } from '../input';
-import { LinkText } from '../text';
 import ProfileMenu from '../profile-menu';
+import HeaderLogo from './header-logo';
+import HeaderSearch from './header-search';
+import Icon, { ICON_SIZE } from '../icon';
+import HeaderLayout from './header-layout';
+import * as testData from '../../../test-instance-data.json';
+import { LinkText } from '../text';
 
-const Header = () => (
-  <header className="hidden md:flex items-center justify-between py-8 px-8 md:px-16 bg-primary dark:bg-primary-dark">
-    <div className="flex items-center">
-      <Link href="/">
-        <Image
-          className="h-32 w-32"
-          src="/logo.png"
-          alt="Sublinks logo"
-          width={32}
-          height={32}
-          priority
-        />
-      </Link>
-      <div className="flex gap-16 ml-24 items-center">
-        <Link href="/communities">
-          <LinkText>Create community</LinkText>
+const Header = async () => {
+  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getSite()
+    : testData as unknown as GetSiteResponse;
+
+  return (
+    <HeaderLayout>
+      {/* Header Left Side */}
+      <div className="flex gap-8 lg:gap-16 items-center text-sm lg:text-base">
+        <HeaderLogo name={instance.site_view.site.name} icon={instance.site_view.site.icon || '/logo.png'} />
+
+        <p className="text-gray-200 dark:text-gray-400 hover:cursor-default">/</p>
+
+        <Link href="/c">
+          <LinkText>Communities</LinkText>
         </Link>
+
         <Link href="/p">
           <LinkText>Create post</LinkText>
         </Link>
+
+        <Link href="/create_community">
+          <LinkText>Create community</LinkText>
+        </Link>
+
+        <Link href="/donate">
+          <Icon IconType={HeartIcon} size={ICON_SIZE.SMALL} title="Donate icon" isInteractable />
+        </Link>
       </div>
-    </div>
-    <div className="flex items-center gap-12">
-      <InputField
-        type="text"
-        name="search"
-        id="search"
-        label="Search"
-        placeholder="Search"
-        LeftIcon={MagnifyingGlassIcon}
-        className="w-240 lg:hover:w-500 lg:focus-within:w-500 transition-all"
-      />
-      <ProfileMenu />
-    </div>
-  </header>
-);
+
+      {/* Header Right Side */}
+      <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
+        <HeaderSearch />
+
+        {false && ( // Change to check if a user is logged in
+          <Link href="/inbox">
+            <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
+          </Link>
+        )}
+
+        {false && ( // Change to check if a user is a mod or an admin
+          <Link href="/reports">
+            <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
+          </Link>
+        )}
+
+        {false && ( // Change to check if applications are enabled and the user is an admin
+          <Link href="/registration_applications">
+            <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
+          </Link>
+        )}
+
+        <ProfileMenu />
+      </div>
+    </HeaderLayout>
+  );
+};
 
 export default Header;
