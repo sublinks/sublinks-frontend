@@ -28,12 +28,12 @@
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^1.5.3",
+    "@stylistic/eslint-plugin-js": "^1.5.4",
     "@types/node": "^20",
-    "@types/react": "=18.2.42",
+    "@types/react": "=18.2.48",
     "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.19.0",
-    "@typescript-eslint/parser": "^6.19.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.1",
+    "@typescript-eslint/parser": "^6.19.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
