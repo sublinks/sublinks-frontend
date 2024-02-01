@@ -10,7 +10,7 @@ import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LoginForm = () => {
-  const { setMyUser } = useContext(UserContext);
+  const { saveMyUserFromSite } = useContext(UserContext);
   const router = useRouter();
   const [error, setError] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,11 +32,7 @@ const LoginForm = () => {
 
     try {
       await SublinksApi.Instance().login(username, password);
-
-      const site = await SublinksApi.Instance().Client().getSite();
-      if (site.my_user) {
-        setMyUser(site.my_user);
-      }
+      saveMyUserFromSite();
 
       router.push('/');
     } catch (e) {

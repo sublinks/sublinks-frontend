@@ -48,6 +48,13 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
     },
     {
       item: <ThemeSwitch key="theme-switcher" mode={theme as 'dark' | 'light'} onSwitch={setTheme} />
+    },
+    {
+      item: (
+        <Link href="/logout" className="flex items-center w-full">
+          <LinkText>Log out</LinkText>
+        </Link>
+      )
     }
   ];
 
