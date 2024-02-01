@@ -2,10 +2,10 @@ import React from 'react';
 
 import { BodyTitle } from '@/components/text';
 
-const Register = () => (
+const Signup = () => (
   <div>
-    <BodyTitle>Register page WIP</BodyTitle>
+    <BodyTitle>Signup page WIP</BodyTitle>
   </div>
 );
 
-export default Register;
+export default Signup;
