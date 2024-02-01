@@ -1,23 +1,26 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import SublinksApi from '@/utils/client';
+import { UserContext } from '@/context/user';
 
 const Logout = () => {
   const router = useRouter();
+  const { clearMyUser } = useContext(UserContext);
 
   useEffect(() => {
-    const logoutUser = async () => {
+    const logout = async () => {
       await SublinksApi.Instance().logout();
+      clearMyUser();
       router.replace('/');
     };
 
-    logoutUser();
-  });
+    logout();
+  }, [clearMyUser, router]);
 
-  return null;
+  return <div />;
 };
 
 export default Logout;

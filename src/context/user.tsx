@@ -9,11 +9,14 @@ import React, {
 
 interface UserContextState {
   myUser?: MyUserInfo;
+  clearMyUser: () => void;
   saveMyUserFromSite: () => void;
 }
 
+// Placeholders for function to make sure TS always considers it defined
 export const UserContext = createContext<UserContextState>({
-  saveMyUserFromSite: () => {} // Placeholder to make sure TS always considers it defined
+  clearMyUser: () => {},
+  saveMyUserFromSite: () => {}
 });
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,12 +30,15 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const clearMyUser = () => setMyUser(undefined);
+
   useEffect(() => {
     saveMyUserFromSite();
   }, []);
 
   const providerValue = useMemo((): UserContextState => ({
     myUser,
+    clearMyUser,
     saveMyUserFromSite
   }), [myUser]);
 

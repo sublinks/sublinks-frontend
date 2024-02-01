@@ -56,9 +56,9 @@ class SublinksApi {
       return;
     }
 
-    await this.client.logout();
-
+    this.hasValidAuth = false;
     Cookies.remove(AUTH_COOKIE_NAME);
+    await this.client.logout();
   }
 
   public Client() {
@@ -70,7 +70,7 @@ class SublinksApi {
   }
 
   public static Instance() {
-    return SublinksApi.instance || new SublinksApi();
+    return SublinksApi.instance ?? new SublinksApi();
   }
 }
 
