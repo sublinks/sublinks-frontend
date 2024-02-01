@@ -1,6 +1,8 @@
 'use client';
 
-import React, { FormEvent, useContext, useState } from 'react';
+import React, {
+  FormEvent, useContext, useEffect, useState
+} from 'react';
 import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
@@ -10,10 +12,17 @@ import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LoginForm = () => {
-  const { saveMyUserFromSite } = useContext(UserContext);
+  const { myUser, saveMyUserFromSite } = useContext(UserContext);
   const router = useRouter();
   const [error, setError] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Redirect when login succeeds, or on load if user is already logged in
+  useEffect(() => {
+    if (router && myUser) {
+      router.push('/');
+    }
+  }, [router, myUser]);
 
   const handleLoginAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,8 +42,6 @@ const LoginForm = () => {
     try {
       await SublinksApi.Instance().login(username, password);
       saveMyUserFromSite();
-
-      router.push('/');
     } catch (e) {
       setError('Login attempt failed. Please try again.');
       setIsSubmitting(false);
