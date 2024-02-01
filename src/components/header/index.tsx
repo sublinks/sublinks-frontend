@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  BellIcon,
-  ClipboardIcon,
-  HeartIcon,
-  ShieldExclamationIcon
-} from '@heroicons/react/24/outline';
-
-import SublinksApi from '@/utils/client';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
-import ProfileMenu from '../profile-menu';
+
+import SublinksApi from '@/utils/client';
+import ProfileMenu from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
 import Icon, { ICON_SIZE } from '../icon';
@@ -50,25 +45,6 @@ const Header = async () => {
       {/* Header Right Side */}
       <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
         <HeaderSearch />
-
-        {false && ( // Change to check if a user is logged in
-          <Link href="/inbox">
-            <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
-          </Link>
-        )}
-
-        {false && ( // Change to check if a user is a mod or an admin
-          <Link href="/reports">
-            <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
-          </Link>
-        )}
-
-        {false && ( // Change to check if applications are enabled and the user is an admin
-          <Link href="/registration_applications">
-            <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
-          </Link>
-        )}
-
         <ProfileMenu />
       </div>
     </HeaderLayout>
