@@ -4,7 +4,7 @@ import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
 
 import SublinksApi from '@/utils/client';
-import ProfileMenu from '../user-nav';
+import UserNav from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
 import Icon, { ICON_SIZE } from '../icon';
@@ -45,7 +45,7 @@ const Header = async () => {
       {/* Header Right Side */}
       <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
         <HeaderSearch />
-        <ProfileMenu />
+        <UserNav />
       </div>
     </HeaderLayout>
   );

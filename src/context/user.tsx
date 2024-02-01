@@ -1,10 +1,11 @@
 'use client';
 
+import { MyUserInfo } from 'sublinks-js-client';
+
 import SublinksApi from '@/utils/client';
 import React, {
   createContext, useEffect, useMemo, useState
 } from 'react';
-import { MyUserInfo } from 'sublinks-js-client';
 
 interface UserContextState {
   myUser?: MyUserInfo;
@@ -12,7 +13,7 @@ interface UserContextState {
 }
 
 export const UserContext = createContext<UserContextState>({
-  saveMyUserFromSite: () => {}
+  saveMyUserFromSite: () => {} // Placeholder to make sure TS always considers it defined
 });
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
