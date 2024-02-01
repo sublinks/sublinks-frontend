@@ -1,14 +1,16 @@
 'use client';
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
 import SublinksApi from '@/utils/client';
+import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LoginForm = () => {
+  const { setMyUser } = useContext(UserContext);
   const router = useRouter();
   const [error, setError] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +33,12 @@ const LoginForm = () => {
     try {
       await SublinksApi.Instance().login(username, password);
 
-      router.refresh();
+      const site = await SublinksApi.Instance().Client().getSite();
+      if (site.my_user) {
+        setMyUser(site.my_user);
+      }
+
+      router.push('/');
     } catch (e) {
       setError('Login attempt failed. Please try again.');
       setIsSubmitting(false);

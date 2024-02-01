@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 import Icon, { ICON_SIZE } from '../icon';
-import ProfileMenu from '../profile-menu';
+import ProfileMenu from '../user-nav';
 import BottomNavDiv from './bottom-nav-div';
 
 const BottomNav = () => (
