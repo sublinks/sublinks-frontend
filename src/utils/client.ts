@@ -51,6 +51,16 @@ class SublinksApi {
     });
   }
 
+  public async logout() {
+    if (!this.hasValidAuth) {
+      return;
+    }
+
+    await this.client.logout();
+
+    Cookies.remove(AUTH_COOKIE_NAME);
+  }
+
   public Client() {
     if (!this.hasValidAuth) {
       this.setAuthHeader();

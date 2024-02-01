@@ -39,8 +39,8 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
     {
       item:
           (
-            <Link href="/user/todo" className="justify-center flex">
-              <LinkText className="text-center w-full">
+            <Link href="/user/todo" className="justify-center flex w-full">
+              <LinkText className="text-md">
                 Profile
               </LinkText>
             </Link>
@@ -51,8 +51,8 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
     },
     {
       item: (
-        <Link href="/logout" className="flex items-center w-full">
-          <LinkText>Log out</LinkText>
+        <Link href="/logout" className="justify-center flex w-full">
+          <LinkText className="text-md">Log out</LinkText>
         </Link>
       )
     }
