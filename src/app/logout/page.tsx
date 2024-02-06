@@ -3,7 +3,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 
 const Logout = () => {

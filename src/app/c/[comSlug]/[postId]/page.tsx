@@ -4,7 +4,7 @@ import MainCard from '@/components/main-card';
 import PostHeader from '@/components/post-header';
 import LinkedPostSubTitle from '@/components/post-subtitle';
 import { getPostThumbnailUrl, isImage } from '@/utils/links';
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/server';
 
 import * as testData from '../../../../../test-data.json';
 

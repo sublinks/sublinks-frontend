@@ -1,7 +1,12 @@
-import Cookies from 'js-cookie';
 import { SublinksClient } from 'sublinks-js-client';
 
 export const AUTH_COOKIE_NAME = 'auth';
+
+export interface CookieStore {
+  get: () => string;
+  set: (value: string, options?: object) => void;
+  remove: () => void;
+}
 
 const isServerSide = () => typeof window === 'undefined';
 
@@ -13,20 +18,23 @@ const getApiHost = () => {
   return envUrl || 'localhost:8080';
 };
 
-class SublinksApi {
+class SublinksApiBase {
   private client: SublinksClient;
-
-  private static instance: SublinksApi;
 
   private hasValidAuth = false;
 
+  public authCookieStore: CookieStore | null = null;
+
   constructor() {
     this.client = new SublinksClient(getApiHost(), { insecure: process.env.NODE_ENV !== 'production' });
-    this.setAuthHeader();
   }
 
-  private setAuthHeader() {
-    const jwtAuth = Cookies.get(AUTH_COOKIE_NAME);
+  public setAuthCookieStore(store: CookieStore) {
+    this.authCookieStore = store;
+  }
+
+  public setAuthHeader() {
+    const jwtAuth = this.authCookieStore?.get();
 
     if (jwtAuth) {
       this.client.setAuth(jwtAuth);
@@ -44,7 +52,7 @@ class SublinksApi {
       throw Error('JWT not returned from server');
     }
 
-    Cookies.set(AUTH_COOKIE_NAME, jwt, {
+    this.authCookieStore?.set(jwt, {
       secure: window.location.protocol.includes('https'),
       path: '/',
       sameSite: 'lax'
@@ -57,7 +65,7 @@ class SublinksApi {
     }
 
     this.hasValidAuth = false;
-    Cookies.remove(AUTH_COOKIE_NAME);
+    this.authCookieStore?.remove();
     await this.client.logout();
   }
 
@@ -68,10 +76,6 @@ class SublinksApi {
 
     return this.client;
   }
-
-  public static Instance() {
-    return SublinksApi.instance ?? new SublinksApi();
-  }
 }
 
-export default SublinksApi;
+export default SublinksApiBase;

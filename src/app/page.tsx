@@ -1,7 +1,7 @@
 import React from 'react';
 import { GetPostsResponse, GetSiteResponse } from 'sublinks-js-client';
 
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/server';
 import Feed from '@/components/front-page-feed';
 import * as testData from '../../test-data.json';
 import * as testInstanceData from '../../test-instance-data.json';

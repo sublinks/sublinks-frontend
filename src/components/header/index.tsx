@@ -3,7 +3,7 @@ import { HeartIcon } from '@heroicons/react/24/outline';
 import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
 
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/server';
 import UserNav from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';

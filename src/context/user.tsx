@@ -2,7 +2,7 @@
 
 import { MyUserInfo } from 'sublinks-js-client';
 
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/client';
 import React, {
   createContext, useEffect, useMemo, useState
 } from 'react';

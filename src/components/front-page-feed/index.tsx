@@ -6,7 +6,7 @@ import {
 } from 'sublinks-js-client';
 
 import PostFeed from '@/components/post-feed';
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/client';
 import PostFeedOptions from '@/components/post-feed-sort';
 import * as testData from '../../../test-data.json';
 import Sidebar from '../sidebar';

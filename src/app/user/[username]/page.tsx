@@ -5,7 +5,7 @@ import { PersonBio, PersonHeader } from '@/components/person-detail';
 import MainCard from '@/components/main-card';
 import { ModeratesList, ModeratesProps } from '@/components/moderates-list';
 import { PersonDetailSelection } from '@/components/person-comments-posts';
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/server';
 
 import * as testData from '../../../../test-person-data.json';
 

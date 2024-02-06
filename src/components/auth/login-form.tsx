@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
 

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 
 import PostFeed from '@/components/post-feed';
 import { H1 } from '@/components/text';
-import SublinksApi from '@/utils/client';
+import SublinksApi from '@/utils/api-client/server';
 import { getCommunityNameFromSlug } from '@/utils/communities';
 
 interface CommunityFeedProps {
