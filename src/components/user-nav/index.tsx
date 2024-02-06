@@ -126,7 +126,7 @@ const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
       <Link href="/login">
         <LinkText>Log In</LinkText>
       </Link>
-      <Link href="/signup">
+      <Link href="/signup" className="max-md:hidden">
         <LinkText>Sign Up</LinkText>
       </Link>
     </div>
