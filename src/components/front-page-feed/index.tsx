@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import PostFeed from '@/components/post-feed';
 import sublinksClient from '@/utils/client';
@@ -23,8 +23,10 @@ const Feed = ({ posts, site }: FeedProps) => {
   // @todo: Set this to the users default feed type
   const [postFeedType, setPostFeedType] = useState<ListingType>();
   const [postFeedSort, setPostFeedSort] = useState<SortType>();
-
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+
+  // Ref to track if the component is mounted
+  const isMounted = useRef<boolean>(false);
 
   const handleSidebarSwitch = (newState: boolean) => {
     setSidebarOpen(newState);
@@ -39,7 +41,13 @@ const Feed = ({ posts, site }: FeedProps) => {
         sort: postFeedSort
       }) : testData as unknown as GetPostsResponse);
     }
-    getPosts();
+
+    if (isMounted.current) {
+      getPosts();
+    } else {
+      // Mark component as mounted for the next render/update
+      isMounted.current = true;
+    }
   }, [postFeedSort, postFeedType]);
 
   return (
