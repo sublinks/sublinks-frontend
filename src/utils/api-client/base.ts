@@ -21,7 +21,7 @@ const getApiHost = () => {
 class SublinksApiBase {
   private client: SublinksClient;
 
-  private hasValidAuth = false;
+  protected hasValidAuth = false;
 
   public authCookieStore: CookieStore | null = null;
 
@@ -55,7 +55,7 @@ class SublinksApiBase {
     this.authCookieStore?.set(jwt, {
       secure: window.location.protocol.includes('https'),
       path: '/',
-      sameSite: 'lax'
+      sameSite: 'Lax'
     });
   }
 

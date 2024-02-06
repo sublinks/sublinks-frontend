@@ -19,7 +19,16 @@ class SublinksApiServerSide extends SublinksApiBase {
   }
 
   public static Instance() {
-    return SublinksApiServerSide.instance ?? new SublinksApiServerSide();
+    const currentInstance = SublinksApiServerSide.instance ?? new SublinksApiServerSide();
+    const authCookie = currentInstance.authCookieStore?.get();
+
+    // If user has been logged out client-side we're also logging them out server-side
+    if (!authCookie && currentInstance.hasValidAuth) {
+      console.log('LOGGING OUT SERVER');
+      currentInstance.logout();
+    }
+
+    return currentInstance;
   }
 }
 

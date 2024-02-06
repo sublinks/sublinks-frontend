@@ -6,14 +6,13 @@ class SublinksApiClientSide extends SublinksApiBase {
 
   constructor() {
     super();
-    console.log('client constructor');
+
     const cookieStore = {
       get: () => Cookies.get(AUTH_COOKIE_NAME),
       set: (value: string, options?: object) => Cookies.set(AUTH_COOKIE_NAME, value, options),
       remove: () => Cookies.remove(AUTH_COOKIE_NAME)
     } as CookieStore;
 
-    console.log('client constructor setting store');
     this.setAuthCookieStore(cookieStore);
     this.setAuthHeader();
   }
