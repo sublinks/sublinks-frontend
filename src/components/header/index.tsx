@@ -16,6 +16,7 @@ const Header = async () => {
   const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
     ? await SublinksApi.Instance().Client().getSite()
     : testData as unknown as GetSiteResponse;
+  const myUser = instance?.my_user;
 
   return (
     <HeaderLayout>
@@ -45,7 +46,7 @@ const Header = async () => {
       {/* Header Right Side */}
       <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
         <HeaderSearch />
-        <UserNav />
+        <UserNav initialMyUser={myUser} />
       </div>
     </HeaderLayout>
   );

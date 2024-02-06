@@ -113,11 +113,12 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
   );
 };
 
-const UserNav = () => {
+const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
   const { myUser } = useContext(UserContext);
+  const userData = myUser || initialMyUser;
 
-  if (myUser) {
-    return <ProfileMenu myUser={myUser} />;
+  if (userData) {
+    return <ProfileMenu myUser={userData} />;
   }
 
   return (
