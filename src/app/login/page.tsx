@@ -5,7 +5,7 @@ import Link from 'next/link';
 import LoginForm from '@/components/auth/login-form';
 
 const Login = () => (
-  <div className="flex flex-col p-56 max-w-500">
+  <div className="flex flex-col p-24 md:p-56 max-w-full md:max-w-500">
     <H1>Login</H1>
     <div className="text-sm mt-12 mb-24">
       <BodyText>{'Don’t have an account? '}</BodyText>
