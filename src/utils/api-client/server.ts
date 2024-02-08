@@ -10,7 +10,10 @@ class SublinksApiServerSide extends SublinksApiBase {
     const nextCookies = cookies();
     const cookieStore = {
       get: () => nextCookies.get(AUTH_COOKIE_NAME)?.value,
-      set: (value: string, options?: object) => nextCookies.set(AUTH_COOKIE_NAME, value, options),
+      set: (value: string, options?: object) => nextCookies.set(AUTH_COOKIE_NAME, value, {
+        ...options,
+        httpOnly: true
+      }),
       remove: () => nextCookies.delete(AUTH_COOKIE_NAME)
     } as CookieStore;
 
