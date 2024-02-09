@@ -1,6 +1,7 @@
 import { SublinksClient } from 'sublinks-js-client';
 
 export const AUTH_COOKIE_NAME = 'auth';
+const AUTH_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 365 days
 
 export interface CookieStore {
   get: () => string;
@@ -53,6 +54,7 @@ class SublinksApiBase {
     }
 
     this.authCookieStore?.set(jwt, {
+      expires: new Date(Date.now() + AUTH_TTL_MS),
       secure: window.location.protocol.includes('https'),
       path: '/',
       sameSite: 'Lax'
