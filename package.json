@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
-    "@material-tailwind/react": "^2.1.8",
+    "@material-tailwind/react": "^2.1.9",
     "@uiw/react-md-editor": "^4.0.3",
     "classnames": "^2.5.1",
     "next": "14.1.0",
@@ -28,12 +28,12 @@
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^1.5.4",
-    "@types/node": "^20.11.16",
+    "@stylistic/eslint-plugin-js": "^1.6.1",
+    "@types/node": "^20.11.17",
     "@types/react": "=18.2.48",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.20.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
     "eslint-config-airbnb": "^19.0.4",
@@ -44,7 +44,7 @@
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "postcss": "^8.4.34",
+    "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
