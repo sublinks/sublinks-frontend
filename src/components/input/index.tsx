@@ -28,6 +28,7 @@ interface InputFieldProps {
   placeholder: string;
   disabled?: boolean;
   LeftIcon?: React.FunctionComponent;
+  hasError?: boolean;
   className?: string;
   inputClassName?: string;
   iconClassName?: string;
@@ -43,6 +44,7 @@ const InputField = ({
   placeholder,
   disabled,
   LeftIcon,
+  hasError,
   className,
   inputClassName,
   iconClassName,
@@ -53,7 +55,7 @@ const InputField = ({
     <label htmlFor={name} className="sr-only">
       {label}
     </label>
-    <div className="relative flex items-center border-2 border-gray-300 dark:border-gray-900 rounded-md px-8">
+    <div className={cx('relative flex items-center border-2 rounded-md px-8', hasError ? 'border-red-700 dark:border-red-400' : 'border-gray-300 dark:border-gray-900')}>
       {LeftIcon && (
         <span className="aria-hidden">
           <Icon IconType={LeftIcon} size={ICON_SIZE.SMALL} className={iconClassName} />

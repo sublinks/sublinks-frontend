@@ -11,10 +11,16 @@ import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
 
+const LOGIN_FIELD_IDS = {
+  USERNAME: 'username',
+  PASSWORD: 'password'
+};
+
 const LoginForm = () => {
   const { myUser, saveMyUserFromSite } = useContext(UserContext);
   const router = useRouter();
-  const [error, setError] = useState<string>();
+  const [erroneousFields, setErroneousFields] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Redirect when login succeeds, or on load if user is already logged in
@@ -27,23 +33,34 @@ const LoginForm = () => {
   const handleLoginAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
-    setError(undefined);
+    setErrorMessage(undefined);
+    setErroneousFields([]);
 
     const formData = new FormData(event.currentTarget);
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
+    const fieldValues: Record<string, string> = {
+      username: formData.get('username') as string,
+      password: formData.get('password') as string
+    };
+    const emptyFields: string[] = [];
 
-    if (!username || !password) {
-      setError('Please enter your username and password');
+    Object.keys(fieldValues).forEach(fieldKey => {
+      if (!fieldValues[fieldKey]) {
+        emptyFields.push(fieldKey);
+      }
+    });
+
+    if (emptyFields.length > 0) {
+      setErroneousFields(emptyFields);
+      setErrorMessage('Please enter your username and password');
       setIsSubmitting(false);
       return;
     }
 
     try {
-      await SublinksApi.Instance().login(username, password);
+      await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
       saveMyUserFromSite();
     } catch (e) {
-      setError('Login attempt failed. Please try again.');
+      setErrorMessage('Login attempt failed. Please try again.');
       setIsSubmitting(false);
     }
   };
@@ -51,11 +68,29 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleLoginAttempt} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <InputField type="text" label="Username" name="username" id="username" placeholder="Username" showBorderPlaceholder disabled={isSubmitting} />
-        <InputField type="password" label="Password" name="password" id="password" placeholder="Password" showBorderPlaceholder disabled={isSubmitting} />
+        <InputField
+          type="text"
+          label="Username"
+          name={LOGIN_FIELD_IDS.USERNAME}
+          id={LOGIN_FIELD_IDS.USERNAME}
+          placeholder="Username"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(LOGIN_FIELD_IDS.USERNAME)}
+        />
+        <InputField
+          type="password"
+          label="Password"
+          name={LOGIN_FIELD_IDS.PASSWORD}
+          id={LOGIN_FIELD_IDS.PASSWORD}
+          placeholder="Password"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(LOGIN_FIELD_IDS.PASSWORD)}
+        />
       </div>
       <div className="h-32">
-        {error && <ErrorText className="text-sm">{error}</ErrorText>}
+        {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting}>
         <BodyTitleInverse>Log In</BodyTitleInverse>
