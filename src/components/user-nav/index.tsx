@@ -26,11 +26,10 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
 
   const userAvatar = myUser?.local_user_view.person.avatar;
 
+  // @todo: Move to theme provider or a similar high-level component
   useEffect(() => {
-    document.documentElement.classList.remove('dark');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    }
+    const className = 'dark';
+    document.documentElement.classList.toggle(className, theme === 'dark');
   }, [theme]);
 
   const items: {
@@ -64,19 +63,19 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
 
   return (
     <div className="flex justify-center items-center">
-      {false && ( // Change to check if a user is logged in
+      {false && ( // @todo: Change to check if a user is logged in
       <Link href="/inbox">
         <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
       </Link>
       )}
 
-      {false && ( // Change to check if a user is a mod or an admin
+      {false && ( // @todo: Change to check if a user is a mod or an admin
       <Link href="/reports">
         <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
       </Link>
       )}
 
-      {false && ( // Change to check if applications are enabled and the user is an admin
+      {false && ( // @todo: Change to check if applications are enabled and the user is an admin
       <Link href="/registration_applications">
         <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
       </Link>
