@@ -20,7 +20,7 @@ const LoginForm = () => {
   const { myUser, saveMyUserFromSite } = useContext(UserContext);
   const router = useRouter();
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Redirect when login succeeds, or on load if user is already logged in
@@ -33,7 +33,7 @@ const LoginForm = () => {
   const handleLoginAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
-    setErrorMessage(undefined);
+    setErrorMessage('');
     setErroneousFields([]);
 
     const formData = new FormData(event.currentTarget);
@@ -89,7 +89,7 @@ const LoginForm = () => {
           hasError={erroneousFields.includes(LOGIN_FIELD_IDS.PASSWORD)}
         />
       </div>
-      <div className="h-32">
+      <div aria-live="polite" className="h-32">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting}>
