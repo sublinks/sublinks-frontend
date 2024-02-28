@@ -55,7 +55,7 @@ class SublinksApiBase {
 
     this.authCookieStore?.set(jwt, {
       expires: new Date(Date.now() + AUTH_TTL_MS),
-      secure: window.location.protocol.includes('https'),
+      secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED ?? false,
       path: '/',
       sameSite: 'Lax'
     });

@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 interface UserContextState {
-  myUser?: MyUserInfo;
+  myUser?: MyUserInfo; // Undefined when user is not logged in
   clearMyUser: () => void;
   saveMyUserFromSite: () => void;
 }

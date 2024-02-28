@@ -63,6 +63,7 @@ services:
     environment:
       - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
       - NEXT_PUBLIC_SUBLINKS_API_BASE_PUBLIC_URL=localhost:3000
+      - NEXT_PUBLIC_HTTPS_ENABLED=false
       - WATCHPACK_POLLING=true
     restart: always
     depends_on:
