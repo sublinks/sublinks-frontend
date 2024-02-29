@@ -6,6 +6,7 @@ import SublinksApi from '@/utils/api-client/client';
 import React, {
   createContext, useEffect, useMemo, useState
 } from 'react';
+import logger from '@/utils/logger';
 
 interface UserContextState {
   myUser?: MyUserInfo; // Undefined when user is not logged in
@@ -23,10 +24,14 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [myUser, setMyUser] = useState<MyUserInfo>();
 
   const saveMyUserFromSite = async () => {
-    const site = await SublinksApi.Instance().Client().getSite();
+    try {
+      const site = await SublinksApi.Instance().Client().getSite();
 
-    if (site.my_user) {
-      setMyUser(site.my_user);
+      if (site.my_user) {
+        setMyUser(site.my_user);
+      }
+    } catch (e) {
+      logger.error('Failed to get site for user context', e);
     }
   };
 
