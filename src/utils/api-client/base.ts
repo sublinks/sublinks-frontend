@@ -22,7 +22,7 @@ const getApiHost = () => {
 };
 
 class SublinksApiBase {
-  private client: SublinksClient;
+  protected client: SublinksClient;
 
   protected hasValidAuth = false;
 

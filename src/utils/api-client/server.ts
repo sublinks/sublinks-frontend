@@ -45,9 +45,13 @@ class SublinksApiServerSide extends SublinksApiBase {
     const currentInstance = SublinksApiServerSide.instance ?? new SublinksApiServerSide();
     const authCookie = currentInstance.authCookieStore?.get();
 
-    // If user has been logged out client-side we're also logging them out server-side
+    // If user auth has been invalidate client-side we're also logging them out server-side
+    // @todo: validateAuth is not yet supported by Sublinks backend. Re-test this when backend is updated.
     if (!authCookie && currentInstance.hasValidAuth) {
-      currentInstance.logout();
+      currentInstance.client.validateAuth().catch(() => {
+        console.info('User auth has been invalidated. Logging user out server-side.');
+        currentInstance.logout();
+      });
     }
 
     return currentInstance;

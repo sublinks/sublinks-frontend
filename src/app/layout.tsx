@@ -55,12 +55,11 @@ const RootLayout = ({
             <Header />
             <BottomNav />
 
-            <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">
+            <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">
               <CurvedCorner left />
               <CurvedCorner right />
               {children}
             </main>
-
           </body>
         </html>
       </ThemeProvider>
