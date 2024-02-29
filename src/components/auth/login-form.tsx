@@ -10,6 +10,7 @@ import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import { BodyTitleInverse, ErrorText } from '../text';
+import logger from '@/utils/logger';
 
 const LOGIN_FIELD_IDS = {
   USERNAME: 'username',
@@ -60,6 +61,7 @@ const LoginForm = () => {
       await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
       saveMyUserFromSite();
     } catch (e) {
+      logger.error('Login attempt failed', e);
       setErrorMessage('Login attempt failed. Please try again.');
       setIsSubmitting(false);
     }
