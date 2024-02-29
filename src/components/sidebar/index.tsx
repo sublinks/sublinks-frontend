@@ -13,6 +13,8 @@ interface SidebarProps {
   admins?: PersonView[];
 }
 
+const errorMessage = 'Something went wrong trying to show site information. Please reload the page to try again.';
+
 const Sidebar = ({
   open, onSwitch, site, admins
 }:
@@ -27,8 +29,7 @@ SidebarProps) => (
     >
       {site && admins
         ? <SidebarSiteInfo site={site} admins={admins} onSidebarSwitch={onSwitch} />
-        : <ErrorText>Something went wrong trying to show site information. Please reload the page to try again.</ErrorText>
-      }
+        : <ErrorText>{errorMessage}</ErrorText>}
     </div>
   </div>
 );

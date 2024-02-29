@@ -23,7 +23,7 @@ const Logout = () => {
   }, [clearMyUser, router]);
 
   return (
-    <div className='w-full mt-56 flex flex-col gap-8 items-center justify-center'>
+    <div className="w-full mt-56 flex flex-col gap-8 items-center justify-center">
       <BodyTitle>Logging out...</BodyTitle>
       <Spinner className="h-48 w-48" />
     </div>

@@ -9,8 +9,8 @@ import { InputField } from '@/components/input';
 import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
-import { BodyTitleInverse, ErrorText } from '../text';
 import logger from '@/utils/logger';
+import { BodyTitleInverse, ErrorText } from '../text';
 
 const LOGIN_FIELD_IDS = {
   USERNAME: 'username',

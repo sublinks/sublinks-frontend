@@ -37,7 +37,11 @@ const User = async ({ params: { username } }: UserViewProps) => {
   const userData = await getUser(username);
 
   if (!userData) {
-    return <ErrorText>Unable to show user information. Please reload the page to try again.</ErrorText>;
+    return (
+      <ErrorText>
+        Unable to show user information. Please reload the page to try again.
+      </ErrorText>
+    );
   }
 
   const {

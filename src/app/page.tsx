@@ -12,8 +12,8 @@ import * as testInstanceData from '../../test-instance-data.json';
 const getPosts = async () => {
   try {
     const posts = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-    ? await SublinksApi.Instance().Client().getPosts()
-    : JSON.stringify(testData) as unknown as GetPostsResponse;
+      ? await SublinksApi.Instance().Client().getPosts()
+      : JSON.stringify(testData) as unknown as GetPostsResponse;
 
     return posts;
   } catch (e) {

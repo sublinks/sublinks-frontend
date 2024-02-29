@@ -47,17 +47,18 @@ const Feed = ({ posts, site }: FeedProps) => {
       setShowPostsError(true);
       logger.error('Failed to retrieve posts', e);
     }
-  }
+  };
 
+  // Only run on initial mount in case server-side post fetch failed
   useEffect(() => {
     if (!postFeed) {
       getPosts();
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     getPosts();
-  }, [postFeedSort, postFeedType]);
+  }, [postFeedSort, postFeedType]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="relative">
@@ -81,7 +82,9 @@ const Feed = ({ posts, site }: FeedProps) => {
       </div>
       <div className="flex">
         {postFeed && <PostFeed data={postFeed.posts} />}
-        {showPostsError && <ErrorText>Unable to show posts. Please reload the page to try again.</ErrorText>}
+        {showPostsError && (
+          <ErrorText>Unable to show posts. Please reload the page to try again.</ErrorText>
+        )}
       </div>
     </div>
   );

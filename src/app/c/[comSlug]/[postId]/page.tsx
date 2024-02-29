@@ -7,8 +7,8 @@ import { getPostThumbnailUrl, isImage } from '@/utils/links';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 
-import * as testData from '../../../../../test-data.json';
 import { ErrorText } from '@/components/text';
+import * as testData from '../../../../../test-data.json';
 
 interface PostViewProps {
   params: {
@@ -21,12 +21,12 @@ interface PostViewProps {
 // as Sublinks Core doesn't yet handle all post features
 const getPost = async (postIdInt: number) => {
   try {
-    const post = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+    const postData = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
       ? await SublinksApi.Instance().Client().getPost({
         id: postIdInt
       }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
 
-    return post;
+    return postData;
   } catch (e) {
     logger.error('Failed to retrieve post', e);
     return undefined;
