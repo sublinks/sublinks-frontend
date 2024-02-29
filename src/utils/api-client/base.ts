@@ -1,5 +1,7 @@
 import { SublinksClient } from 'sublinks-js-client';
 
+import logger from '../logger';
+
 export const AUTH_COOKIE_NAME = 'auth';
 const AUTH_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 365 days
 
@@ -34,31 +36,39 @@ class SublinksApiBase {
     this.authCookieStore = store;
   }
 
-  public setAuthHeader() {
+  public async setAuthHeader() {
     const jwtAuth = this.authCookieStore?.get();
 
     if (jwtAuth) {
-      this.client.setAuth(jwtAuth);
-      this.hasValidAuth = true;
+      try {
+        await this.client.setAuth(jwtAuth);
+        this.hasValidAuth = true;
+      } catch (e) {
+        logger.error('Failed to set auth header', e);
+      }
     }
   }
 
   public async login(username: string, password: string) {
-    const { jwt } = await this.client.login({
-      username_or_email: username,
-      password
-    });
+    try {
+      const { jwt } = await this.client.login({
+        username_or_email: username,
+        password
+      });
 
-    if (!jwt) {
-      throw Error('JWT not returned from server');
+      if (!jwt) {
+        throw Error('JWT not returned from server');
+      }
+
+      this.authCookieStore?.set(jwt, {
+        expires: new Date(Date.now() + AUTH_TTL_MS),
+        secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED ?? false,
+        path: '/',
+        sameSite: 'Lax'
+      });
+    } catch (e) {
+      logger.error('Failed to login user', e);
     }
-
-    this.authCookieStore?.set(jwt, {
-      expires: new Date(Date.now() + AUTH_TTL_MS),
-      secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED ?? false,
-      path: '/',
-      sameSite: 'Lax'
-    });
   }
 
   public async logout() {
@@ -67,8 +77,13 @@ class SublinksApiBase {
     }
 
     this.hasValidAuth = false;
-    this.authCookieStore?.remove();
-    await this.client.logout();
+
+    try {
+      await this.client.logout();
+      this.authCookieStore?.remove();
+    } catch (e) {
+      logger.error('Failed to logout user', e);
+    }
   }
 
   public Client() {
