@@ -4,6 +4,7 @@ import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
 
 import SublinksApi from '@/utils/api-client/server';
+import logger from '@/utils/logger';
 import UserNav from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
@@ -12,17 +13,28 @@ import HeaderLayout from './header-layout';
 import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
+const getSite = async () => {
+  try {
+    const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+      ? await SublinksApi.Instance().Client().getSite()
+      : JSON.parse(JSON.stringify(testData)) as unknown as GetSiteResponse;
+
+    return site;
+  } catch (e) {
+    logger.error('Failed to retrieve site for header', e);
+    return undefined;
+  }
+};
+
 const Header = async () => {
-  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-    ? await SublinksApi.Instance().Client().getSite()
-    : testData as unknown as GetSiteResponse;
-  const myUser = instance?.my_user;
+  const site = await getSite();
+  const myUser = site?.my_user;
 
   return (
     <HeaderLayout>
       {/* Header Left Side */}
       <div className="flex gap-8 lg:gap-16 items-center text-sm lg:text-base">
-        <HeaderLogo name={instance.site_view.site.name} icon={instance.site_view.site.icon || '/logo.png'} />
+        <HeaderLogo name={site?.site_view?.site.name || 'Sublinks'} icon={site?.site_view?.site?.icon || '/logo.png'} />
 
         <p className="text-gray-200 dark:text-gray-400 hover:cursor-default">/</p>
 

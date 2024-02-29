@@ -5,10 +5,10 @@ import { CommentAggregates } from 'sublinks-js-client';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 
 import SublinksApi from '@/utils/api-client/client';
+import logger from '@/utils/logger';
 import Icon, { ICON_SIZE } from '../icon';
 import LinkButton from '../button-link';
 import VoteButtons from '../button-votes';
-import logger from '@/utils/logger';
 
 interface CommentActionProps {
   votes: CommentAggregates;
