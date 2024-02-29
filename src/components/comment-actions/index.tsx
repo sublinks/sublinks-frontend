@@ -29,7 +29,7 @@ export const CommentAction = ({
       });
     } catch (e) {
       logger.error(`Failed to vote on comment with ID ${votes.comment_id}`, e);
-      // @todo: Show error message/toast
+      // @todo: Show error message/toast: https://github.com/sublinks/sublinks-frontend/issues/15
     }
   };
 

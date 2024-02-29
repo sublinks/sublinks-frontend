@@ -13,6 +13,8 @@ import HeaderLayout from './header-layout';
 import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
+// @todo: Allow test data when in non-docker dev env
+// as Sublinks Core doesn't yet handle all post features
 const getSite = async () => {
   try {
     const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL

@@ -17,6 +17,8 @@ interface PostViewProps {
   }
 }
 
+// @todo: Allow test data when in non-docker dev env
+// as Sublinks Core doesn't yet handle all post features
 const getPost = async (postIdInt: number) => {
   try {
     const post = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
