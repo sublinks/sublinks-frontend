@@ -29,7 +29,7 @@ const getPost = async (postIdInt: number) => {
     logger.error('Failed to retrieve post', e);
     return undefined;
   }
-}
+};
 
 const PostView = async ({ params: { postId } }: PostViewProps) => {
   // @todo: Allow test data when in non-docker dev env

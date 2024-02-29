@@ -8,6 +8,7 @@ import SublinksApi from '@/utils/api-client/client';
 import Icon, { ICON_SIZE } from '../icon';
 import LinkButton from '../button-link';
 import VoteButtons from '../button-votes';
+import logger from '@/utils/logger';
 
 interface CommentActionProps {
   votes: CommentAggregates;
@@ -21,10 +22,15 @@ export const CommentAction = ({
   const handleVote = async (vote: number) => {
     if (!process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL) return;
 
-    await SublinksApi.Instance().Client().likeComment({
-      comment_id: votes.comment_id,
-      score: vote
-    });
+    try {
+      await SublinksApi.Instance().Client().likeComment({
+        comment_id: votes.comment_id,
+        score: vote
+      });
+    } catch (e) {
+      logger.error(`Failed to vote on comment with ID ${votes.comment_id}`, e);
+      // @todo: Show error message/toast
+    }
   };
 
   return (

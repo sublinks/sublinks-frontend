@@ -23,7 +23,7 @@ const getSite = async () => {
     logger.error('Failed to retrieve site for bottom nav', e);
     return undefined;
   }
-}
+};
 
 const BottomNav = async () => {
   const site = await getSite();

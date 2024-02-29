@@ -20,7 +20,7 @@ const getPosts = async () => {
     logger.error('Failed to retrieve posts', e);
     return undefined;
   }
-}
+};
 
 const getSite = async () => {
   try {
@@ -33,7 +33,7 @@ const getSite = async () => {
     logger.error('Failed to retrieve site', e);
     return undefined;
   }
-}
+};
 
 const page = async () => {
   const posts = await getPosts();

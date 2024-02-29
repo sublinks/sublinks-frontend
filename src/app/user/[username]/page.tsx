@@ -18,7 +18,7 @@ interface UserViewProps {
 }
 
 // @todo: Allow test data when in non-docker dev env
-  // as Sublinks Core doesn't yet handle all user properties
+// as Sublinks Core doesn't yet handle all user properties
 const getUser = async (username: string) => {
   try {
     const user = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
@@ -31,7 +31,7 @@ const getUser = async (username: string) => {
     logger.error('Failed to retrieve user', e);
     return undefined;
   }
-}
+};
 
 const User = async ({ params: { username } }: UserViewProps) => {
   const userData = await getUser(username);
