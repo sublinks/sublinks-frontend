@@ -6,16 +6,28 @@ import {
 import { GetSiteResponse } from 'sublinks-js-client';
 
 import SublinksApi from '@/utils/api-client/client';
+import logger from '@/utils/logger';
 import Icon, { ICON_SIZE } from '../icon';
 import UserNav from '../user-nav';
 import BottomNavDiv from './bottom-nav-div';
 import * as testData from '../../../test-instance-data.json';
 
+const getSite = async () => {
+  try {
+    const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+      ? await SublinksApi.Instance().Client().getSite()
+      : JSON.parse(JSON.stringify(testData)) as unknown as GetSiteResponse;
+
+    return site;
+  } catch (e) {
+    logger.error('Failed to retrieve site for bottom nav', e);
+    return undefined;
+  }
+}
+
 const BottomNav = async () => {
-  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-    ? await SublinksApi.Instance().Client().getSite()
-    : testData as unknown as GetSiteResponse;
-  const myUser = instance?.my_user;
+  const site = await getSite();
+  const myUser = site?.my_user;
 
   return (
     <BottomNavDiv>
