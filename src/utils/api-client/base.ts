@@ -41,7 +41,7 @@ class SublinksApiBase {
 
     if (jwtAuth) {
       try {
-        await this.client.setAuth(jwtAuth);
+        this.client.setAuth(jwtAuth);
         this.hasValidAuth = true;
       } catch (e) {
         logger.error('Failed to set auth header', e);

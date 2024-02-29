@@ -18,7 +18,6 @@ class SublinksApiServerSide extends SublinksApiBase {
     } as CookieStore;
 
     this.setAuthCookieStore(cookieStore);
-    this.setAuthHeader();
   }
 
   public static Instance() {
