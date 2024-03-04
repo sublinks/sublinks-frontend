@@ -20,13 +20,15 @@ interface FeedProps {
 const Feed = ({ posts, site }: FeedProps) => {
   const [postFeed, setPostFeed] = useState<GetPostsResponse>(posts);
 
-  // @todo: Set this to the users default feed type
-  const [postFeedType, setPostFeedType] = useState<ListingType>();
-  const [postFeedSort, setPostFeedSort] = useState<SortType>();
+  // @todo: Set this to the users default feed type, 
+  // temporarily setting default values to track initial state
+  const [postFeedType, setPostFeedType] = useState<ListingType>("All");
+  const [postFeedSort, setPostFeedSort] = useState<SortType>("Hot");
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
 
-  // Ref to track if the component is mounted
-  const isMounted = useRef<boolean>(false);
+  // State to store the initial values of postFeedType and postFeedSort
+  const [initialPostFeedType, setInitialPostFeedType] = useState<ListingType>(postFeedType);
+  const [initialPostFeedSort, setInitialPostFeedSort] = useState<SortType>(postFeedSort);
 
   const handleSidebarSwitch = (newState: boolean) => {
     setSidebarOpen(newState);
@@ -41,12 +43,20 @@ const Feed = ({ posts, site }: FeedProps) => {
         sort: postFeedSort
       }) : testData as unknown as GetPostsResponse);
     }
+    
+    // Only call getPosts if postFeedType or postFeedSort has changed from its initial value
+    if (postFeedType !== initialPostFeedType || postFeedSort !== initialPostFeedSort) {
+      // @todo: indication posts are loading
+      try {
+        getPosts();
 
-    if (isMounted.current) {
-      getPosts();
-    } else {
-      // Mark component as mounted for the next render/update
-      isMounted.current = true;
+        // Update initial values to reflect the current state
+        setInitialPostFeedType(postFeedType);
+        setInitialPostFeedSort(postFeedSort);
+      } catch(e) {
+        // @todo: add error handling re: src/utils/logger.ts 
+        // https://github.com/sublinks/sublinks-frontend/pull/79/commits/935bf15b1c4a5a1c3a5b1b42a4af0e291118b071
+      }
     }
   }, [postFeedSort, postFeedType]);
 
