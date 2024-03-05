@@ -22,14 +22,14 @@ const getApiHost = () => {
 };
 
 class SublinksApiBase {
-  protected client: SublinksClient;
-
-  protected hasValidAuth = false;
-
   public authCookieStore: CookieStore | null = null;
 
+  protected client: SublinksClient;
+
   constructor() {
-    this.client = new SublinksClient(getApiHost(), { insecure: process.env.NODE_ENV !== 'production' });
+    this.client = new SublinksClient(getApiHost(), {
+      insecure: !process.env.NEXT_PUBLIC_HTTPS_ENABLED
+    });
   }
 
   public setAuthCookieStore(store: CookieStore) {
@@ -39,13 +39,10 @@ class SublinksApiBase {
   public async setAuthHeader() {
     const jwtAuth = this.authCookieStore?.get();
 
-    if (jwtAuth) {
-      try {
-        this.client.setAuth(jwtAuth);
-        this.hasValidAuth = true;
-      } catch (e) {
-        logger.error('Failed to set auth header', e);
-      }
+    try {
+      this.client.setHeader('Authorization', jwtAuth ? `Bearer ${jwtAuth}` : undefined);
+    } catch (e) {
+      logger.error('Failed to set auth header', e);
     }
   }
 
@@ -72,24 +69,16 @@ class SublinksApiBase {
   }
 
   public async logout() {
-    if (!this.hasValidAuth) {
-      return;
-    }
-
-    this.hasValidAuth = false;
-
     try {
-      await this.client.logout();
       this.authCookieStore?.remove();
+      await this.client.logout();
     } catch (e) {
       logger.error('Failed to logout user', e);
     }
   }
 
   public Client() {
-    if (!this.hasValidAuth) {
-      this.setAuthHeader();
-    }
+    this.setAuthHeader();
 
     return this.client;
   }
