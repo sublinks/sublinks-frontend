@@ -5,7 +5,7 @@ enum ConsoleMethods {
   ERROR = 'error'
 }
 
-const shouldLogToConsole = (consoleMethod: ConsoleMethods) => process.env.NODE_ENV === 'production' && consoleMethod !== ConsoleMethods.DEBUG;
+const shouldLogToConsole = (consoleMethod: ConsoleMethods) => consoleMethod !== ConsoleMethods.DEBUG || process.env.NODE_ENV !== 'production';
 
 const logToConsole = (consoleMethod: ConsoleMethods, ...args: unknown[]) => {
   if (shouldLogToConsole(consoleMethod)) {
