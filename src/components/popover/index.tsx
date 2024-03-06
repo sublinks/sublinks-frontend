@@ -2,6 +2,7 @@
 
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
+import { createPortal } from 'react-dom';
 
 interface PopoverProps {
   content: ReactNode,
@@ -10,6 +11,7 @@ interface PopoverProps {
   openDelay?: number
   closeDelay?: number
   gap?: PopoverGapSize
+  darkenBackground?: boolean
 }
 
 type PopoverDirection =
@@ -25,7 +27,7 @@ export enum PopoverGapSize {
   LARGE
 }
 
-const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, gap=PopoverGapSize.MEDIUM }: PopoverProps) => {
+const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, gap=PopoverGapSize.MEDIUM, darkenBackground=false }: PopoverProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [popoverIsHovered, setPopoverIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +112,22 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
       >
         {children}
       </div>
-      <div className='relative z-50'>
+      {darkenBackground && createPortal(
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          zIndex: 49,
+          pointerEvents: 'none',
+          opacity: isOpen ? 1 : 0,
+          transition: 'opacity 200ms ease-in-out'
+        }} />,
+        document.body
+      )}
+      <div className='relative z-50 drop-shadow-md'>
         <div onMouseEnter={() => setPopoverIsHovered(true)} onMouseLeave={() => setPopoverIsHovered(false)} className={cx(directionClass, `transition-all duration-200 absolute p-4 rounded-lg bg-[#1d2432] text-xs text-white border-2 border-gray-800 ${isOpen ? 'opacity-100 pointer-events-auto scale-100' : 'opacity-0 pointer-events-none scale-75'}`)}>
           {content}
         </div>

@@ -15,6 +15,7 @@ import VoteButtons from '../vote-buttons';
 import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, ChatBubbleLeftRightIcon, MinusIcon } from '@heroicons/react/24/outline';
 import PersonChip from '../person-chip';
 import CommunityChip from '../community-chip';
+import Popover from '../popover';
 
 interface PostCardProps {
   post: Post;
@@ -69,10 +70,18 @@ export const PostCard = ({
             <CommunityChip community={community} />
           </div>
           <div className='flex gap-4 items-center text-slate-400 text-xs'>
-            <MinusIcon className='w-12 h-12' />
-            <ChatBubbleLeftIcon className='w-12 h-12' />
-            <p>{comments}</p>
-            <ArrowUturnLeftIcon className='w-12 h-12' />
+            <Popover direction='bottom' content='Minimize'>
+              <MinusIcon className='w-12 h-12' />
+            </Popover>
+            <Popover direction='bottom' content='Comments'>
+              <div className='flex gap-4'>
+                <ChatBubbleLeftIcon className='w-12 h-12' />
+                <p>{comments}</p>
+              </div>
+            </Popover>
+            <Popover direction='bottom' content='Cross Posts'>
+              <ArrowUturnLeftIcon className='w-12 h-12' />
+            </Popover>
             <p>0</p>
           </div>
         </div>

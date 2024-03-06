@@ -21,7 +21,7 @@ interface PersonChipProps {
 const PersonChip = ({
   person
 }: PersonChipProps) => (
-  <Popover direction='bottom' openDelay={500} closeDelay={300} gap={PopoverGapSize.NONE} content={
+  <Popover direction='bottom' darkenBackground={true} openDelay={500} closeDelay={300} gap={PopoverGapSize.NONE} content={
     <div className='min-w-320'>
       {
         person.banner ? (
