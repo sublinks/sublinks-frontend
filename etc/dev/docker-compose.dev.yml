@@ -1,8 +1,8 @@
 version: "3.7"
 
 volumes:
-  db:
-  pictrs:
+  db_data:
+  pictrs_data:
 
 services:
   proxy:
@@ -48,7 +48,7 @@ services:
       - MYSQL_USER=sublinks
       - MYSQL_PASSWORD=sublinks
     volumes:
-      - db:/var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always
     ports:
       - "3306:3306"
@@ -90,7 +90,7 @@ services:
       - PICTRS__MEDIA__GIF__MAX_AREA=65536
       - PICTRS__MEDIA__GIF__MAX_FRAME_COUNT=400
     volumes:
-      - pictrs:/mnt:Z
+      - pictrs_data:/mnt:Z
     user: 991:991
     restart: always
 
