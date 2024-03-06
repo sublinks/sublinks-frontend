@@ -28,7 +28,7 @@ class SublinksApiBase {
 
   constructor() {
     this.client = new SublinksClient(getApiHost(), {
-      insecure: !process.env.NEXT_PUBLIC_HTTPS_ENABLED
+      insecure: process.env.NEXT_PUBLIC_HTTPS_ENABLED !== 'true'
     });
   }
 
@@ -59,7 +59,7 @@ class SublinksApiBase {
 
       this.authCookieStore?.set(jwt, {
         expires: new Date(Date.now() + AUTH_TTL_MS),
-        secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED ?? false,
+        secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
         path: '/',
         sameSite: 'Lax'
       });
