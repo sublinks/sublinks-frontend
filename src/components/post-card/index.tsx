@@ -15,7 +15,7 @@ import VoteButtons from '../vote-buttons';
 import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, ChatBubbleLeftRightIcon, MinusIcon } from '@heroicons/react/24/outline';
 import PersonChip from '../person-chip';
 import CommunityChip from '../community-chip';
-import Popover from '../popover';
+import Popover, { PopoverGapSize } from '../popover';
 
 interface PostCardProps {
   post: Post;
@@ -60,29 +60,35 @@ export const PostCard = ({
             </BodyTitle>
           </Link>
           {url && (
-            <Link href={postHref} className="text-xs text-blue-600 -mt-4">
-              {linkDomain}
-            </Link>
+            <div className='self-start text-xs text-blue-600 -mt-4'>
+              <Popover direction='bottom' content={url} gap={PopoverGapSize.NONE} openDelay={500} closeDelay={300} darkenBackground={true}>
+                <Link href={postHref}>
+                  {linkDomain}
+                </Link>
+              </Popover>
+            </div>
           )}
           <div className='flex gap-4 items-center'>
             <PersonChip person={creator} />
             <p className='text-white text-xs'>to</p>
             <CommunityChip community={community} />
           </div>
-          <div className='flex gap-4 items-center text-slate-400 text-xs'>
+          <div className='flex gap-8 items-center text-slate-400 text-xs'>
             <Popover direction='bottom' content='Minimize'>
               <MinusIcon className='w-12 h-12' />
             </Popover>
             <Popover direction='bottom' content='Comments'>
-              <div className='flex gap-4'>
+              <div className='flex gap-4 items-center'>
                 <ChatBubbleLeftIcon className='w-12 h-12' />
                 <p>{comments}</p>
               </div>
             </Popover>
             <Popover direction='bottom' content='Cross Posts'>
-              <ArrowUturnLeftIcon className='w-12 h-12' />
+              <div className='flex gap-4 items-center'>
+                <ArrowUturnLeftIcon className='w-12 h-12' />
+                <p>0</p>
+              </div>
             </Popover>
-            <p>0</p>
           </div>
         </div>
       </div>
