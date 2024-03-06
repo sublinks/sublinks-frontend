@@ -19,7 +19,6 @@ const SidebarLeftLinkButton = ({ text, icon, href, requiresAuth }: SidebarLeftLi
   const [width, setWidth] = useState(240);
   const pathname = usePathname()
   const isCurrentPage = pathname === href;
-  const [isHovered, setIsHovered] = useState(false);
   const [isLoggedIn] = useState(false);
   
   useEffect(() => {
@@ -50,16 +49,15 @@ const SidebarLeftLinkButton = ({ text, icon, href, requiresAuth }: SidebarLeftLi
           {width >= 100 && (<BodyText className='text-sm text-gray-500 dark:text-gray-500'>{text}</BodyText>)}
         </span>
       ) : (
-        <Link onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} href={href} className={cx('relative flex items-center py-8 gap-16 group rounded-3xl transition-all duration-300 hover:bg-opacity-5 hover:bg-white hover:dark:text-yellow-400 hover:text-yellow-400', width < 100 ? 'justify-center px-0' : 'px-16', isCurrentPage ? 'text-green-400 dark:text-green-400 text-opacity-50 bg-green-400 bg-opacity-15' : 'text-black dark:text-white')} ref={ref}>
-          <div className='group-hover:animate-growAndShrink'>
-            {icon}
-          </div>
-          {width >= 100 && (<BodyText className={cx('text-sm group-hover:dark:text-yellow-400 group-hover:text-yellow-400 transition-all duration-300', isCurrentPage && 'text-green-400 dark:text-green-400 text-opacity-50')}>{text}</BodyText>)}
-        </Link>
-      )}
-      <Popover show={isHovered} direction='right'>
-        <p>{text}</p>
-      </Popover>
+        <Popover content={text} direction='right'>
+          <Link href={href} className={cx('relative flex items-center py-8 gap-16 group rounded-3xl transition-all duration-300 hover:bg-opacity-5 hover:bg-white hover:dark:text-yellow-400 hover:text-yellow-400', width < 100 ? 'justify-center px-0' : 'px-16', isCurrentPage ? 'text-green-400 dark:text-green-400 text-opacity-50 bg-green-400 bg-opacity-15' : 'text-black dark:text-white')} ref={ref}>
+            <div>
+              {icon}
+            </div>
+            {width >= 100 && (<BodyText className={cx('text-sm group-hover:dark:text-yellow-400 group-hover:text-yellow-400 transition-all duration-300', isCurrentPage && 'text-green-400 dark:text-green-400 text-opacity-50')}>{text}</BodyText>)}
+          </Link>
+        </Popover>
+      )}      
     </div>
   )
 };

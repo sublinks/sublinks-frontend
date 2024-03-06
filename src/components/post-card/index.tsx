@@ -12,8 +12,9 @@ import { BodyText, BodyTitle } from '../text';
 import PostThumbnail from '../post-thumbnail';
 import LinkedPostSubTitle from '../post-subtitle';
 import VoteButtons from '../vote-buttons';
-import UserChip from '../user-chip';
 import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, ChatBubbleLeftRightIcon, MinusIcon } from '@heroicons/react/24/outline';
+import PersonChip from '../person-chip';
+import CommunityChip from '../community-chip';
 
 interface PostCardProps {
   post: Post;
@@ -63,9 +64,9 @@ export const PostCard = ({
             </Link>
           )}
           <div className='flex gap-4 items-center'>
-            <UserChip name={authorDisplayName || authorName} link={`/user/${authorName}`} image={avatar} />
+            <PersonChip person={creator} />
             <p className='text-white text-xs'>to</p>
-            <UserChip name={communityName} link={`/user/${authorName}`} image={icon} />
+            <CommunityChip community={community} />
           </div>
           <div className='flex gap-4 items-center text-slate-400 text-xs'>
             <MinusIcon className='w-12 h-12' />

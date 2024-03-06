@@ -12,7 +12,7 @@ import Sidebar from '@/components/sidebar';
 
 const RootPage = async () => {
   const posts = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL 
-    ? await sublinksClient().getPosts()
+    ? await sublinksClient().getPosts({limit: 50})
     : JSON.stringify(testData) as unknown as GetPostsResponse;
 
   const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL

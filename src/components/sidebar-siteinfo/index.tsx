@@ -3,13 +3,14 @@ import { PersonView, Site } from 'sublinks-js-client';
 import Image from 'next/image';
 import { ChartBarIcon, DocumentTextIcon, HeartIcon, InformationCircleIcon, ScaleIcon, ServerIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { mdToHtml } from 'sublinks-markdown';
-import PersonBadge from '../person-badge';
 import Markdown from '../markdown';
 import Collapsable from '../collapsable';
 import { BodyText, H1 } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 import Button from '../button';
 import LinkButton from '../button-link';
+import Popover from '../popover';
+import PersonChip from '../person-chip';
 
 interface SidebarSiteInfoProps {
   site: Site;
@@ -74,18 +75,26 @@ SidebarSiteInfoProps) => {
         </div>
 
       <div className='flex gap-4 py-8'>
-        <LinkButton type="button" className='border rounded p-2'>
-          <DocumentTextIcon className="w-24 h-24" />
-        </LinkButton>
-        <LinkButton type="button" className='border rounded p-2'>
-          <ScaleIcon className="w-24 h-24" />
-        </LinkButton>
-        <LinkButton type="button" className='border rounded p-2'>
-          <ServerIcon className="w-24 h-24" />
-        </LinkButton>
-        <LinkButton type="button" className='border rounded p-2'>
-          <HeartIcon className="w-24 h-24" />
-        </LinkButton>
+        <Popover content="Modlog" direction='bottom'>
+          <LinkButton type="button" className='border rounded p-2'>
+            <DocumentTextIcon className="w-24 h-24" />
+          </LinkButton>
+        </Popover>
+        <Popover content="Legal" direction='bottom'>
+          <LinkButton type="button" className='border rounded p-2'>
+            <ScaleIcon className="w-24 h-24" />
+          </LinkButton>
+        </Popover>
+        <Popover content="Instances" direction='bottom'>
+          <LinkButton type="button" className='border rounded p-2'>
+            <ServerIcon className="w-24 h-24" />
+          </LinkButton>
+        </Popover>
+        <Popover content="Donate" direction='bottom'>
+          <LinkButton type="button" className='border rounded p-2'>
+            <HeartIcon className="w-24 h-24" />
+          </LinkButton>
+        </Popover>
       </div>
 
       <div className='flex flex-col divide-y'>
@@ -102,10 +111,12 @@ SidebarSiteInfoProps) => {
         <Collapsable icon={<ChartBarIcon />} title="Statistics" contentClassName="flex flex-row flex-wrap max-w-full">
           <p>T</p>
         </Collapsable>
-        <Collapsable icon={<UserIcon />} title="Admins" contentClassName="flex flex-row flex-wrap max-w-full">
-          {admins.map(x => (
-            <PersonBadge key={x.person.name} person={x.person} />
-          ))}
+        <Collapsable icon={<UserIcon />} title="Admins">
+          <div className='flex flex-row flex-wrap max-w-full gap-8 p-8'>
+            {admins.map(x => (
+              <PersonChip key={x.person.name} person={x.person} />
+            ))}
+          </div>
         </Collapsable>
         <div className='flex text-slate-400 py-16 gap-8'>
           <ServerIcon className='w-24 h-24' />

@@ -12,7 +12,12 @@ const getCommunitySlugFromUrl = (communityUrl: string, isLocal: boolean) => {
 
 const getCommunityNameFromSlug = (communitySlug: string) => communitySlug.split('@')[0];
 
+const getCommunityNameFromUrl = (communityUrl: string) => communityUrl.split('/')[4];
+const getCommunityInstanceFromUrl = (communityUrl: string) => communityUrl.split('/')[2];
+
 export {
   getCommunitySlugFromUrl,
-  getCommunityNameFromSlug
+  getCommunityNameFromSlug,
+  getCommunityNameFromUrl,
+  getCommunityInstanceFromUrl
 };
