@@ -16,6 +16,7 @@ import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, ChatBubbleLeftRightIcon, MinusI
 import PersonChip from '../person-chip';
 import CommunityChip from '../community-chip';
 import Popover, { PopoverGapSize } from '../popover';
+import Image from 'next/image';
 
 interface PostCardProps {
   post: Post;
@@ -49,7 +50,9 @@ export const PostCard = ({
     <div key={id} className='flex bg-[#1d2432] p-16 rounded-xl'>
       <div className='flex gap-8'>
         <VoteButtons points={score} onVote={(score) => {setMyVote(score)}} myVote={myVote} />
-        <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />
+        {thumbnailUrl ? (<Popover gap={PopoverGapSize.NONE} openDelay={500} closeDelay={300} darkenBackground={true} direction='bottom' content={<Image src={thumbnailUrl} alt='Image' width={640} height={640} className='max-w-480 h-auto' />}>
+          <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />
+        </Popover>) : <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />}
         <div className='flex flex-col justify-center gap-4'>
           <Link href={postHref} className="group">
             <BodyTitle
