@@ -22,12 +22,12 @@ const PersonChip = ({
   person
 }: PersonChipProps) => (
   <Popover direction='bottom' openDelay={500} closeDelay={300} gap={PopoverGapSize.NONE} content={
-    <div>
+    <div className='min-w-320'>
       {
         person.banner ? (
-          <Image src={person.banner} alt={`${person.name}'s banner`} width={400} height={64} className='h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
+          <Image src={person.banner} alt={`${person.name}'s banner`} width={480} height={64} className='min-w-320 h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
         ) : (
-          <div className='h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
+          <div className='min-w-320 h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
         )
       }
       {person.avatar ? (

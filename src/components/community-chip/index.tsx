@@ -22,12 +22,12 @@ const CommunityChip = ({
   community
 }: CommunityChipProps) => (
   <Popover direction='bottom' openDelay={500} closeDelay={300} gap={PopoverGapSize.NONE} content={
-    <div>
+    <div className='min-w-320'>
       {
         community.banner ? (
-          <Image src={community.banner} alt={`${community.name}'s banner`} width={640} height={64} className=' h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
+          <Image src={community.banner} alt={`${community.name}'s banner`} width={480} height={64} className='min-w-320 h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
         ) : (
-          <div className=' h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
+          <div className='min-w-320 h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
         )
       }
       <Image src={community.icon ?? '/icon.png'} alt={`${community.name}'s avatar`} width={64} height={64} className='transform translate-y-1/2 ml-32 relative w-64 h-64 min-w-64 max-w-64 min-h-64 max-h-64 object-cover rounded-xl outline outline-4 outline-[#1d2432] bg-[#1d2432]' />
