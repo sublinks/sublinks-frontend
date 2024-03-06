@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "next dev",
+    "dev:turbo": "next dev --turbo",
     "dev:docker": "docker compose -f ./etc/dev/docker-compose.dev.yml up",
     "build": "next build",
     "start": "next start",

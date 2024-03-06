@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PersonView, Site } from 'sublinks-js-client';
 import Image from 'next/image';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon, DocumentTextIcon, HeartIcon, InformationCircleIcon, ScaleIcon, ServerIcon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { mdToHtml } from 'sublinks-markdown';
 import PersonBadge from '../person-badge';
 import Markdown from '../markdown';
@@ -9,6 +9,7 @@ import Collapsable from '../collapsable';
 import { BodyText, H1 } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 import Button from '../button';
+import LinkButton from '../button-link';
 
 interface SidebarSiteInfoProps {
   site: Site;
@@ -40,52 +41,77 @@ SidebarSiteInfoProps) => {
   }, [site.actor_id, site.sidebar]);
 
   return (
-    <div className="flex flex-col">
-      {site.banner && (<Image src={site.banner} alt="Site Banner" width={400} height={400} className="w-full h-full" />)}
-      <div className="flex flex-row">
-        <H1 className="font-bold dark:text-primary pb-8 flex-grow">{site.name}</H1>
-        {onSidebarSwitch && (
-        <Button
-          type="button"
-          className="h-24 px-2 pt-0 pb-0 sticky md:hidden rounded-sm top-4 right-4"
-          onClick={() => {
-            if (onSidebarSwitch) {
-              onSidebarSwitch(false);
-            }
-          }}
-        >
-          <Icon IconType={XMarkIcon} size={ICON_SIZE.SMALL} />
-        </Button>
-        )}
+    <div className="flex flex-col text-sm">
+      {site.banner && (<Image src={site.banner} alt="Site Banner" width={400} height={400} className="w-full h-full max-h-100 object-cover rounded-lg" />)}
+      <div>
+        <div className='flex items-center gap-8'>
+        <Image src={site.icon || '/icon.png'} alt="Site Icon" width={60} height={60} className="w-60 h-60 max-h-60 object-cover" />
+          <div className='flex flex-col justify-center'>
+            <div className="flex flex-row">
+              <H1 className="font-bold dark:text-primary flex-grow">{site.name}</H1>
+              {onSidebarSwitch && (
+              <Button
+                type="button"
+                className="h-24 px-2 pt-0 pb-0 sticky md:hidden rounded-sm top-4 right-4"
+                onClick={() => {
+                  if (onSidebarSwitch) {
+                    onSidebarSwitch(false);
+                  }
+                }}
+              >
+                <Icon IconType={XMarkIcon} size={ICON_SIZE.SMALL} />
+              </Button>
+              )}
+            </div>
+            <div className="flex flex-col max-h-90vh md:max-h-1000 overflow-auto">
+              {site.description && (
+                <BodyText className="dark:text-primary">{site.description}</BodyText>
+              )}
+            </div>
+          </div>
+          
+        </div>
+        </div>
+
+      <div className='flex gap-4 py-8'>
+        <LinkButton type="button" className='border rounded p-2'>
+          <DocumentTextIcon className="w-24 h-24" />
+        </LinkButton>
+        <LinkButton type="button" className='border rounded p-2'>
+          <ScaleIcon className="w-24 h-24" />
+        </LinkButton>
+        <LinkButton type="button" className='border rounded p-2'>
+          <ServerIcon className="w-24 h-24" />
+        </LinkButton>
+        <LinkButton type="button" className='border rounded p-2'>
+          <HeartIcon className="w-24 h-24" />
+        </LinkButton>
       </div>
-      <div className="flex flex-col max-h-90vh md:max-h-1000 overflow-auto border-t border-gray-500">
-        {site.description && (
-        <Collapsable
-          open={descriptionOpen}
-          onSwitch={setDescriptionOpen}
-          title="Description"
-          contentClassName="flex flex-row"
-        >
-          <BodyText className="dark:text-primary border-y border-gray-500 pb-8 pt-4">{site.description}</BodyText>
-        </Collapsable>
-        )}
+
+      <div className='flex flex-col divide-y'>
         {site.sidebar && (
         <Collapsable
-          open={informationOpen}
-          onSwitch={setInformationOpen}
-          title="Informations"
+          icon={<InformationCircleIcon />}
+          title="Information"
           contentClassName="flex flex-row flex-wrap max-w-full"
         >
           <Markdown markdown={sidebarMarkdown} />
         </Collapsable>
         )}
+      
+        <Collapsable icon={<ChartBarIcon />} title="Statistics" contentClassName="flex flex-row flex-wrap max-w-full">
+          <p>T</p>
+        </Collapsable>
+        <Collapsable icon={<UserIcon />} title="Admins" contentClassName="flex flex-row flex-wrap max-w-full">
+          {admins.map(x => (
+            <PersonBadge key={x.person.name} person={x.person} />
+          ))}
+        </Collapsable>
+        <div className='flex text-slate-400 py-16 gap-8'>
+          <ServerIcon className='w-24 h-24' />
+          <p>v0.0.0</p>
+        </div>
       </div>
-
-      <Collapsable open={adminOpen} onSwitch={setAdminOpen} title="Admins" contentClassName="flex flex-row flex-wrap max-w-full">
-        {admins.map(x => (
-          <PersonBadge key={x.person.name} person={x.person} />
-        ))}
-      </Collapsable>
     </div>
   );
 };

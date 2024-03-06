@@ -7,7 +7,7 @@ import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import sublinksClient from '@/utils/client';
 import Icon, { ICON_SIZE } from '../icon';
 import LinkButton from '../button-link';
-import VoteButtons from '../button-votes';
+import VoteButtons from '../vote-buttons';
 
 interface CommentActionProps {
   votes: CommentAggregates;

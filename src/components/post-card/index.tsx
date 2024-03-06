@@ -7,11 +7,13 @@ import { getCommunitySlugFromUrl } from '@/utils/communities';
 import {
   Post, Community, PostAggregates, Person
 } from 'sublinks-js-client';
-import { getPostThumbnailUrl } from '@/utils/links';
+import { extractDomain, getPostThumbnailUrl } from '@/utils/links';
 import { BodyText, BodyTitle } from '../text';
 import PostThumbnail from '../post-thumbnail';
 import LinkedPostSubTitle from '../post-subtitle';
-import VoteButtons from '../button-votes';
+import VoteButtons from '../vote-buttons';
+import UserChip from '../user-chip';
+import { ArrowUturnLeftIcon, ChatBubbleLeftIcon, ChatBubbleLeftRightIcon, MinusIcon } from '@heroicons/react/24/outline';
 
 interface PostCardProps {
   post: Post;
@@ -21,6 +23,68 @@ interface PostCardProps {
   showAuthor?: boolean;
 }
 
+export const PostCard = ({
+  post,
+  creator,
+  community,
+  counts
+}: PostCardProps) => {
+  const [myVote, setMyVote] = React.useState(0);
+
+  const { id, body, name: title, url } = post;
+  const { display_name: authorDisplayName, name: authorName, avatar } = creator;
+  const { actor_id: nativeCommunityUrl, local: isLocal, name: communityName, icon } = community;
+  const { score, comments } = counts;
+  const communitySlug = getCommunitySlugFromUrl(nativeCommunityUrl, isLocal);
+  const postHref = `/c/${communitySlug}/${id}`;
+  const thumbnailUrl = getPostThumbnailUrl(post);
+  const linkDomain = url ? extractDomain(url) : null;
+
+  /*
+ border-white border-opacity-10 border-1 border
+  */
+  return (
+    <div key={id} className='flex bg-[#1d2432] p-16 rounded-xl'>
+      <div className='flex gap-8'>
+        <VoteButtons points={score} onVote={(score) => {setMyVote(score)}} myVote={myVote} />
+        <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />
+        <div className='flex flex-col justify-center gap-4'>
+          <Link href={postHref} className="group">
+            <BodyTitle
+              className="text-sm font-semibold line-clamp-2 transition-all duration-300 group-hover:text-brand dark:group-hover:text-brand-dark group-visited:text-gray-500 group-visited:dark:text-gray-400"
+            >
+              {title}
+
+            </BodyTitle>
+          </Link>
+          {url && (
+            <Link href={postHref} className="text-xs text-blue-600 -mt-4">
+              {linkDomain}
+            </Link>
+          )}
+          <div className='flex gap-4 items-center'>
+            <UserChip name={authorDisplayName || authorName} link={`/user/${authorName}`} image={avatar} />
+            <p className='text-white text-xs'>to</p>
+            <UserChip name={communityName} link={`/user/${authorName}`} image={icon} />
+          </div>
+          <div className='flex gap-4 items-center text-slate-400 text-xs'>
+            <MinusIcon className='w-12 h-12' />
+            <ChatBubbleLeftIcon className='w-12 h-12' />
+            <p>{comments}</p>
+            <ArrowUturnLeftIcon className='w-12 h-12' />
+            <p>0</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+};
+
+/*
+<VoteButtons points={score} onVote={() => {}} myVote={0} />
+      <PostThumbnail postThumbnailUrl={thumbnailUrl} />
+*/
+/*
 export const PostCard = ({
   post,
   creator,
@@ -80,3 +144,4 @@ export const PostCard = ({
     </div>
   );
 };
+*/

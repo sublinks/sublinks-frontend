@@ -31,12 +31,13 @@ interface IconProps {
   className?: string;
   textClassName?: string;
   isInteractable?: boolean;
+  onAnimationEnd?: () => void;
 }
 
 const Icon = ({
-  IconType, size, title, titleId, className, isInteractable, textClassName
+  IconType, size, title, titleId, className, isInteractable, textClassName, onAnimationEnd
 }: IconProps) => (
-  <div className={cx(wrapperSizeClassMap[size], {
+  <div onAnimationEnd={onAnimationEnd} className={cx(wrapperSizeClassMap[size], {
     'text-gray-700 dark:text-white': !textClassName,
     'hover:text-brand dark:hover:text-brand-dark transition-text duration-200': isInteractable && !textClassName
   }, className, textClassName)}

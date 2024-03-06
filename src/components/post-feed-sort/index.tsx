@@ -5,13 +5,15 @@ import React from 'react';
 import { ButtonGroup } from '../TailwindMaterial';
 import Button from '../button';
 import Select, { Option } from '../select';
+import { Bars3Icon, ChartBarIcon, ChevronDownIcon, DocumentIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { ChartBarSquareIcon } from '@heroicons/react/24/solid';
 
 interface PostFeedTypeProps {
   currentType?: ListingType
   onTypeChange: (type: ListingType) => void
 }
 
-const buttonGroupClass = 'px-12 py-4';
+const buttonGroupClass = 'px-12 py-4 bg-transparent';
 
 const PostFeedType = ({ currentType, onTypeChange }: PostFeedTypeProps) => (
   <ButtonGroup className="flex">
@@ -123,6 +125,34 @@ interface PostFeedOptionProps {
   onSidebarSwitch?: (newState: boolean) => void;
 }
 
+const PostFeedOptions = () => (
+  <div className='flex justify-between'>
+    <div className='text-white flex items-center gap-8'>
+      <HomeIcon className='w-24' />
+      <Button type='button' className='flex items-center gap-4 px-8 !bg-opacity-0'>
+        <Bars3Icon className='w-16' />
+        <p>Local</p>
+        <ChevronDownIcon className='w-16' />
+      </Button>
+      <p className='text-slate-600'>{'>'}</p>
+      <Button type='button' className='flex items-center gap-4 px-8 !bg-opacity-0'>
+        <ChartBarSquareIcon className='w-16' />
+        <p>Active</p>
+        <ChevronDownIcon className='w-16' />
+      </Button>
+    </div>
+    <div className='text-white flex items-center gap-8'>
+      <Button type='button' className='flex items-center gap-4 px-8 !bg-opacity-0'>
+        
+        <DocumentIcon className='w-16' />
+        <p>Compact</p>
+        <ChevronDownIcon className='w-16' />
+      </Button>
+    </div>
+  </div>
+);
+
+/*
 const PostFeedOptions = ({
   currentType, onTypeChange, currentSort, onSortChange, sidebarOpen, onSidebarSwitch
 }: PostFeedOptionProps) => (
@@ -144,7 +174,7 @@ const PostFeedOptions = ({
       </Button>
     </div>
   </div>
-);
+);*/
 
 export default PostFeedOptions;
 export { PostFeedType, PostFeedSort };

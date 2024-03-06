@@ -1,68 +1,64 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import React, { useRef, useState } from 'react';
+import { ChevronDownIcon, ChevronUpIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import cx from 'classnames';
 import LinkButton from '../button-link';
+import { BodyText } from '../text';
 
 interface CollapsableProps {
-  open?: boolean;
-  onSwitch?: (newState: boolean) => void;
+  startOpen?: boolean;
   children: React.ReactNode;
   containerClassName?: string;
   contentClassName?: string;
   hideIcon?: boolean;
   title?: string;
+  icon?: React.ReactNode;
 }
 
 const ChevronDownIconClassname = 'float-end inline-block ml-2 w-24 text-black dark:text-white hover:text-gray-400 dark:hover:text-gray-400';
 
 const Collapsable = ({
-  open, onSwitch, children, containerClassName, contentClassName, hideIcon, title
-}:
-CollapsableProps) => {
-  const [active, setActive] = useState(open !== undefined ? open : false);
+  startOpen, children, containerClassName, contentClassName, hideIcon, title, icon
+}: CollapsableProps) => {
+  const [open, setOpen] = useState(startOpen !== undefined ? startOpen : false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const handleSwitch = () => {
-    if (onSwitch) {
-      onSwitch(!active);
-    } else {
-      setActive(!active);
+    setOpen(!open);
+
+    if (contentRef.current) {
+      contentRef.current.style.maxHeight = open ? '0px' : `${contentRef.current.scrollHeight}px`;
     }
   };
 
-  useEffect(() => {
-    if (open !== undefined) setActive(open);
-  }, [open, setActive]);
-
   return (
-    <div className={cx('flex flex-col border-t border-gray-500', containerClassName)}>
-      <LinkButton type="button" ariaLabel="Collapsable open/close button" onClick={handleSwitch}>
-        {title}
-        {!hideIcon && (
-          active
-            ? (
-              <ChevronUpIcon
-                className={ChevronDownIconClassname}
-              />
-            )
-            : (
-              <ChevronDownIcon
-                className={ChevronDownIconClassname}
-              />
-            ))}
+    <div className={cx('flex flex-col w-full py-8', containerClassName)}>
+      <LinkButton type="button" ariaLabel="Collapsable open/close button" onClick={handleSwitch} className='flex justify-between'>
+        <div className='flex items-center gap-8'>
+          {icon && (<div className='inline-block mr-2 w-20 h-20'>{icon}</div>)}
+          {title && (<BodyText className='text-sm'>{title}</BodyText>)}
+        </div>
+        {!hideIcon && ( open ? (
+            <ChevronUpIcon
+              className={ChevronDownIconClassname}
+            />
+          ) : (
+            <ChevronDownIcon
+              className={ChevronDownIconClassname}
+            />
+          )
+        )}
       </LinkButton>
       <div
-        aria-expanded={active}
-        className={cx({
-          hidden: !active,
-          block: active
-        }, contentClassName)}
+        aria-expanded={open}
+        ref={contentRef}
+        className={cx("transition-all duration-300 overflow-hidden max-h-0", contentClassName)}
       >
         {children}
       </div>
     </div>
-  );
+  )
 };
 
 export default Collapsable;

@@ -9,7 +9,7 @@ const HeaderLogoIcon = ({ icon }: { icon: string }) => {
 
   return (
     <Image
-      className={`${scrollHeight > 100 ? 'h-20 w-20 lg:h-32 lg:w-32' : 'h-24 w-24 lg:h-40 lg:w-40'} transition-all duration-300`}
+      className={`${scrollHeight > 100 ? 'h-20 w-20 lg:h-32 lg:w-32' : 'h-24 w-24 lg:h-40 lg:w-40'} transition-all duration-300 object-cover`}
       src={icon}
       alt="Site icon"
       width={40}

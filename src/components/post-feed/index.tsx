@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { PostView } from 'sublinks-js-client';
-import { PostCard } from '../post';
+import { PostCard } from '../post-card';
 import { H1 } from '../text';
 
 interface PostFeedProps {
@@ -10,7 +10,7 @@ interface PostFeedProps {
 }
 
 const PostFeed = ({ data: posts, isCommunityFeed }: PostFeedProps) => (
-  <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
+  <div className="flex flex-col gap-8 items-stretch w-full mx-4">
     {posts && posts.length > 0 ? posts.map(postData => (
       <div key={postData.post.ap_id}>
         <PostCard

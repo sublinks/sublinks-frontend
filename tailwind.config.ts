@@ -111,7 +111,37 @@ const config: Config = {
           dark: '#4b5563',
           'md-editor': '#58a6ff'
         }
-      }
+      },
+      keyframes: {
+        wiggle: {
+          "0%, 100%": { transform: "rotate(-7deg)" },
+          "50%": { transform: "rotate(7deg)" }
+        },
+        growAndShrink: {
+          "0%, 100%": { transform: "scale(1)" },
+          "20%, 40%": { transform: "scale(1.2)" }
+        },
+        singlePing: {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "100%": { opacity: "0", transform: "scale(3)" },
+        },
+        popoverRightIn: {
+          "0%": { opacity: "0", transform: "scale(0)" },
+          "80%": { opacity: "1", transform: "scale(1.1)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        popoverRightOut: {
+          "0%": { opacity: "0", transform: "scale(0)" },
+          "80%": { opacity: "1", transform: "scale(1.1)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        }
+      },
+      animation: {
+        wiggle: "wiggle 200ms ease-in-out",
+        growAndShrink: "growAndShrink 400ms ease-in-out",
+        singlePing: "singlePing 400ms",
+        popIn: "popIn 400ms ease-in-out"
+      },
     }
   },
   plugins: [

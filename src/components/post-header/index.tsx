@@ -7,7 +7,7 @@ import cx from 'classnames';
 
 import { H1 } from '../text';
 import PostThumbnail from '../post-thumbnail';
-import VoteButtons from '../button-votes';
+import VoteButtons from '../vote-buttons';
 
 interface PostHeaderProps {
   points: number;
