@@ -36,7 +36,7 @@ const PersonChip = ({
         <Icon IconType={UserCircleIcon} size={ICON_SIZE.VERYSMALL} title='Default avatar' isInteractable className='transform translate-y-1/2 ml-32 relative w-64 h-64 min-w-64 max-w-64 min-h-64 max-h-64 object-cover rounded-xl outline outline-4 outline-[#1d2432] bg-[#1d2432]' />
       )}
       
-      <div className='flex transform ml-112 mt-8 flex-col'>
+      <div className='flex transform ml-112 mt-8 flex-col mr-20'>
         <p className='text-base'>{person.display_name || person.name}</p>
         <div className='flex'>
           <p className='text-gray-500'>@{getPersonNameFromUrl(person.actor_id)}</p>
