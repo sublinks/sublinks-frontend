@@ -96,18 +96,18 @@ class SublinksApiBase {
   private getWrappedClient() {
     const validateAuth = async () => {
       try {
+        this.setAuthHeader();
+
         const authCookie = this.authCookieStore?.get();
         const site = await this.rawClient.getSite();
         const userIsAuthenticated = Boolean(site.my_user);
 
         if (authCookie && !userIsAuthenticated) {
           this.clearAuth();
-        } else {
-          this.setAuthHeader();
         }
       } catch (e) {
-        // this.clearAuth();
-        logger.error('Failed to determine user auth status', e);
+        this.clearAuth();
+        logger.debug('Failed to determine user auth status', e);
       }
     };
 
@@ -123,7 +123,7 @@ class SublinksApiBase {
           await validateAuth();
 
           // @ts-expect-error: TS can't find a matching index signature
-          await this.rawClient[name](...args);
+          return this.rawClient[name](...args);
         };
       }
     });
