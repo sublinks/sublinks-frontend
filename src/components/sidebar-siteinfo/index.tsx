@@ -46,7 +46,7 @@ SidebarSiteInfoProps) => {
       {site.banner && (<Image src={site.banner} alt="Site Banner" width={400} height={400} className="w-full h-full max-h-100 object-cover rounded-lg" />)}
       <div>
         <div className='flex items-center gap-8'>
-        <Image src={site.icon || '/icon.png'} alt="Site Icon" width={60} height={60} className="w-60 h-60 max-h-60 object-cover" />
+        <Image src={site.icon || '/logo.png'} alt="Site Icon" width={60} height={60} className="w-60 h-60 max-h-60 object-cover" />
           <div className='flex flex-col justify-center'>
             <div className="flex flex-row">
               <H1 className="font-bold dark:text-primary flex-grow">{site.name}</H1>

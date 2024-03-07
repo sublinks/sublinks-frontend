@@ -50,7 +50,7 @@ export const PostCard = ({
     <div key={id} className='flex bg-[#1d2432] p-16 rounded-xl'>
       <div className='flex gap-8'>
         <VoteButtons points={score} onVote={(score) => {setMyVote(score)}} myVote={myVote} />
-        {thumbnailUrl ? (<Popover gap={PopoverGapSize.NONE} openDelay={500} closeDelay={300} darkenBackground={true} direction='bottom' content={<Image src={thumbnailUrl} alt='Image' width={640} height={640} className='max-w-480 h-auto' />}>
+        {thumbnailUrl ? (<Popover gap={PopoverGapSize.NONE} openDelay={1000} closeDelay={300} darkenBackground={true} direction='bottom' content={<Image src={thumbnailUrl} alt='Image' width={640} height={640} className='max-w-480 h-auto' />}>
           <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />
         </Popover>) : <PostThumbnail postThumbnailUrl={thumbnailUrl} linkPost={url ? true : false} />}
         <div className='flex flex-col justify-center gap-4'>
@@ -64,7 +64,7 @@ export const PostCard = ({
           </Link>
           {url && (
             <div className='self-start text-xs text-blue-600 -mt-4'>
-              <Popover direction='bottom' content={url} gap={PopoverGapSize.NONE} openDelay={500} closeDelay={300} darkenBackground={true}>
+              <Popover direction='bottom' content={url} gap={PopoverGapSize.NONE} openDelay={1000} closeDelay={300} darkenBackground={true}>
                 <Link href={postHref}>
                   {linkDomain}
                 </Link>
@@ -72,7 +72,7 @@ export const PostCard = ({
             </div>
           )}
           <div className='flex gap-4 items-center'>
-            <p className='text-white text-xs flex gap-4 items-center'><PersonChip person={creator} /> to <CommunityChip community={community} /></p>
+            <p className='text-white text-xs flex gap-4 items-center'><PersonChip person={creator} /> to <CommunityChip name={community.name} icon={community.icon} displayName={community.title} /></p>
           </div>
           <div className='flex gap-8 items-center text-slate-400 text-xs'>
             <Popover direction='bottom' content='Minimize'>

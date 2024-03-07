@@ -12,6 +12,7 @@ interface PopoverProps {
   closeDelay?: number
   gap?: PopoverGapSize
   darkenBackground?: boolean
+  handleHover?: () => void
 }
 
 type PopoverDirection =
@@ -27,7 +28,7 @@ export enum PopoverGapSize {
   LARGE
 }
 
-const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, gap=PopoverGapSize.MEDIUM, darkenBackground=false }: PopoverProps) => {
+const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, handleHover, gap=PopoverGapSize.MEDIUM, darkenBackground=false }: PopoverProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [popoverIsHovered, setPopoverIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +45,9 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
     const rect = childRef.current?.getBoundingClientRect();
     const pop = popoverRef.current?.getBoundingClientRect();
 
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
+
     //console.log(childRef.current?.parentElement?.tagName, rect)
 
     if (rect) {
@@ -52,26 +56,26 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
           switch(gap) {
             case PopoverGapSize.NONE: {
               return {
-                top: rect.bottom,
-                left: rect.left + rect.width / 2,
+                top: rect.bottom + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.SMALL: {
               return {
-                top: rect.bottom + 8,
-                left: rect.left + rect.width / 2,
+                top: rect.bottom + 8 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.MEDIUM: {
               return {
-                top: rect.bottom + 16,
-                left: rect.left + rect.width / 2,
+                top: rect.bottom + 16 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.LARGE: {
               return {
-                top: rect.bottom + 24,
-                left: rect.left + rect.width / 2,
+                top: rect.bottom + 24 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
           }
@@ -80,26 +84,26 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
           switch(gap) {
             case PopoverGapSize.NONE: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.left - (pop?.width || 0) - rect.width / 2,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.SMALL: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.left - (pop?.width || 0) - rect.width / 2 - 8,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 8 + scrollX,
               }
             }
             case PopoverGapSize.MEDIUM: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.left - (pop?.width || 0) - rect.width / 2 - 16,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 16 + scrollX,
               }
             }
             case PopoverGapSize.LARGE: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.left - (pop?.width || 0) - rect.width / 2 - 24,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 24 + scrollX,
               }
             }
           }
@@ -108,26 +112,26 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
           switch(gap) {
             case PopoverGapSize.NONE: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.right,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.right + scrollX,
               }
             }
             case PopoverGapSize.SMALL: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.right + 8,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.right + 8 + scrollX,
               }
             }
             case PopoverGapSize.MEDIUM: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.right + 16,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.right + 16 + scrollX,
               }
             }
             case PopoverGapSize.LARGE: {
               return {
-                top: rect.top + rect.height / 2,
-                left: rect.right + 24,
+                top: rect.top + rect.height / 2 + scrollY,
+                left: rect.right + 24 + scrollX,
               }
             }
           }
@@ -136,26 +140,26 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
           switch(gap) {
             case PopoverGapSize.NONE: {
               return {
-                bottom: rect.top,
-                left: rect.left + rect.width / 2,
+                bottom: rect.top + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.SMALL: {
               return {
-                bottom: rect.top - 8,
-                left: rect.left + rect.width / 2,
+                bottom: rect.top - 8 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.MEDIUM: {
               return {
-                bottom: rect.top - 16,
-                left: rect.left + rect.width / 2,
+                bottom: rect.top - 16 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
             case PopoverGapSize.LARGE: {
               return {
-                bottom: rect.top - 24,
-                left: rect.left + rect.width / 2,
+                bottom: rect.top - 24 + scrollY,
+                left: rect.left + rect.width / 2 + scrollX,
               }
             }
           }
@@ -182,6 +186,7 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
   useEffect(() => {
     if (isHovered || (popoverIsHovered && isOpen)) {
       const timeout = setTimeout(() => {
+        handleHover && handleHover();
         setIsOpen(true);
       }, openDelay);
       return () => clearTimeout(timeout);

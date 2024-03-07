@@ -3,12 +3,10 @@ import sublinksClient from './client';
 import parse, {Element} from 'html-react-parser';
 import CommunityChip from '@/components/community-chip';
 
-let times = 0
-
 export function mdToHtml(md: string, domain: string): Promise<JSX.Element | JSX.Element[] | string> {
   return new Promise(async (resolve, reject) => {
     let markdown = await baseMd(md, domain);
-    const community = await sublinksClient().getCommunity({name: 'programming_horror'});
+    //const community = await sublinksClient().getCommunity({name: 'programming_horror'});
 
     const parsed = parse(
       markdown,
@@ -24,15 +22,20 @@ export function mdToHtml(md: string, domain: string): Promise<JSX.Element | JSX.
 
             //console.log(match, match2)
 
-            if (match || match2) {
-              times += 1
-
-              if (times > 5) return; // TEMP
+            if (match) {
               //const url = match[1];
-              //const name = match[2];
+              const name = match[2];
               //const title = match[3];
 
-              return <CommunityChip community={community.community_view.community} />;
+              return <CommunityChip name={name} />;
+            }
+
+            if (match2) {
+              //const url = match[1];
+              const name = match2[1];
+              //const title = match[3];
+
+              return <CommunityChip name={name} />;
             }
           }
         }

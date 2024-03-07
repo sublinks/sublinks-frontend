@@ -12,7 +12,7 @@ import Sidebar from '@/components/sidebar';
 
 const RootPage = async () => {
   const posts = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL 
-    ? await sublinksClient().getPosts({limit: 50})
+    ? await sublinksClient().getPosts({limit: 50, sort: 'TopDay'})
     : JSON.stringify(testData) as unknown as GetPostsResponse;
 
   const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
@@ -22,9 +22,9 @@ const RootPage = async () => {
   return (
     <div className='flex'>
       <SidebarLeft />
-      <div className="flex grow-1 ml-160 w-full">
+      <div className="flex grow-1 ml-40 md:ml-80 lg:ml-160 w-full transform-all duration-300">
         <div className='flex w-full'>
-          <div className='mt-40 w-full mr-160'>
+          <div className='mt-40 w-full mr-40 md:mr-80 lg:mr-160  transform-all duration-300'>
             <PostFeed data={posts.posts} />
           </div>
         </div>
