@@ -26,10 +26,13 @@ class SublinksApiBase {
 
   protected client: SublinksClient;
 
+  private rawClient: SublinksClient;
+
   constructor() {
-    this.client = new SublinksClient(getApiHost(), {
+    this.rawClient = new SublinksClient(getApiHost(), {
       insecure: process.env.NEXT_PUBLIC_HTTPS_ENABLED !== 'true'
     });
+    this.client = this.getWrappedClient();
   }
 
   public setAuthCookieStore(store: CookieStore) {
@@ -40,7 +43,7 @@ class SublinksApiBase {
     const jwtAuth = this.authCookieStore?.get();
 
     try {
-      this.client.setHeader('Authorization', jwtAuth ? `Bearer ${jwtAuth}` : undefined);
+      this.rawClient.setHeader('Authorization', jwtAuth ? `Bearer ${jwtAuth}` : undefined);
     } catch (e) {
       logger.error('Failed to set auth header', e);
     }
@@ -48,7 +51,7 @@ class SublinksApiBase {
 
   public async login(username: string, password: string) {
     try {
-      const { jwt } = await this.client.login({
+      const { jwt } = await this.rawClient.login({
         username_or_email: username,
         password
       });
@@ -70,17 +73,62 @@ class SublinksApiBase {
 
   public async logout() {
     try {
-      this.authCookieStore?.remove();
-      await this.client.logout();
+      this.clearAuth();
+
+      await this.rawClient.logout();
     } catch (e) {
       logger.error('Failed to logout user', e);
     }
   }
 
   public Client() {
-    this.setAuthHeader();
-
     return this.client;
+  }
+
+  private clearAuth() {
+    if (!isServerSide()) {
+      this.authCookieStore?.remove();
+    }
+
+    this.rawClient.setHeaders({});
+  }
+
+  private getWrappedClient() {
+    const validateAuth = async () => {
+      try {
+        const authCookie = this.authCookieStore?.get();
+        const site = await this.rawClient.getSite();
+        const userIsAuthenticated = Boolean(site.my_user);
+
+        if (authCookie && !userIsAuthenticated) {
+          this.clearAuth();
+        } else {
+          this.setAuthHeader();
+        }
+      } catch (e) {
+        // this.clearAuth();
+        logger.error('Failed to determine user auth status', e);
+      }
+    };
+
+    const wrappedClient = {} as SublinksClient;
+
+    Object.getOwnPropertyNames(Object.getPrototypeOf(this.rawClient)).forEach(name => {
+      // @ts-expect-error: TS can't find a matching index signature
+      const classProp = this.rawClient[name];
+
+      if (typeof classProp === 'function') {
+        // @ts-expect-error: TS can't find a matching index signature
+        wrappedClient[name] = async (...args: unknown[]) => {
+          await validateAuth();
+
+          // @ts-expect-error: TS can't find a matching index signature
+          await this.rawClient[name](...args);
+        };
+      }
+    });
+
+    return wrappedClient;
   }
 }
 
