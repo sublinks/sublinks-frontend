@@ -1,6 +1,6 @@
 "use client"
 
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import cx from 'classnames';
 import { createPortal } from 'react-dom';
 
@@ -31,63 +31,151 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
   const [isHovered, setIsHovered] = useState(false);
   const [popoverIsHovered, setPopoverIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const childRef = useRef<HTMLSpanElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const styleClass = useMemo(() => {
+    const rect = childRef.current?.getBoundingClientRect();
+    const pop = popoverRef.current?.getBoundingClientRect();
+
+    //console.log(childRef.current?.parentElement?.tagName, rect)
+
+    if (rect) {
+      switch(direction) {
+        case 'bottom': {
+          switch(gap) {
+            case PopoverGapSize.NONE: {
+              return {
+                top: rect.bottom,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.SMALL: {
+              return {
+                top: rect.bottom + 8,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.MEDIUM: {
+              return {
+                top: rect.bottom + 16,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.LARGE: {
+              return {
+                top: rect.bottom + 24,
+                left: rect.left + rect.width / 2,
+              }
+            }
+          }
+        }
+        case 'left': {
+          switch(gap) {
+            case PopoverGapSize.NONE: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.left - (pop?.width || 0) - rect.width / 2,
+              }
+            }
+            case PopoverGapSize.SMALL: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 8,
+              }
+            }
+            case PopoverGapSize.MEDIUM: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 16,
+              }
+            }
+            case PopoverGapSize.LARGE: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.left - (pop?.width || 0) - rect.width / 2 - 24,
+              }
+            }
+          }
+        }
+        case 'right': {
+          switch(gap) {
+            case PopoverGapSize.NONE: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.right,
+              }
+            }
+            case PopoverGapSize.SMALL: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.right + 8,
+              }
+            }
+            case PopoverGapSize.MEDIUM: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.right + 16,
+              }
+            }
+            case PopoverGapSize.LARGE: {
+              return {
+                top: rect.top + rect.height / 2,
+                left: rect.right + 24,
+              }
+            }
+          }
+        }
+        case 'top': { // NOTE probably need to change bottom to be top and like the left direction
+          switch(gap) {
+            case PopoverGapSize.NONE: {
+              return {
+                bottom: rect.top,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.SMALL: {
+              return {
+                bottom: rect.top - 8,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.MEDIUM: {
+              return {
+                bottom: rect.top - 16,
+                left: rect.left + rect.width / 2,
+              }
+            }
+            case PopoverGapSize.LARGE: {
+              return {
+                bottom: rect.top - 24,
+                left: rect.left + rect.width / 2,
+              }
+            }
+          }
+        }
+      }
+    }
+  }, [direction, gap, childRef.current, popoverRef.current]);
 
   const directionClass = useMemo(() => {
     // popover direction. Based on parent element, not entire window
     switch(direction) {
       case 'top':
-        switch (gap) {
-          case PopoverGapSize.NONE:
-            return 'left-1/2 top-0 -translate-x-1/2 -translate-y-full';
-          case PopoverGapSize.SMALL:
-            return 'left-1/2 top-[-8px] -translate-x-1/2 -translate-y-full';
-          case PopoverGapSize.MEDIUM:
-            return 'left-1/2 top-[-16px] -translate-x-1/2 -translate-y-full';
-          case PopoverGapSize.LARGE:
-            return 'left-1/2 top-[-24px] -translate-x-1/2 -translate-y-full';
-          default:
-            return ''; 
-        }
+        return '-translate-x-1/2'
       case 'bottom': {
-        switch (gap) {
-          case PopoverGapSize.NONE:
-            return 'left-1/2 bottom-0 -translate-x-1/2 translate-y-full';
-          case PopoverGapSize.SMALL:
-            return 'left-1/2 bottom-[-8px] -translate-x-1/2 translate-y-full';
-          case PopoverGapSize.MEDIUM:
-            return 'left-1/2 bottom-[-16px] -translate-x-1/2 translate-y-full';
-          case PopoverGapSize.LARGE:
-            return 'left-1/2 bottom-[-24px] -translate-x-1/2 translate-y-full';
-          default:
-            return ''; 
-        }
+        return '-translate-x-1/2';
       }
       case 'right':
-        switch (gap) {
-          case PopoverGapSize.NONE:
-            return 'top-1/2 right-0 translate-x-full -translate-y-1/2';
-          case PopoverGapSize.SMALL:
-            return 'top-1/2 right-[-8px] translate-x-full -translate-y-1/2';
-          case PopoverGapSize.MEDIUM:
-            return 'top-1/2 right-[-16px] translate-x-full -translate-y-1/2';
-          case PopoverGapSize.LARGE:
-            return 'top-1/2 right-[-24px] translate-x-full -translate-y-1/2';
-          default:
-            return ''; 
-        }
+        return '-translate-y-1/2';
       case 'left':
-        switch (gap) {
-          case PopoverGapSize.NONE:
-            return 'top-1/2 left-0 translate-x-full -translate-y-1/2';
-          case PopoverGapSize.SMALL:
-            return 'top-1/2 left-[-8px] translate-x-full -translate-y-1/2';
-          case PopoverGapSize.MEDIUM:
-            return 'top-1/2 left-[-16px] translate-x-full -translate-y-1/2';
-          case PopoverGapSize.LARGE:
-            return 'top-1/2 left-[-24px] translate-x-full -translate-y-1/2';
-          default:
-            return ''; 
-        }
+        return '-translate-y-1/2';
     }
   }, [direction]);
 
@@ -106,13 +194,13 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
   }, [isHovered, popoverIsHovered, openDelay, closeDelay]);
 
   return (
-    <div className='relative'>
-      <div
+    <span className='relative' ref={childRef}>
+      <span
         onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
       >
         {children}
-      </div>
-      {darkenBackground && createPortal(
+      </span>
+      {darkenBackground && isMounted && createPortal(
         <div style={{
           position: 'fixed',
           top: 0,
@@ -123,16 +211,17 @@ const Popover = ({ direction, children, content, openDelay = 0, closeDelay = 0, 
           zIndex: 49,
           pointerEvents: 'none',
           opacity: isOpen ? 1 : 0,
-          transition: 'opacity 200ms ease-in-out'
+          transition: 'opacity 400ms ease-in-out'
         }} />,
         document.body
       )}
-      <div className='relative z-50 drop-shadow-md'>
-        <div onMouseEnter={() => setPopoverIsHovered(true)} onMouseLeave={() => setPopoverIsHovered(false)} className={cx(directionClass, `transition-all duration-200 absolute p-4 rounded-lg bg-[#1d2432] text-xs text-white border-2 border-gray-800 ${isOpen ? 'opacity-100 pointer-events-auto scale-100' : 'opacity-0 pointer-events-none scale-75'}`)}>
+      {isMounted && createPortal(
+        <div ref={popoverRef} onMouseEnter={() => setPopoverIsHovered(true)} onMouseLeave={() => setPopoverIsHovered(false)} style={styleClass} className={cx(`transition-all z-50 max-w-480 drop-shadow-md duration-200 absolute p-4 rounded-lg bg-[#1d2432] text-xs text-white border-2 border-gray-800`, directionClass, isOpen ? 'scale-100 opacity-100 pointer-events-auto' : 'scale-75 opacity-0 pointer-events-none')}>
           {content}
-        </div>
-      </div>
-    </div>
+        </div>,
+        document.body
+      )}
+    </span>
   );
 
 };

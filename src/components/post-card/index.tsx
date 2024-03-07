@@ -72,9 +72,7 @@ export const PostCard = ({
             </div>
           )}
           <div className='flex gap-4 items-center'>
-            <PersonChip person={creator} />
-            <p className='text-white text-xs'>to</p>
-            <CommunityChip community={community} />
+            <p className='text-white text-xs flex gap-4 items-center'><PersonChip person={creator} /> to <CommunityChip community={community} /></p>
           </div>
           <div className='flex gap-8 items-center text-slate-400 text-xs'>
             <Popover direction='bottom' content='Minimize'>

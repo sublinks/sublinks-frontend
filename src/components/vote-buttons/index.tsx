@@ -8,9 +8,8 @@ import Icon, { ICON_SIZE } from '../icon';
 import { PaleBodyText } from '../text';
 import VoteButton from './vote-button';
 import UpvoteButton from './upvote-button';
-
-
-
+import Popover from '../popover';
+import DownvoteButton from './downvote-button';
 
 interface CommentVotesProps {
   points: number;
@@ -22,16 +21,22 @@ interface CommentVotesProps {
 const VoteButtons = ({
   points, onVote, myVote, vertical
 }: CommentVotesProps) => (
-  <div className={cx('flex justify-center items-center', {
+  <div className={cx('flex justify-center items-center gap-4', {
     'flex-col': !vertical,
     'flex-row': vertical
   })}
   >
-    <UpvoteButton onVote={onVote} myVote={myVote} />
+    <div className='max-h-24'>
+      <Popover direction='left' content='Upvote'>
+        <UpvoteButton onVote={onVote} myVote={myVote} />
+      </Popover>
+    </div>
     <PaleBodyText title="Vote score" className="text-xs">{points}</PaleBodyText>
-    <VoteButton label="Downvote arrow" onClick={() => onVote(myVote === -1 ? 0 : -1)}>
-      <Icon IconType={ArrowDownIcon} size={ICON_SIZE.SMALL} textClassName={`${myVote === -1 ? 'text-red-600' : 'text-gray-700 dark:text-white'} dark:hover:text-red-400 hover:text-red-400`} />
-    </VoteButton>
+    <div className='max-h-24'>
+      <Popover direction='left' content='Downvote'>
+        <DownvoteButton onVote={onVote} myVote={myVote} />
+      </Popover>
+    </div>
   </div>
 );
 

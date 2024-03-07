@@ -4,14 +4,16 @@ import cx from 'classnames';
 
 interface MarkdownProps {
   className?: string;
-  markdown?: string;
+  markdown?: string | JSX.Element | JSX.Element[];
 }
 
 const Markdown = ({
   className,
   markdown
 }: MarkdownProps) => (
-  <div dangerouslySetInnerHTML={{ __html: markdown || '' }} className={cx('text-primary-dark dark:text-primary markdown', className)} />
+  <div className={cx('text-primary-dark dark:text-primary markdown', className)} >
+    {markdown}
+  </div>
 );
 
 export default Markdown;

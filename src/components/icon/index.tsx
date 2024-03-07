@@ -37,10 +37,10 @@ interface IconProps {
 const Icon = ({
   IconType, size, title, titleId, className, isInteractable, textClassName, onAnimationEnd
 }: IconProps) => (
-  <div onAnimationEnd={onAnimationEnd} className={cx(wrapperSizeClassMap[size], {
+  <span onAnimationEnd={onAnimationEnd} className={cx(wrapperSizeClassMap[size], {
     'text-gray-700 dark:text-white': !textClassName,
     'hover:text-brand dark:hover:text-brand-dark transition-text duration-200': isInteractable && !textClassName
-  }, className, textClassName)}
+  }, className, textClassName, 'block')}
   >
     <IconType
       title={title}
@@ -48,7 +48,7 @@ const Icon = ({
       height={iconSizeClassMap[size]}
       width={iconSizeClassMap[size]}
     />
-  </div>
+  </span>
 );
 
 export default Icon;

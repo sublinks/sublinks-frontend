@@ -21,13 +21,13 @@ interface PersonChipProps {
 const PersonChip = ({
   person
 }: PersonChipProps) => (
-  <Popover direction='bottom' darkenBackground={true} openDelay={500} closeDelay={300} gap={PopoverGapSize.NONE} content={
-    <div className='min-w-320'>
+  <Popover direction='bottom' darkenBackground={true} openDelay={1000} closeDelay={300} gap={PopoverGapSize.NONE} content={
+    <div>
       {
         person.banner ? (
-          <Image src={person.banner} alt={`${person.name}'s banner`} width={480} height={64} className='min-w-320 h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
+          <Image src={person.banner} alt={`${person.name}'s banner`} width={480} height={64} style={{width: "100%"}} className='h-64 min-h-64 max-h-64 object-cover absolute z-0 inset-0 rounded-lg' />
         ) : (
-          <div className='min-w-320 h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
+          <div style={{width: "100%"}} className='h-64 min-h-64 max-h-64 bg-gradient-to-r from-blue-700 to-green-800 rounded-lg absolute z-0 inset-0' />
         )
       }
       {person.avatar ? (
@@ -52,7 +52,7 @@ const PersonChip = ({
       ) : (
         <Icon IconType={UserCircleIcon} size={ICON_SIZE.VERYSMALL} title="User icon" isInteractable />
       )}
-      <p className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500">{person.display_name || person.name}</p>
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-500">{person.display_name || person.name}</span>
     </Link>
   </Popover>
 );
