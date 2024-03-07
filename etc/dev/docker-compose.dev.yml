@@ -1,8 +1,8 @@
 version: "3.7"
 
 volumes:
-  db:
-  pictrs:
+  db_data:
+  pictrs_data:
 
 services:
   proxy:
@@ -27,12 +27,12 @@ services:
       SUBLINKS_JWT_SECRET: cHVkZGluLXdpbnN0b24taXJpcy1hcnlhLWZpbm4tcGlja2xlcy1jaGVlc2UtYm9vYnM=
       SUBLINKS_BASE_URL: http://sublinks:8080
       SUBLINKS_PICTRS_URL: http://pictrs:8080
-      FEDERATION_QUEUE_HOST: localhost
+      FEDERATION_QUEUE_HOST: queue
       FEDERATION_QUEUE_PORT: 5672
       FEDERATION_QUEUE_USER: sublinks
       FEDERATION_QUEUE_PASS: sublinks
       FEDERATION_QUEUE_NAME: federation
-      FEDERATION_ROUTING_KEY: ""
+      FEDERATION_EXCHANGE_NAME: federation
       BACKEND_QUEUE_NAME: backend
       BACKEND_TOPIC_NAME: backend
     depends_on:
@@ -48,7 +48,7 @@ services:
       - MYSQL_USER=sublinks
       - MYSQL_PASSWORD=sublinks
     volumes:
-      - db:/var/lib/mysql
+      - db_data:/var/lib/mysql
     restart: always
     ports:
       - "3306:3306"
@@ -90,7 +90,7 @@ services:
       - PICTRS__MEDIA__GIF__MAX_AREA=65536
       - PICTRS__MEDIA__GIF__MAX_FRAME_COUNT=400
     volumes:
-      - pictrs:/mnt:Z
+      - pictrs_data:/mnt:Z
     user: 991:991
     restart: always
 
