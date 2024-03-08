@@ -1,13 +1,14 @@
 import React from 'react';
+import { CommentView, PostView } from 'sublinks-js-client';
 
 import { PersonBio, PersonHeader } from '@/components/person-detail';
-
 import MainCard from '@/components/main-card';
 import { ModeratesList, ModeratesProps } from '@/components/moderates-list';
 import { PersonDetailSelection } from '@/components/person-comments-posts';
-import sublinksClient from '@/utils/client';
+import { ErrorText } from '@/components/text';
+import SublinksApi from '@/utils/api-client/server';
+import logger from '@/utils/logger';
 
-import { CommentView, PostView } from 'sublinks-js-client';
 import * as testData from '../../../../test-person-data.json';
 
 interface UserViewProps {
@@ -16,13 +17,32 @@ interface UserViewProps {
   }
 }
 
+// @todo: Allow test data when in non-docker dev env
+// as Sublinks Core doesn't yet handle all user properties
+const getUser = async (username: string) => {
+  try {
+    const user = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+      ? await SublinksApi.Instance().Client().getPersonDetails({
+        username
+      }) : testData;
+
+    return user;
+  } catch (e) {
+    logger.error('Failed to retrieve user', e);
+    return undefined;
+  }
+};
+
 const User = async ({ params: { username } }: UserViewProps) => {
-  // @todo: Allow test data when in non-docker dev env
-  // as Sublinks Core doesn't yet handle all user properties
-  const userData = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-    ? await sublinksClient().getPersonDetails({
-      username
-    }) : testData;
+  const userData = await getUser(username);
+
+  if (!userData) {
+    return (
+      <ErrorText>
+        Unable to show user information. Please reload the page to try again.
+      </ErrorText>
+    );
+  }
 
   const {
     person: {

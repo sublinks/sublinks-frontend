@@ -19,18 +19,20 @@
     "@material-tailwind/react": "^2.1.9",
     "@uiw/react-md-editor": "^4.0.3",
     "classnames": "^2.5.1",
+    "js-cookie": "^3.0.5",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "sublinks-js-client": "^0.0.3",
+    "sublinks-js-client": "^0.0.8",
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-js": "^1.6.2",
-    "@types/node": "^20.11.20",
-    "@types/react": "=18.2.48",
+    "@types/js-cookie": "^3.0.6",
+    "@types/node": "^20.11.24",
+    "@types/react": "=18.2.42",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^7.1.0",
@@ -46,6 +48,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.3.3"
   }
 }

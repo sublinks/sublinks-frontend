@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MainCard from '@/components/main-card';
-import { H1 } from '@/components/text';
+import { BodyTitleInverse, H1 } from '@/components/text';
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 
@@ -17,7 +17,9 @@ const PostCreate = () => {
           <InputField type="file" label="Media" name="media" id="media" placeholder="Media" showBorderPlaceholder inputClassName="mt-8 file:text-gray-200 file:dark:text-black file:px-8 file:py-4 file:bg-brand dark:file:bg-brand-dark file:border file:rounded-md rounded" />
           <MarkdownTextarea label="Body" id="body" />
           <Checkbox label="NSFW" id="nsfw" name="nsfw" />
-          <Button type="submit" id="create-post">Create</Button>
+          <Button type="submit" id="create-post">
+            <BodyTitleInverse>Create</BodyTitleInverse>
+          </Button>
         </div>
       </form>
     </MainCard>

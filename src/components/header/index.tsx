@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  BellIcon,
-  ClipboardIcon,
-  HeartIcon,
-  ShieldExclamationIcon
-} from '@heroicons/react/24/outline';
-
-import sublinksClient from '@/utils/client';
+import { HeartIcon } from '@heroicons/react/24/outline';
 import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
-import ProfileMenu from '../profile-menu';
+
+import SublinksApi from '@/utils/api-client/server';
+import logger from '@/utils/logger';
+import UserNav from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
 import Icon, { ICON_SIZE } from '../icon';
@@ -17,15 +13,30 @@ import HeaderLayout from './header-layout';
 import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
+// @todo: Allow test data when in non-docker dev env
+// as Sublinks Core doesn't yet handle all post features
+const getSite = async () => {
+  try {
+    const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+      ? await SublinksApi.Instance().Client().getSite()
+      : JSON.parse(JSON.stringify(testData)) as unknown as GetSiteResponse;
+
+    return site;
+  } catch (e) {
+    logger.error('Failed to retrieve site for header', e);
+    return undefined;
+  }
+};
+
 const Header = async () => {
-  const instance = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL ? await sublinksClient().getSite()
-    : testData as unknown as GetSiteResponse;
+  const site = await getSite();
+  const myUser = site?.my_user;
 
   return (
     <HeaderLayout>
       {/* Header Left Side */}
       <div className="flex gap-8 lg:gap-16 items-center text-sm lg:text-base">
-        <HeaderLogo name={instance.site_view.site.name} icon={instance.site_view.site.icon || '/logo.png'} />
+        <HeaderLogo name={site?.site_view?.site.name || 'Sublinks'} icon={site?.site_view?.site?.icon || '/logo.png'} />
 
         <p className="text-gray-200 dark:text-gray-400 hover:cursor-default">/</p>
 
@@ -49,26 +60,7 @@ const Header = async () => {
       {/* Header Right Side */}
       <div className="flex items-center gap-8 lg:gap-16 text-sm lg:text-base">
         <HeaderSearch />
-
-        {false && ( // Change to check if a user is logged in
-          <Link href="/inbox">
-            <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
-          </Link>
-        )}
-
-        {false && ( // Change to check if a user is a mod or an admin
-          <Link href="/reports">
-            <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
-          </Link>
-        )}
-
-        {false && ( // Change to check if applications are enabled and the user is an admin
-          <Link href="/registration_applications">
-            <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
-          </Link>
-        )}
-
-        <ProfileMenu />
+        <UserNav initialMyUser={myUser} />
       </div>
     </HeaderLayout>
   );
