@@ -8,6 +8,7 @@ import Header from '@/components/header';
 import BottomNav from '@/components/bottom-nav';
 
 import { ThemeProvider } from '@/components/TailwindMaterial';
+import UserProvider from '@/context/user';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -47,21 +48,22 @@ const RootLayout = ({
   };
 
   return (
-    <ThemeProvider value={theme}>
-      <html lang="en" className="h-full dark">
-        <body className={cx(inter.className, 'flex flex-col min-h-full bg-secondary dark:bg-secondary-dark')}>
-          <Header />
-          <BottomNav />
+    <UserProvider>
+      <ThemeProvider value={theme}>
+        <html lang="en" className="h-full dark">
+          <body className={cx(inter.className, 'flex flex-col min-h-full bg-secondary dark:bg-secondary-dark')}>
+            <Header />
+            <BottomNav />
 
-          <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto md:pt-24">
-            <CurvedCorner left />
-            <CurvedCorner right />
-            {children}
-          </main>
-
-        </body>
-      </html>
-    </ThemeProvider>
+            <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">
+              <CurvedCorner left />
+              <CurvedCorner right />
+              {children}
+            </main>
+          </body>
+        </html>
+      </ThemeProvider>
+    </UserProvider>
   );
 };
 

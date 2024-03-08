@@ -26,7 +26,9 @@ interface InputFieldProps {
   name: string;
   id: string;
   placeholder: string;
+  disabled?: boolean;
   LeftIcon?: React.FunctionComponent;
+  hasError?: boolean;
   className?: string;
   inputClassName?: string;
   iconClassName?: string;
@@ -40,7 +42,9 @@ const InputField = ({
   name,
   id,
   placeholder,
+  disabled,
   LeftIcon,
+  hasError,
   className,
   inputClassName,
   iconClassName,
@@ -51,7 +55,7 @@ const InputField = ({
     <label htmlFor={name} className="sr-only">
       {label}
     </label>
-    <div className="relative flex items-center border-2 border-gray-300 dark:border-gray-900 rounded-md px-8">
+    <div className={cx('relative flex items-center border-2 rounded-md px-8', hasError ? 'border-red-700 dark:border-red-400' : 'border-gray-300 dark:border-gray-900')}>
       {LeftIcon && (
         <span className="aria-hidden">
           <Icon IconType={LeftIcon} size={ICON_SIZE.SMALL} className={iconClassName} />
@@ -63,6 +67,7 @@ const InputField = ({
         id={id}
         className={cx('peer block w-full rounded-md border-0 py-4 px-8 text-gray-900 dark:text-white bg-primary dark:bg-gray-800 placeholder:text-gray-400 focus:outline-none sm:text-sm sm:leading-6', inputClassName)}
         placeholder={placeholder}
+        disabled={disabled}
       />
       {showBorderPlaceholder && <PaleBodyText className={cx('absolute text-xs bg-primary dark:bg-gray-800 px-4 -top-12 peer-placeholder-shown:top-0 opacity-100 peer-placeholder-shown:opacity-0 rounded-t-md border-t-2 border-x-2 dark:dark:border-gray-900 transition-all', borderPlaceholderClassName)}>{placeholder}</PaleBodyText>}
     </div>

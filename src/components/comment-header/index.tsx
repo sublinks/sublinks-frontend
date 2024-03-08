@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {
-  Person
-} from 'sublinks-js-client';
+import { Person } from 'sublinks-js-client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { HomeIcon, LinkIcon } from '@heroicons/react/24/outline';
