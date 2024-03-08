@@ -3,6 +3,7 @@ version: "3.7"
 volumes:
   db_data:
   pictrs_data:
+  queue_data:
 
 services:
   proxy:
@@ -16,6 +17,27 @@ services:
     depends_on:
       - pictrs
       - sublinks-ui
+
+  federation:
+    image: ghcr.io/sublinks/sublinks-federation:main
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      DB_DSN: "federation:federation@tcp(federationdb:3306)/federation?charset=utf8mb4&parseTime=True&loc=Local"
+      AMQP_SERVER_URL: "amqp://sublinks:sublinks@queue:5672"
+      HOSTNAME: sublinks.org"
+    depends_on:
+      - sublinks
+
+  federationdb:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=federation
+      - MYSQL_USER=federation
+      - MYSQL_PASSWORD=federation
+    restart: always
 
   sublinks:
     image: ghcr.io/sublinks/sublinks-api:0.0.1-snapshot
@@ -62,10 +84,13 @@ services:
     command: sh -c "npm i && npm run dev"
     environment:
       - NEXT_PUBLIC_SUBLINKS_API_BASE_URL=sublinks:8080
+      - NEXT_PUBLIC_SUBLINKS_API_BASE_PUBLIC_URL=localhost:3000
+      - NEXT_PUBLIC_HTTPS_ENABLED=false
       - WATCHPACK_POLLING=true
     restart: always
     depends_on:
       - sublinks
+      - federation
 
   seeder:
     image: node:20-alpine
@@ -97,6 +122,8 @@ services:
   queue:
     image: rabbitmq:3-management
     restart: always
+    volumes:
+      - queue_data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=sublinks
       - RABBITMQ_DEFAULT_PASS=sublinks
