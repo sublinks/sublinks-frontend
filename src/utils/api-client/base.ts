@@ -71,14 +71,8 @@ class SublinksApiBase {
     }
   }
 
-  public async logout() {
-    try {
-      await this.rawClient.logout();
-    } catch (e) {
-      logger.error('Failed to logout user', e);
-    } finally {
-      this.clearAuth();
-    }
+  public logout() {
+    this.clearAuth();
   }
 
   public Client() {
