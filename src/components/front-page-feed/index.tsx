@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   GetPostsResponse, GetSiteResponse, ListingType, SortType
 } from 'sublinks-js-client';
@@ -21,12 +21,16 @@ interface FeedProps {
 const Feed = ({ posts, site }: FeedProps) => {
   const [postFeed, setPostFeed] = useState<GetPostsResponse | undefined>(posts);
 
-  // @todo: Set this to the users default feed type
-  const [postFeedType, setPostFeedType] = useState<ListingType>();
-  const [postFeedSort, setPostFeedSort] = useState<SortType>();
+  // @todo: Set this to the users default feed type,
+  // temporarily setting default values to track initial state
+  const [postFeedType, setPostFeedType] = useState<ListingType>('All');
+  const [postFeedSort, setPostFeedSort] = useState<SortType>('Hot');
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [showPostsError, setShowPostsError] = useState(false);
 
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  // State to store the initial values of postFeedType and postFeedSort
+  const initialPostFeedTypeRef = useRef<ListingType>(postFeedType);
+  const initialPostFeedSortRef = useRef<SortType>(postFeedSort);
 
   const handleSidebarSwitch = (newState: boolean) => {
     setSidebarOpen(newState);
@@ -34,31 +38,39 @@ const Feed = ({ posts, site }: FeedProps) => {
 
   // @todo: Allow test data when in non-docker dev env
   // as Sublinks Core doesn't yet handle all post features
-  const getPosts = async () => {
-    try {
-      setPostFeed(process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-        ? await SublinksApi.Instance().Client().getPosts({
-          type_: postFeedType,
-          sort: postFeedSort
-        }) : testData as unknown as GetPostsResponse);
-
-      setShowPostsError(false);
-    } catch (e) {
-      setShowPostsError(true);
-      logger.error('Failed to retrieve posts', e);
-    }
-  };
-
-  // Only run on initial mount in case server-side post fetch failed
   useEffect(() => {
-    if (!postFeed) {
-      getPosts();
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    const getPosts = async () => {
+      try {
+        setPostFeed(process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
+          ? await SublinksApi.Instance().Client().getPosts({
+            type_: postFeedType,
+            sort: postFeedSort
+          }) : testData as unknown as GetPostsResponse);
 
-  useEffect(() => {
-    getPosts();
-  }, [postFeedSort, postFeedType]); // eslint-disable-line react-hooks/exhaustive-deps
+        setShowPostsError(false);
+      } catch (e) {
+        setShowPostsError(true);
+        logger.error('Failed to retrieve posts', e);
+      }
+    };
+
+    const isPostFeedTypeChanged = postFeedType !== initialPostFeedTypeRef.current;
+    const isPostFeedSortChanged = postFeedSort !== initialPostFeedSortRef.current;
+
+    // Only call getPosts if postFeedType or postFeedSort has changed from its initial value
+    if (isPostFeedTypeChanged || isPostFeedSortChanged) {
+      // @todo: indication posts are loading
+      try {
+        getPosts();
+
+        // Update initial values to reflect the current state
+        initialPostFeedTypeRef.current = postFeedType;
+        initialPostFeedSortRef.current = postFeedSort;
+      } catch (e) {
+        // @todo: add error handling re: src/utils/logger.ts
+      }
+    }
+  }, [postFeedSort, postFeedType]);
 
   return (
     <div className="relative">
