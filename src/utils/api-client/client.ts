@@ -8,6 +8,7 @@ class SublinksApiClientSide extends SublinksApiBase {
 
   constructor() {
     super();
+    SublinksApiClientSide.instance = this;
 
     const cookieStore = {
       get: () => {

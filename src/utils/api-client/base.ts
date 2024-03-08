@@ -2,7 +2,7 @@ import { SublinksClient } from 'sublinks-js-client';
 
 import logger from '../logger';
 
-export const AUTH_COOKIE_NAME = 'auth';
+export const AUTH_COOKIE_NAME = 'jwt';
 const AUTH_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 365 days
 
 export interface CookieStore {
@@ -39,11 +39,9 @@ class SublinksApiBase {
     this.authCookieStore = store;
   }
 
-  public async setAuthHeader() {
-    const jwtAuth = this.authCookieStore?.get();
-
+  public async setAuthHeader(jwtToken: string) {
     try {
-      this.rawClient.setHeader('Authorization', jwtAuth ? `Bearer ${jwtAuth}` : undefined);
+      this.rawClient.setAuth(jwtToken);
     } catch (e) {
       logger.error('Failed to set auth header', e);
     }
@@ -66,18 +64,20 @@ class SublinksApiBase {
         path: '/',
         sameSite: 'Lax'
       });
+      this.setAuthHeader(jwt);
     } catch (e) {
       logger.error('Failed to login user', e);
+      throw e;
     }
   }
 
   public async logout() {
     try {
-      this.clearAuth();
-
       await this.rawClient.logout();
     } catch (e) {
       logger.error('Failed to logout user', e);
+    } finally {
+      this.clearAuth();
     }
   }
 
@@ -94,19 +94,17 @@ class SublinksApiBase {
   }
 
   private getWrappedClient() {
-    const validateAuth = async () => {
+    const validateAndUpdateAuth = async (authCookie?: string) => {
       try {
-        this.setAuthHeader();
-
-        const authCookie = this.authCookieStore?.get();
         const site = await this.rawClient.getSite();
         const userIsAuthenticated = Boolean(site.my_user);
 
-        if (authCookie && !userIsAuthenticated) {
+        if (authCookie && userIsAuthenticated) {
+          this.setAuthHeader(authCookie);
+        } else if (this.rawClient.headers.Authorization) {
           this.clearAuth();
         }
       } catch (e) {
-        this.clearAuth();
         logger.debug('Failed to determine user auth status', e);
       }
     };
@@ -120,10 +118,23 @@ class SublinksApiBase {
       if (typeof classProp === 'function') {
         // @ts-expect-error: TS can't find a matching index signature
         wrappedClient[name] = async (...args: unknown[]) => {
-          await validateAuth();
+          const authCookie = this.authCookieStore?.get();
 
-          // @ts-expect-error: TS can't find a matching index signature
-          return this.rawClient[name](...args);
+          if (authCookie && !this.rawClient.headers.Authorization) {
+            await validateAndUpdateAuth(authCookie);
+          }
+
+          try {
+            // @ts-expect-error: TS can't find a matching index signature
+            return this.rawClient[name](...args);
+          } catch (e) {
+            const error = e as Error;
+            if (error.message === 'Unauthorized' && this.rawClient.headers.Authorization) {
+              logger.debug('Validating auth following unauthorized API response', e);
+              await validateAndUpdateAuth(authCookie);
+            }
+            throw e;
+          }
         };
       }
     });
