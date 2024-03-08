@@ -10,6 +10,7 @@ import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import logger from '@/utils/logger';
+import { Spinner } from '@material-tailwind/react';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LOGIN_FIELD_IDS = {
@@ -24,12 +25,12 @@ const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Redirect when login succeeds, or on load if user is already logged in
+  // Redirect when user is logged in
   useEffect(() => {
-    if (router && myUser) {
+    if (myUser) {
       router.push('/');
     }
-  }, [router, myUser]);
+  }, [myUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLoginAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -59,7 +60,8 @@ const LoginForm = () => {
 
     try {
       await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
-      saveMyUserFromSite();
+      await saveMyUserFromSite();
+      router.push('/');
     } catch (e) {
       logger.error('Login attempt failed', e);
       setErrorMessage('Login attempt failed. Please try again.');
@@ -94,8 +96,8 @@ const LoginForm = () => {
       <div aria-live="polite" className="h-32">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
-      <Button type="submit" disabled={isSubmitting}>
-        <BodyTitleInverse>Log In</BodyTitleInverse>
+      <Button type="submit" disabled={isSubmitting} className="flex justify-center">
+        {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Log In</BodyTitleInverse>}
       </Button>
     </form>
   );
