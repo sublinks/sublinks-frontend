@@ -1,11 +1,4 @@
 import React from 'react';
-import {
-  Tabs,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel
-} from '@/components/TailwindMaterial';
 import { CommentView, PostView } from 'sublinks-js-client';
 import PostFeed from '../post-feed';
 import CommentFeed from '../comment-feed';
@@ -27,7 +20,42 @@ export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailS
 
   return (
     <div className="mt-8 text-sm">
-      <Tabs value="posts">
+      
+    </div>
+  );
+};
+
+/*
+<Tabs aria-label="Posts"></Tabs>
+
+
+<TabsHeader
+          indicatorProps={{
+            className: "bg-gray-900/10 dark:bg-secondary-dark shadow-none",
+          }}
+          className="bg-secondary dark:bg-gray-900/10"
+        >
+          {tabs.map(({ label, value }) => (
+            <Tab
+              key={value}
+              value={value}
+              className="text-black dark:text-white"
+            >
+              {label}
+            </Tab>
+          ))}
+        </TabsHeader>
+        <TabsBody>
+          {tabs.map(({ value, content }) => (
+            <TabPanel key={value} value={value} className="mt-8">
+              {content || `TODO: ${value}`}
+            </TabPanel>
+          ))}
+        </TabsBody>
+*/
+
+/*
+<Tabs value="posts">
         <TabsHeader
           indicatorProps={{
             className: 'bg-gray-900/10 dark:bg-secondary-dark shadow-none'
@@ -48,6 +76,4 @@ export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailS
           ))}
         </TabsBody>
       </Tabs>
-    </div>
-  );
-};
+*/

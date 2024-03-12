@@ -1,8 +1,6 @@
 'use client';
 
-import {
-  Button
-} from '@/components/TailwindMaterial';
+import { Button } from "@nextui-org/react";
 import React from 'react';
 import { H2 } from '../text';
 

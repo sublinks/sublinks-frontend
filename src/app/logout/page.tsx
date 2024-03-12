@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
-import { Spinner } from '@material-tailwind/react';
+import { Spinner } from '@nextui-org/react';
 import { BodyTitle } from '@/components/text';
 
 const Logout = () => {

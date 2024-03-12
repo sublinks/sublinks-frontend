@@ -2,7 +2,7 @@
 
 import { ListingType, SortType } from 'sublinks-js-client';
 import React from 'react';
-import { ButtonGroup } from '../TailwindMaterial';
+import { ButtonGroup } from "@nextui-org/react";
 import Button from '../button';
 import Select, { Option } from '../select';
 

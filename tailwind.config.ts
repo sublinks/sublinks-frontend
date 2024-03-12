@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { nextui } from '@nextui-org/react';
 
 const viewports = {
   '10vw': '10vw',
@@ -71,8 +72,7 @@ const config: Config = {
   content: [
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    'node_modules/@material-tailwind/react/components/**/*.{js,ts,jsx,tsx}',
-    'node_modules/@material-tailwind/react/theme/components/**/*.{js,ts,jsx,tsx}'
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     spacing,
@@ -114,8 +114,7 @@ const config: Config = {
       }
     }
   },
-  plugins: [
-  ]
+  plugins: [nextui()],
 };
 
 export default config;
