@@ -7,8 +7,7 @@ import cx from 'classnames';
 import Header from '@/components/header';
 import BottomNav from '@/components/bottom-nav';
 
-import { ThemeProvider } from '@/components/TailwindMaterial';
-import UserProvider from '@/context/user';
+import { Providers } from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,38 +31,27 @@ const CurvedCorner = ({ left, right }: { left?: boolean; right?: boolean; }) => 
   </>
 );
 
-const RootLayout = ({
-  children
-}: {
-  children: React.ReactNode
-}) => {
-  const theme = {
-    menu: {
-      defaultProps: {
-        dismiss: {
-          itemPress: false
-        }
-      }
-    }
-  };
-
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <UserProvider>
-      <ThemeProvider value={theme}>
-        <html lang="en" className="h-full dark">
-          <body className={cx(inter.className, 'flex flex-col min-h-full bg-secondary dark:bg-secondary-dark')}>
-            <Header />
-            <BottomNav />
+    <html lang="en" className="h-full dark">
+      <body
+        className={cx(
+          inter.className,
+          "flex flex-col min-h-full bg-secondary dark:bg-secondary-dark"
+        )}
+      >
+        <Providers>
+          <Header />
+          <BottomNav />
 
-            <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">
-              <CurvedCorner left />
-              <CurvedCorner right />
-              {children}
-            </main>
-          </body>
-        </html>
-      </ThemeProvider>
-    </UserProvider>
+          <main className="relative flex-grow bg-primary dark:bg-primary-dark w-full l:max-w-[1352px] xl:max-w-[1524px] m-auto">
+            <CurvedCorner left />
+            <CurvedCorner right />
+            {children}
+          </main>
+        </Providers>
+      </body>
+    </html>
   );
 };
 

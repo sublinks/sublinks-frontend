@@ -1,13 +1,9 @@
 'use client';
 
-import {
-  Menu, MenuHandler, MenuList
-} from '@material-tailwind/react';
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
-  BellIcon, ClipboardIcon, ShieldExclamationIcon, UserCircleIcon
+  BellIcon, ClipboardIcon, ShieldExclamationIcon
 } from '@heroicons/react/24/outline';
 import { MyUserInfo } from 'sublinks-js-client';
 
@@ -80,12 +76,12 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
         <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
       </Link>
       )}
+    </div>
+  );
+};
 
-      <Menu
-        placement="bottom"
-        open={open}
-        handler={setOpen}
-      >
+/*
+<Menu placement="bottom" open={open} handler={setOpen}>
         <MenuHandler>
           <button
             type="button"
@@ -93,24 +89,39 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
             className="bg-transparent"
           >
             {userAvatar ? (
-              <Image src={userAvatar} alt="Profile image" width={30} height={30} className="rounded-full" />
+              <Image
+                src={userAvatar}
+                alt="Profile image"
+                width={30}
+                height={30}
+                className="rounded-full"
+              />
             ) : (
-              <Icon IconType={UserCircleIcon} size={ICON_SIZE.MEDIUM} title="User icon" isInteractable />
+              <Icon
+                IconType={UserCircleIcon}
+                size={ICON_SIZE.MEDIUM}
+                title="User icon"
+                isInteractable
+              />
             )}
-
           </button>
         </MenuHandler>
-        <MenuList ref={ref} className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none" aria-label="ProfileMenu">
+        <MenuList
+          ref={ref}
+          className="w-full relative md:w-80 flex flex-col bg-primary dark:bg-primary-dark dark:border-gray-800 rounded-b-none rounded-t-md md:rounded-b-md md:rounded-t-none"
+          aria-label="ProfileMenu"
+        >
           {items.map(({ item, key }) => (
-            <div className="w-full mt-0 top-0 pt-0 bg-none border-t first:border-t-0 border-gray-500 z-50" key={key}>
+            <div
+              className="w-full mt-0 top-0 pt-0 bg-none border-t first:border-t-0 border-gray-500 z-50"
+              key={key}
+            >
               {item}
             </div>
           ))}
         </MenuList>
       </Menu>
-    </div>
-  );
-};
+*/
 
 const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
   const { myUser } = useContext(UserContext);
