@@ -1,4 +1,4 @@
-import { getCommunityNameFromSlug, getCommunitySlugFromUrl } from "../communities";
+import { getCommunityNameFromSlug, getCommunitySlugFromUrl } from '../communities';
 
 describe('getCommunitySlugFromUrl', () => {
   it('should return community slug from remote instance URL', () => {
