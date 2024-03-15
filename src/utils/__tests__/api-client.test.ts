@@ -1,6 +1,7 @@
 import { GetSiteResponse, LoginResponse, SublinksClient } from 'sublinks-js-client';
 
 import SublinksApiBase from '../api-client/base';
+import SublinksApiClientSide from '../api-client/client';
 import logger from '../logger';
 
 let errorSpy: jest.SpyInstance;
@@ -20,11 +21,11 @@ beforeEach(() => {
 
 afterEach(() => jest.clearAllMocks());
 
-describe.only('base class', () => {
+describe('SublinksApiBase', () => {
   it('creates the base class with expected public properties', () => {
     const apiClient = new SublinksApiBase();
 
-    expect(apiClient.authCookieStore).toBeDefined();
+    expect(apiClient.authCookieStore).toBeNull();
     expect(apiClient.Client).toBeDefined();
     expect(apiClient.login).toBeDefined();
     expect(apiClient.logout).toBeDefined();
@@ -208,5 +209,30 @@ describe.only('base class', () => {
         expect(error.message).toBe('Unauthorized');
       }
     });
+  });
+});
+
+describe('SublinksApiClientSide', () => {
+  it('extends the base class with expected public properties', () => {
+    const apiClient = new SublinksApiClientSide();
+
+    expect(apiClient.Client).toBeDefined();
+    expect(apiClient.login).toBeDefined();
+    expect(apiClient.logout).toBeDefined();
+    expect(apiClient.setAuthCookieStore).toBeDefined();
+    expect(apiClient.setAuthHeader).toBeDefined();
+  });
+
+  it('sets the auth cookie store on initialization', () => {
+    const apiClient = new SublinksApiClientSide();
+
+    expect(apiClient.authCookieStore).not.toBeNull();
+  });
+
+  it('returns singleton instance', () => {
+    const firstInstance = SublinksApiClientSide.Instance();
+    const secondInstance = SublinksApiClientSide.Instance();
+
+    expect(firstInstance).toBe(secondInstance);
   });
 });
