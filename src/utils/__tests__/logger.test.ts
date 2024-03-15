@@ -10,29 +10,29 @@ const processEnvRef = process.env;
 describe('logger', () => {
   afterEach(() => jest.clearAllMocks());
 
-  it('logs debug messages to console in non-production', () => {
-    logger.debug('debug message');
-
-    expect(debugSpy).toHaveBeenCalled();
-  });
-
-  it('logs info messages to console in non-production', () => {
+  it('logs info messages to console', () => {
     logger.info('info message');
 
     expect(infoSpy).toHaveBeenCalled();
   });
 
-  it('logs warning messages to console in non-production', () => {
+  it('logs warning messages to console', () => {
     logger.warn('warn message');
     logger.warning('warning message');
 
     expect(warnSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('logs error messages to console in non-production', () => {
+  it('logs error messages to console', () => {
     logger.error('error message');
 
     expect(errorSpy).toHaveBeenCalled();
+  });
+
+  it('logs debug messages to console in non-production', () => {
+    logger.debug('debug message');
+
+    expect(debugSpy).toHaveBeenCalled();
   });
 
   it('does not log debug messages to console in production', () => {

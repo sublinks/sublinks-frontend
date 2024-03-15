@@ -12,7 +12,7 @@ import {
 import { MyUserInfo } from 'sublinks-js-client';
 
 import { UserContext } from '@/context/user';
-import { useTheme } from '@/utils/theme';
+import { useTheme } from '@/hooks/use-theme';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import ThemeSwitch from '../theme-switch';
 import { LinkText } from '../text';
