@@ -36,11 +36,18 @@ To run this project, you need to set up the necessary environment variables. A t
 
 ### Docker
 
-A Docker Compose configuration is made available. This provides an environment which contains a real connection to the Sublinks API and other services. As close to a production-like environment we can test and develop towards locally.
+A Docker Compose configuration is made available via a git submodule. This provides an environment which contains a real connection to the Sublinks API and other services. As close to a production-like environment we can test and develop towards locally.
 
-To use this Docker setup you first need to authenticate towards GitHub's container registry(GHCR). Please follow [this guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) to create an access token and authenticate before running the below command.
+#### Setup
 
-**Run Docker services**
+To use this Docker setup you first need to complete a few steps:
+
+- Authenticate towards GitHub's container registry(GHCR)
+  - Please follow [this guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) to create an access token and authenticate before running the below command.
+- Run `git submodule update --init --recursive` to pull down all submodules
+ 
+#### Run
+
 ```sh
   npm run dev:docker
 ```
@@ -49,7 +56,8 @@ This will expose a NextJS dev environment at http://localhost:3000. It also runs
 
 ### Non-Docker
 
-**Run dev server**
+#### Run
+
 ```sh
   npm run dev
 ```
