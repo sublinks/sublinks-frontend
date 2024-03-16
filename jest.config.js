@@ -4,13 +4,13 @@ module.exports = {
     {
       preset: 'ts-jest',
       displayName: 'client',
-      testMatch: ["/**/*.test.[jt]s?(x)"],
+      testMatch: ["./**/*.test.[jt]s?(x)"],
       testEnvironment: 'jest-environment-jsdom',
     },
     {
       preset: 'ts-jest',
       displayName: 'server',
-      testMatch: ["/**/*.server.test.[jt]s?(x)"],
+      testMatch: ["./**/*.server.test.[jt]s?(x)"],
       testEnvironment: 'node',
     }
   ]
