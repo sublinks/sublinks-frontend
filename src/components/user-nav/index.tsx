@@ -12,8 +12,8 @@ import {
 import { MyUserInfo } from 'sublinks-js-client';
 
 import { UserContext } from '@/context/user';
-import { useClickOutside } from '@/utils/clickAway';
-import { useTheme } from '@/utils/theme';
+import { useTheme } from '@/hooks/use-theme';
+import { useClickOutside } from '@/hooks/use-click-outside';
 import ThemeSwitch from '../theme-switch';
 import { LinkText } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
