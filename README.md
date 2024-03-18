@@ -65,7 +65,8 @@ This will expose a NextJS dev environment at http://localhost:3000. It makes no 
 
 **Unit Tests**
 ```sh
-  TBD
+  npm run test:unit
+  npm run test:unit:watch
 ```
 
 **E2E Tests**

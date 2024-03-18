@@ -120,7 +120,8 @@ class SublinksApiBase {
 
           try {
             // @ts-expect-error: TS can't find a matching index signature
-            return this.rawClient[name](...args);
+            const result = await this.rawClient[name](...args);
+            return result;
           } catch (e) {
             const error = e as Error;
             if (error.message === 'Unauthorized' && this.rawClient.headers.Authorization) {

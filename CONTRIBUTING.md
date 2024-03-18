@@ -49,11 +49,13 @@ There are a basic set of linting rules, based on AirBnB. These are expected to b
 
 ## Tests
 
-Tests have not yet been set up. If you're passionate about testing, please feel free to contribute by setting up unit and end-to-end testing frameworks.
+Unit tests are written and run using [Jest](https://jestjs.io/). As we're now working on to expand test coverage across the app, it's a requirement to write tests for any new or updated features or tools in the app. 
 
-The current idea is that all utility functions should be covered by unit tests. While we want to have end-to-end tests covering key user flows when we're able to connect to a sandbox backend environment.
+The current idea is that all utility functions and hooks should be covered by unit tests, as well as stateful components. While we want to have end-to-end tests covering key user flows.
 
-There is no expectation to unit or visually test standalone components.
+There is no expectation to unit or visually test stateless components.
+
+Note that end-to-end tests have not yet been set up. If you're passionate about testing, please feel free to contribute by setting up an end-to-end testing configuration.
 
 ## Pull Requests
 
