@@ -5,6 +5,8 @@ enum ConsoleMethods {
   ERROR = 'error'
 }
 
+type Logger = Record<string, (...args: unknown[]) => void>;
+
 const shouldLogToConsole = (consoleMethod: ConsoleMethods) => consoleMethod !== ConsoleMethods.DEBUG || process.env.NODE_ENV !== 'production';
 
 const logToConsole = (consoleMethod: ConsoleMethods, ...args: unknown[]) => {
@@ -14,11 +16,12 @@ const logToConsole = (consoleMethod: ConsoleMethods, ...args: unknown[]) => {
   }
 };
 
-const logger = {
-  debug: (...args: unknown[]) => logToConsole(ConsoleMethods.DEBUG, ...args),
-  info: (...args: unknown[]) => logToConsole(ConsoleMethods.INFO, ...args),
-  warning: (...args: unknown[]) => logToConsole(ConsoleMethods.WARN, ...args),
-  error: (...args: unknown[]) => logToConsole(ConsoleMethods.ERROR, ...args)
+const logger: Logger = {
+  debug: (...args) => logToConsole(ConsoleMethods.DEBUG, ...args),
+  info: (...args) => logToConsole(ConsoleMethods.INFO, ...args),
+  warning: (...args) => logToConsole(ConsoleMethods.WARN, ...args),
+  warn: (...args) => logToConsole(ConsoleMethods.WARN, ...args),
+  error: (...args) => logToConsole(ConsoleMethods.ERROR, ...args)
 };
 
 export default logger;
