@@ -53,7 +53,7 @@ Unit tests are written and run using [Jest](https://jestjs.io/). As we're now wo
 
 The current idea is that all utility functions and hooks should be covered by unit tests. While we want to have end-to-end tests covering key user flows.
 
-There is no expectation to unit or visually test stateless components.
+There is no expectation to unit or visually test components.
 
 Note that end-to-end tests have not yet been set up. If you're passionate about testing, please feel free to contribute by setting up an end-to-end testing configuration.
 
