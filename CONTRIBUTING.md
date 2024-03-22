@@ -51,7 +51,7 @@ There are a basic set of linting rules, based on AirBnB. These are expected to b
 
 Unit tests are written and run using [Jest](https://jestjs.io/). As we're now working on to expand test coverage across the app, it's a requirement to write tests for any new or updated features or tools in the app. 
 
-The current idea is that all utility functions and hooks should be covered by unit tests, as well as stateful components. While we want to have end-to-end tests covering key user flows.
+The current idea is that all utility functions and hooks should be covered by unit tests. While we want to have end-to-end tests covering key user flows.
 
 There is no expectation to unit or visually test stateless components.
 
