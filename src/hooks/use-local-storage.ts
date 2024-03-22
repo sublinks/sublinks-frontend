@@ -8,8 +8,6 @@ const parse = (value: string) => {
   }
 };
 
-// Disabled exhaustive-deps because we don't want to run it if those changes
-
 export const useLocalStorage = <S>(
   key: string,
   initialState: S | (() => S)
