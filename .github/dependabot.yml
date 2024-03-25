@@ -25,7 +25,7 @@ updates:
         update-types:
           - "patch"
 
-  # Maintain dependencies for Docker
+  # Maintain dependencies for submodules
   - package-ecosystem: "gitsubmodule"
     directory: "/"
     groups:
@@ -38,6 +38,8 @@ updates:
     schedule:
       interval: "daily" # Change this to weekly some time in the future when things settle down
     rebase-strategy: "disabled"
+
+  # Maintain dependencies for Docker
   - package-ecosystem: "docker"
     directory: "/"
     groups:

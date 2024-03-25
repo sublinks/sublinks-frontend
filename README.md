@@ -45,6 +45,7 @@ To use this Docker setup you first need to complete a few steps:
 - Authenticate towards GitHub's container registry(GHCR)
   - Please follow [this guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#authenticating-with-a-personal-access-token-classic) to create an access token and authenticate before running the below command.
 - Run `git submodule update --init --recursive` to pull down all submodules
+- Run `git submodule update --recursive --remote` after the initial pull to receive the latest submodule changes
  
 #### Run
 
@@ -52,7 +53,7 @@ To use this Docker setup you first need to complete a few steps:
   npm run dev:docker
 ```
 
-This will expose a NextJS dev environment at http://localhost:3000. It also runs a seeding script which inserts several data entities on startup. To give you something to work with, without having to manually create users and such.
+This will expose a NextJS dev environment at http://localhost. It also runs a seeding script which inserts several data entities on startup. To give you something to work with, without having to manually create users and such.
 
 ### Non-Docker
 
