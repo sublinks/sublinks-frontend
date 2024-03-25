@@ -1,14 +1,23 @@
+const commonOptions = {
+  preset: 'ts-jest',
+  globals: {
+    'ts-jest': {
+      tsconfig: 'tsconfig.jest.json'
+    }
+  }
+};
+
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
   projects: [
     {
-      preset: 'ts-jest',
+      ...commonOptions,
       displayName: 'client',
       testMatch: ["./**/*.test.[jt]s?(x)"],
       testEnvironment: 'jest-environment-jsdom',
     },
     {
-      preset: 'ts-jest',
+      ...commonOptions,
       displayName: 'server',
       testMatch: ["./**/*.server.test.[jt]s?(x)"],
       testEnvironment: 'node',
