@@ -16,6 +16,7 @@ const CommentFeed = ({ data: comments }: CommentFeedProps) => (
           comment={commentData.comment}
           creator={commentData.creator}
           counts={commentData.counts}
+          myVote={commentData.my_vote}
         />
       </div>
     )) : (<H1 className="text-center">No comments available!</H1>)}

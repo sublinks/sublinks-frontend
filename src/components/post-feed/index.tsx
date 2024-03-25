@@ -19,6 +19,7 @@ const PostFeed = ({ data: posts, isCommunityFeed }: PostFeedProps) => (
           creator={postData.creator}
           post={postData.post}
           showAuthor={isCommunityFeed}
+          myVote={postData.my_vote}
         />
       </div>
     )) : (<H1 className="text-center">No posts available!</H1>)}

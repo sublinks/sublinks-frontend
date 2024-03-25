@@ -17,10 +17,11 @@ interface PostHeaderProps {
   thumbnailUrl?: string;
   hasBody: boolean;
   hasImage: boolean;
+  myVote?: number;
 }
 
 const PostHeader = ({
-  points, title, SubTitle, postUrl, thumbnailUrl, hasBody, hasImage
+  points, title, SubTitle, postUrl, thumbnailUrl, hasBody, hasImage, myVote
 }: PostHeaderProps) => {
   const [showOriginalImage, setShowOriginalImage] = useState(hasImage && !hasBody);
 
@@ -33,7 +34,7 @@ const PostHeader = ({
     <div className="flex flex-col w-full">
       <div className="flex gap-8">
         <div className="flex items-start gap-8">
-          <VoteButtons points={points} onVote={() => {}} />
+          <VoteButtons points={points} onVote={() => {}} myVote={myVote} />
           <button
             type="button"
             aria-hidden={!hasImage}

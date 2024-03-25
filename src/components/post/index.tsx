@@ -18,6 +18,7 @@ interface PostCardProps {
   creator: Person;
   community: Community;
   counts: PostAggregates;
+  myVote?: number;
   showAuthor?: boolean;
 }
 
@@ -26,6 +27,7 @@ export const PostCard = ({
   creator,
   community,
   counts,
+  myVote,
   showAuthor
 }: PostCardProps) => {
   const { id, body, name: title } = post;
@@ -44,7 +46,7 @@ export const PostCard = ({
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <VoteButtons points={score} onVote={() => {}} myVote={0} />
+          <VoteButtons points={score} onVote={() => {}} myVote={myVote} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">

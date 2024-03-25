@@ -1,4 +1,5 @@
 import React from 'react';
+import { GetPostResponse } from 'sublinks-js-client';
 
 import MainCard from '@/components/main-card';
 import PostHeader from '@/components/post-header';
@@ -26,7 +27,7 @@ const getPost = async (postIdInt: number) => {
         id: postIdInt
       }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
 
-    return postData;
+    return postData as GetPostResponse;
   } catch (e) {
     logger.error('Failed to retrieve post', e);
     return undefined;
@@ -44,6 +45,7 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   }
 
   const { post_view: postView } = postData;
+  const { my_vote: myVote } = postView;
   const {
     body, name: postName, url: postUrl
   } = postView.post;
@@ -71,6 +73,7 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
       thumbnailUrl={thumbnailUrl}
       hasBody={Boolean(body)}
       hasImage={postHasImage}
+      myVote={myVote}
     />
   );
 
