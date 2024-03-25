@@ -94,8 +94,10 @@ class SublinksApiBase {
         const userIsAuthenticated = Boolean(site.my_user);
 
         if (authCookie && userIsAuthenticated) {
-          this.setAuthHeader(authCookie);
-        } else if (this.rawClient.headers.Authorization) {
+          return;
+        }
+
+        if (this.rawClient.headers.Authorization) {
           this.clearAuth();
         }
       } catch (e) {
@@ -115,6 +117,7 @@ class SublinksApiBase {
           const authCookie = this.authCookieStore?.get();
 
           if (authCookie && !this.rawClient.headers.Authorization) {
+            this.setAuthHeader(authCookie);
             await validateAndUpdateAuth(authCookie);
           }
 
