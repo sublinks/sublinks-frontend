@@ -50,6 +50,7 @@ const User = async ({ params: { username } }: UserViewProps) => {
     }, is_admin: isAdmin
   } = userData.person_view;
   const { posts, comments, moderates } = userData;
+
   return (
     <div>
       <div className="mb-12">
