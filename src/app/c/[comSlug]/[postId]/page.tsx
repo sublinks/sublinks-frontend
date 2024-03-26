@@ -4,7 +4,6 @@ import { GetPostResponse } from 'sublinks-js-client';
 import MainCard from '@/components/main-card';
 import PostHeader from '@/components/post-header';
 import LinkedPostSubTitle from '@/components/post-subtitle';
-import { getPostThumbnailUrl, isImage } from '@/utils/links';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 
@@ -45,14 +44,8 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   }
 
   const { post_view: postView } = postData;
-  const { my_vote: myVote } = postView;
-  const {
-    body, name: postName, url: postUrl
-  } = postView.post;
+  const { body } = postView.post;
   const { name: authorName } = postView.creator;
-  const { score } = postView.counts;
-  const postHasImage = postUrl ? isImage(postUrl) : false;
-  const thumbnailUrl = getPostThumbnailUrl(postView.post);
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const authorUrl = `/user/${authorName}`;
@@ -64,18 +57,7 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
       url={authorUrl}
     />
   );
-  const Header = (
-    <PostHeader
-      points={score}
-      title={postName}
-      SubTitle={SubTitle}
-      postUrl={postUrl}
-      thumbnailUrl={thumbnailUrl}
-      hasBody={Boolean(body)}
-      hasImage={postHasImage}
-      myVote={myVote}
-    />
-  );
+  const Header = <PostHeader postView={postData.post_view} SubTitle={SubTitle} />;
 
   return <MainCard Header={Header} body={body} />;
 };

@@ -6,8 +6,7 @@ import { PostView } from 'sublinks-js-client';
 
 import { getCommunitySlugFromUrl } from '@/utils/communities';
 import { getPostThumbnailUrl } from '@/utils/links';
-import SublinksApi from '@/utils/api-client/client';
-import logger from '@/utils/logger';
+import { handlePostVote } from '@/utils/voting';
 import { BodyText, BodyTitle } from '../text';
 import PostThumbnail from '../post-thumbnail';
 import LinkedPostSubTitle from '../post-subtitle';
@@ -39,26 +38,16 @@ export const PostCard = ({
   const authorUrl = `/user/${authorName}`;
   const communityUrl = `/c/${communitySlug}`;
 
-  const handlePostVote = async (vote: number) => {
+  const onPostVote = (vote: number) => {
     const voteScore = vote === myVote ? 0 : vote;
-
-    try {
-      const updatedPost = await SublinksApi.Instance().Client().likePost({
-        post_id: id,
-        score: voteScore
-      });
-
-      setPostData(updatedPost.post_view);
-    } catch (e) {
-      logger.error(`Failed to like post with ID ${id} and score ${voteScore}`, e);
-    }
+    handlePostVote(id, voteScore, setPostData);
   };
 
   return (
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <VoteButtons points={score} onVote={handlePostVote} myVote={myVote} />
+          <VoteButtons points={score} onVote={onPostVote} myVote={myVote} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">
