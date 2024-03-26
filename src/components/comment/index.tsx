@@ -17,7 +17,7 @@ export const CommentCard = ({ comment }: CommentCardProps) => {
   const {
     id, content, ap_id: apId, published, updated
   } = commentData.comment;
-  const { my_vote: myVote, creator, counts } = comment;
+  const { my_vote: myVote, creator, counts } = commentData;
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const commentHref = `/comment/${id}`;
