@@ -1,33 +1,31 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { PostView } from 'sublinks-js-client';
 
 import { getCommunitySlugFromUrl } from '@/utils/communities';
-import {
-  Post, Community, PostAggregates, Person
-} from 'sublinks-js-client';
 import { getPostThumbnailUrl } from '@/utils/links';
+import { handlePostVote } from '@/utils/voting';
 import { BodyText, BodyTitle } from '../text';
 import PostThumbnail from '../post-thumbnail';
 import LinkedPostSubTitle from '../post-subtitle';
 import VoteButtons from '../button-votes';
 
 interface PostCardProps {
-  post: Post;
-  creator: Person;
-  community: Community;
-  counts: PostAggregates;
+  postView: PostView;
   showAuthor?: boolean;
 }
 
 export const PostCard = ({
-  post,
-  creator,
-  community,
-  counts,
+  postView,
   showAuthor
 }: PostCardProps) => {
+  const [postData, setPostData] = useState(postView);
+
+  const {
+    post, creator, community, counts, my_vote: myVote
+  } = postData;
   const { id, body, name: title } = post;
   const { display_name: authorDisplayName, name: authorName } = creator;
   const { actor_id: nativeCommunityUrl, local: isLocal } = community;
@@ -39,12 +37,17 @@ export const PostCard = ({
   const postHref = `/c/${communitySlug}/${id}`;
   const authorUrl = `/user/${authorName}`;
   const communityUrl = `/c/${communitySlug}`;
-  // @todo: Add real "myVote"
+
+  const onPostVote = (vote: number) => {
+    const voteScore = vote === myVote ? 0 : vote;
+    handlePostVote(id, voteScore, setPostData);
+  };
+
   return (
     <div key={id}>
       <div className="flex">
         <div className="flex items-center ml-8">
-          <VoteButtons points={score} onVote={() => {}} myVote={0} />
+          <VoteButtons points={score} onVote={onPostVote} myVote={myVote} />
         </div>
         <div className="w-full">
           <div className="flex h-100 relative">
