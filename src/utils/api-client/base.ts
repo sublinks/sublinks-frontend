@@ -102,6 +102,7 @@ class SublinksApiBase {
         }
       } catch (e) {
         logger.debug('Failed to determine user auth status', e);
+        this.clearAuth();
       }
     };
 

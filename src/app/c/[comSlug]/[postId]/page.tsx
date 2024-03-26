@@ -40,6 +40,7 @@ const getComments = async (postIdInt: number) => {
   }
 
   try {
+    // @todo: Set this to the users default comments type and sort,
     const commentData = await SublinksApi.Instance().Client().getComments({
       type_: 'All',
       sort: 'Hot',
