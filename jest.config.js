@@ -1,7 +1,12 @@
 const commonOptions = {
   preset: 'ts-jest',
   transform: {
-    'tsconfig.jest.json': ['ts-jest']
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.jest.json'
+      }
+    ]
   }
 };
 
