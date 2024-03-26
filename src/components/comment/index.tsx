@@ -1,31 +1,31 @@
-import React from 'react';
+'use client';
 
-import {
-  Person, Comment, CommentAggregates
-} from 'sublinks-js-client';
+import React, { useState } from 'react';
+import { CommentView } from 'sublinks-js-client';
 import Markdown from 'react-markdown';
+
+import { handleCommentVote } from '@/utils/voting';
 import { CommentHeader } from '../comment-header';
 import { CommentAction } from '../comment-actions';
 
 interface CommentCardProps {
-  comment: Comment;
-  creator: Person;
-  counts: CommentAggregates;
-  myVote?: number;
+  comment: CommentView;
 }
 
-export const CommentCard = ({
-  comment,
-  creator,
-  counts,
-  myVote
-}: CommentCardProps) => {
+export const CommentCard = ({ comment }: CommentCardProps) => {
+  const [commentData, setCommentData] = useState(comment);
   const {
     id, content, ap_id: apId, published, updated
-  } = comment;
+  } = commentData.comment;
+  const { my_vote: myVote, creator, counts } = comment;
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const commentHref = `/comment/${id}`;
+
+  const onCommentVote = (vote: number) => {
+    const voteScore = vote === myVote ? 0 : vote;
+    handleCommentVote(id, voteScore, setCommentData);
+  };
 
   return (
     <div key={id}>
@@ -47,7 +47,7 @@ export const CommentCard = ({
           </div>
         </div>
         <div className="items-center relative flex">
-          <CommentAction votes={counts} myVote={myVote} />
+          <CommentAction votes={counts} onVote={onCommentVote} myVote={myVote} />
         </div>
       </div>
       <div className="border-b-2 border-secondary dark:border-secondary-dark" />

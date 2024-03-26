@@ -12,12 +12,7 @@ const CommentFeed = ({ data: comments }: CommentFeedProps) => (
   <div className="bg-primary dark:bg-primary-dark flex flex-col gap-8">
     {comments && comments.length > 0 ? comments.map(commentData => (
       <div key={commentData.comment.ap_id} className="mb-8">
-        <CommentCard
-          comment={commentData.comment}
-          creator={commentData.creator}
-          counts={commentData.counts}
-          myVote={commentData.my_vote}
-        />
+        <CommentCard comment={commentData} />
       </div>
     )) : (<H1 className="text-center">No comments available!</H1>)}
   </div>
