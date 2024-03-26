@@ -1,6 +1,6 @@
 import { PostView } from 'sublinks-js-client';
 
-import SublinksApi from '@/utils/api-client/client';
+import SublinksApi from './api-client/client';
 import logger from './logger';
 
 export const handlePostVote = async (
