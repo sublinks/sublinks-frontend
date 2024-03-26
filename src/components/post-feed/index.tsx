@@ -14,12 +14,8 @@ const PostFeed = ({ data: posts, isCommunityFeed }: PostFeedProps) => (
     {posts && posts.length > 0 ? posts.map(postData => (
       <div key={postData.post.ap_id}>
         <PostCard
-          community={postData.community}
-          counts={postData.counts}
-          creator={postData.creator}
-          post={postData.post}
+          postView={postData}
           showAuthor={isCommunityFeed}
-          myVote={postData.my_vote}
         />
       </div>
     )) : (<H1 className="text-center">No posts available!</H1>)}
