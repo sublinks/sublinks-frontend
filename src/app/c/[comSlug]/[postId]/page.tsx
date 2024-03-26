@@ -81,9 +81,9 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   const Header = <PostHeader postView={postData.post_view} SubTitle={SubTitle} />;
 
   return (
-    <div className="flex flex-col gap-32 my-32">
+    <div className="flex flex-col gap-32 my-24 md:my-32">
       <MainCard Header={Header} body={body} />
-      <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg dark:shadow-gray-800">
+      <div className="flex flex-col px-12 md:px-40">
         <CommentFeed data={comments} />
       </div>
     </div>
