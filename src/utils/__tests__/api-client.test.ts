@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill';
 import { GetSiteResponse, LoginResponse, SublinksClient } from 'sublinks-js-client';
 
 import SublinksApiBase from '../api-client/base';
