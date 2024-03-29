@@ -81,8 +81,8 @@ const SignupForm = () => {
         email: fieldValues.email
       });
 
-      if (registration.registration_created) {
-        await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
+      if (registration.jwt && registration.registration_created) {
+        await SublinksApi.Instance().login({ jwt: registration.jwt });
         await saveMyUserFromSite();
         router.push('/');
       } else {

@@ -61,7 +61,10 @@ const LoginForm = () => {
     }
 
     try {
-      await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
+      await SublinksApi.Instance().login({
+        username: fieldValues.username,
+        password: fieldValues.password
+      });
       await saveMyUserFromSite();
       router.push('/');
     } catch (e) {

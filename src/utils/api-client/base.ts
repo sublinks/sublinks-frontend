@@ -12,6 +12,12 @@ export interface CookieStore {
   remove: () => void;
 }
 
+interface LoginArguments {
+  username?: string;
+  password?: string;
+  jwt?: string;
+}
+
 const isServerSide = () => typeof window === 'undefined';
 
 const getApiHost = () => {
@@ -49,7 +55,22 @@ class SublinksApiBase {
     }
   }
 
-  public async login(username: string, password: string) {
+  public saveAndSetJwt(jwt: string) {
+    try {
+      this.authCookieStore?.set(jwt, {
+        expires: new Date(Date.now() + AUTH_TTL_MS),
+        secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
+        path: '/',
+        sameSite: 'Lax'
+      });
+      this.setAuthHeader(jwt);
+    } catch (e) {
+      logger.error('Failed to save and set JWT', e);
+      throw e;
+    }
+  }
+
+  public async loginWithCredentials(username: string, password: string) {
     try {
       const { jwt } = await this.rawClient.login({
         username_or_email: username,
@@ -60,17 +81,24 @@ class SublinksApiBase {
         throw Error('JWT not returned from server');
       }
 
-      this.authCookieStore?.set(jwt, {
-        expires: new Date(Date.now() + AUTH_TTL_MS),
-        secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
-        path: '/',
-        sameSite: 'Lax'
-      });
-      this.setAuthHeader(jwt);
+      this.saveAndSetJwt(jwt);
     } catch (e) {
       logger.error('Failed to login user', e);
       throw e;
     }
+  }
+
+  public login({ username, password, jwt }: LoginArguments) {
+    if (jwt) {
+      return this.saveAndSetJwt(jwt);
+    }
+
+    if (username && password) {
+      return this.loginWithCredentials(username, password);
+    }
+
+    logger.error('Login function called without expected arguments');
+    return null;
   }
 
   public logout() {
