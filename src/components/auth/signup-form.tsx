@@ -156,7 +156,7 @@ const SignupForm = () => {
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.VERIFY_PASSWORD)}
         />
-        <Checkbox label="Allow NSFW?" id={SIGNUP_FIELD_IDS.SHOW_NSFW} name={SIGNUP_FIELD_IDS.SHOW_NSFW} />
+        <Checkbox label="Show NSFW content" id={SIGNUP_FIELD_IDS.SHOW_NSFW} name={SIGNUP_FIELD_IDS.SHOW_NSFW} />
       </div>
       <div aria-live="polite" className="h-32 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
