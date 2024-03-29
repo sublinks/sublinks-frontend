@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { InputField } from '@/components/input';
+import { Checkbox, InputField } from '@/components/input';
 import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
@@ -71,17 +71,24 @@ const SignupForm = () => {
       setIsSubmitting(false);
       return;
     }
-    console.log(fieldValues);
+
     try {
-      // await SublinksApi.Instance().Client().register({
-      //   username: fieldValues.username,
-      //   password: fieldValues.password,
-      //   password_verify: fieldValues.verifyPassword,
-      //   show_nsfw: fieldValues.showNsfw,
-      //   email: fieldValues.email
-      // });
-      // await saveMyUserFromSite();
-      // router.push('/');
+      const registration = await SublinksApi.Instance().Client().register({
+        username: fieldValues.username,
+        password: fieldValues.password,
+        password_verify: fieldValues.verifyPassword,
+        show_nsfw: Boolean(fieldValues.showNsfw),
+        email: fieldValues.email
+      });
+
+      if (registration.registration_created) {
+        await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
+        await saveMyUserFromSite();
+        router.push('/');
+      } else {
+        setErrorMessage('Signup attempt failed. Please try again.');
+        setIsSubmitting(false);
+      }
     } catch (e) {
       logger.error('Signup attempt failed', e);
       setErrorMessage('Signup attempt failed. Please try again.');
@@ -148,6 +155,7 @@ const SignupForm = () => {
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.VERIFY_PASSWORD)}
         />
+        <Checkbox label="Allow NSFW?" id={SIGNUP_FIELD_IDS.SHOW_NSFW} name={SIGNUP_FIELD_IDS.SHOW_NSFW} />
       </div>
       <div aria-live="polite" className="h-32 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
