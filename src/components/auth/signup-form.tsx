@@ -91,6 +91,7 @@ const SignupForm = () => {
       }
     } catch (e) {
       logger.error('Signup attempt failed', e);
+      // @todo: When API error messages are passed along to us, show them in place of generic error
       setErrorMessage('Signup attempt failed. Please try again.');
       setIsSubmitting(false);
     }
