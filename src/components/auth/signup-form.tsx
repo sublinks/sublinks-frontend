@@ -85,24 +85,24 @@ const SignupForm = () => {
     <form onSubmit={handleSignupAttempt} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <InputField
-          type="email"
-          label="E-Mail Address"
-          name={SIGNUP_FIELD_IDS.EMAIL}
-          id={SIGNUP_FIELD_IDS.EMAIL}
-          placeholder="E-Mail Address"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.EMAIL)}
-        />
-        <InputField
           type="text"
           label="Username"
           name={SIGNUP_FIELD_IDS.USERNAME}
           id={SIGNUP_FIELD_IDS.USERNAME}
-          placeholder="Username"
+          placeholder="Username (optional)"
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.USERNAME)}
+        />
+        <InputField
+          type="email"
+          label="E-mail Address"
+          name={SIGNUP_FIELD_IDS.EMAIL}
+          id={SIGNUP_FIELD_IDS.EMAIL}
+          placeholder="E-mail Address"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.EMAIL)}
         />
         <InputField
           type="password"
@@ -125,7 +125,7 @@ const SignupForm = () => {
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.VERIFY_PASSWORD)}
         />
       </div>
-      <div aria-live="polite" className="h-32">
+      <div aria-live="polite" className="h-32 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting} className="flex justify-center">

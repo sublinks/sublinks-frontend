@@ -93,7 +93,7 @@ const LoginForm = () => {
           hasError={erroneousFields.includes(LOGIN_FIELD_IDS.PASSWORD)}
         />
       </div>
-      <div aria-live="polite" className="h-32">
+      <div aria-live="polite" className="h-32 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting} className="flex justify-center">
