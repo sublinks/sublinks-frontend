@@ -39,15 +39,17 @@ const LoginForm = () => {
     setErroneousFields([]);
 
     const formData = new FormData(event.currentTarget);
-    const fieldValues: Record<string, string> = {
+    const fieldValues = {
       username: formData.get('username') as string,
       password: formData.get('password') as string
     };
     const emptyFields: string[] = [];
 
     Object.keys(fieldValues).forEach(fieldKey => {
-      if (!fieldValues[fieldKey]) {
-        emptyFields.push(fieldKey);
+      const key = fieldKey as keyof typeof fieldValues;
+
+      if (!fieldValues[key]) {
+        emptyFields.push(key);
       }
     });
 
@@ -69,8 +71,24 @@ const LoginForm = () => {
     }
   };
 
+  const handleFieldValueChange = async (event: FormEvent<HTMLFormElement>) => {
+    const field = event.target as HTMLInputElement;
+    const fieldKey = field.id;
+    const fieldIndexInErrors = erroneousFields.indexOf(fieldKey);
+
+    if (fieldIndexInErrors !== -1) {
+      const newErroneousFields = [...erroneousFields];
+      newErroneousFields.splice(fieldIndexInErrors, 1);
+      setErroneousFields(newErroneousFields);
+
+      if (newErroneousFields.length === 0) {
+        setErrorMessage('');
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleLoginAttempt} className="flex flex-col">
+    <form onSubmit={handleLoginAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <InputField
           type="text"

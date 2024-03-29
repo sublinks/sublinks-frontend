@@ -22,7 +22,7 @@ const SIGNUP_FIELD_IDS = {
 };
 
 const REQUIRED_FIELDS = [
-  SIGNUP_FIELD_IDS.EMAIL,
+  SIGNUP_FIELD_IDS.USERNAME,
   SIGNUP_FIELD_IDS.PASSWORD,
   SIGNUP_FIELD_IDS.VERIFY_PASSWORD
 ];
@@ -48,7 +48,7 @@ const SignupForm = () => {
     setErroneousFields([]);
 
     const formData = new FormData(event.currentTarget);
-    const fieldValues: Record<string, string> = {
+    const fieldValues = {
       email: formData.get('email') as string,
       username: formData.get('username') as string,
       password: formData.get('password') as string,
@@ -58,8 +58,10 @@ const SignupForm = () => {
     const emptyFields: string[] = [];
 
     REQUIRED_FIELDS.forEach(fieldKey => {
-      if (!fieldValues[fieldKey]) {
-        emptyFields.push(fieldKey);
+      const key = fieldKey as keyof typeof fieldValues;
+
+      if (!fieldValues[key]) {
+        emptyFields.push(key);
       }
     });
 
@@ -69,9 +71,15 @@ const SignupForm = () => {
       setIsSubmitting(false);
       return;
     }
-
+    console.log(fieldValues);
     try {
-      // await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
+      // await SublinksApi.Instance().Client().register({
+      //   username: fieldValues.username,
+      //   password: fieldValues.password,
+      //   password_verify: fieldValues.verifyPassword,
+      //   show_nsfw: fieldValues.showNsfw,
+      //   email: fieldValues.email
+      // });
       // await saveMyUserFromSite();
       // router.push('/');
     } catch (e) {
@@ -81,28 +89,44 @@ const SignupForm = () => {
     }
   };
 
+  const handleFieldValueChange = async (event: FormEvent<HTMLFormElement>) => {
+    const field = event.target as HTMLInputElement;
+    const fieldKey = field.id;
+    const fieldIndexInErrors = erroneousFields.indexOf(fieldKey);
+
+    if (fieldIndexInErrors !== -1) {
+      const newErroneousFields = [...erroneousFields];
+      newErroneousFields.splice(fieldIndexInErrors, 1);
+      setErroneousFields(newErroneousFields);
+
+      if (newErroneousFields.length === 0) {
+        setErrorMessage('');
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleSignupAttempt} className="flex flex-col">
+    <form onSubmit={handleSignupAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <InputField
-          type="text"
-          label="Username"
-          name={SIGNUP_FIELD_IDS.USERNAME}
-          id={SIGNUP_FIELD_IDS.USERNAME}
-          placeholder="Username (optional)"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.USERNAME)}
-        />
         <InputField
           type="email"
           label="E-mail Address"
           name={SIGNUP_FIELD_IDS.EMAIL}
           id={SIGNUP_FIELD_IDS.EMAIL}
-          placeholder="E-mail Address"
+          placeholder="E-mail Address (optional)"
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.EMAIL)}
+        />
+        <InputField
+          type="text"
+          label="Username"
+          name={SIGNUP_FIELD_IDS.USERNAME}
+          id={SIGNUP_FIELD_IDS.USERNAME}
+          placeholder="Username"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.USERNAME)}
         />
         <InputField
           type="password"
