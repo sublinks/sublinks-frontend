@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
+import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 import { Spinner } from '@material-tailwind/react';
-import { BodyTitleInverse, ErrorText } from '../text';
 
 const INPUT_IDS = {
   NAME: 'name',
@@ -79,16 +79,19 @@ const CommunityForm = () => {
   return (
     <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <InputField
-          type="text"
-          label="Name"
-          name={INPUT_IDS.NAME}
-          id={INPUT_IDS.NAME}
-          placeholder="Name"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(INPUT_IDS.NAME)}
-        />
+        <div>
+          <InputField
+            type="text"
+            label="Name"
+            name={INPUT_IDS.NAME}
+            id={INPUT_IDS.NAME}
+            placeholder="Name"
+            showBorderPlaceholder
+            disabled={isSubmitting}
+            hasError={erroneousFields.includes(INPUT_IDS.NAME)}
+          />
+          <PaleBodyText className="text-sm">Only letters and underscores allowed. Cannot be changed.</PaleBodyText>
+        </div>
         <InputField
           type="text"
           label="Title"
