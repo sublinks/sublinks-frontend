@@ -105,6 +105,7 @@ const CommunityForm = () => {
             showBorderPlaceholder
             disabled={isSubmitting}
             hasError={erroneousFields.includes(INPUT_IDS.NAME)}
+            inputPattern="[a-z_]+"
           />
           <PaleBodyText className="text-sm">Only letters and underscores allowed. Cannot be changed.</PaleBodyText>
         </div>
