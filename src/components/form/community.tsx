@@ -36,7 +36,7 @@ const CommunityForm = () => {
     setErroneousFields([]);
 
     const formData = new FormData(event.currentTarget);
-    const fieldValues: Record<string, string> = {
+    const fieldValues = {
       name: formData.get(INPUT_IDS.NAME) as string,
       title: formData.get(INPUT_IDS.TITLE) as string,
       description: formData.get(INPUT_IDS.DESCRIPTION) as string,
@@ -44,12 +44,6 @@ const CommunityForm = () => {
       modsOnly: formData.get(INPUT_IDS.MODS_ONLY) as string
     };
     const emptyFields: string[] = [];
-
-    Object.keys(fieldValues).forEach(fieldKey => {
-      if (!fieldValues[fieldKey]) {
-        emptyFields.push(fieldKey);
-      }
-    });
 
     REQUIRED_FIELDS.forEach(fieldKey => {
       const key = fieldKey as keyof typeof fieldValues;
@@ -67,8 +61,16 @@ const CommunityForm = () => {
     }
 
     try {
-      // await SublinksApi.Instance().login(fieldValues.username, fieldValues.password);
-      // router.push('/');
+      await SublinksApi.Instance().Client().createCommunity({
+        name: fieldValues.name,
+        title: fieldValues.title,
+        description: fieldValues.description,
+        // icon?: string;
+        // banner?: string;
+        nsfw: Boolean(fieldValues.nsfw),
+        posting_restricted_to_mods: Boolean(fieldValues.modsOnly)
+      });
+      router.push(`/c/${fieldValues.name}`);
     } catch (e) {
       logger.error('Community creation attempt failed', e);
       setErrorMessage('Could not create community. Please try again.');
@@ -107,7 +109,7 @@ const CommunityForm = () => {
             hasError={erroneousFields.includes(INPUT_IDS.NAME)}
             inputPattern="[a-z_]+"
           />
-          <PaleBodyText className="text-sm">Only letters and underscores allowed. Cannot be changed.</PaleBodyText>
+          <PaleBodyText className="text-sm">Only lowercase letters and underscores allowed. Cannot be changed.</PaleBodyText>
         </div>
         <InputField
           type="text"
