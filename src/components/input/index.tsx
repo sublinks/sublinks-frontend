@@ -34,6 +34,7 @@ interface InputFieldProps {
   iconClassName?: string;
   showBorderPlaceholder?: boolean;
   borderPlaceholderClassName?: string;
+  inputPattern?: string;
 }
 
 const InputField = ({
@@ -49,7 +50,8 @@ const InputField = ({
   inputClassName,
   iconClassName,
   showBorderPlaceholder,
-  borderPlaceholderClassName
+  borderPlaceholderClassName,
+  inputPattern
 }: InputFieldProps) => (
   <div className={cx('bg-primary dark:bg-gray-800 rounded-md', className)}>
     <label htmlFor={name} className="sr-only">
@@ -68,6 +70,7 @@ const InputField = ({
         className={cx('peer block w-full rounded-md border-0 py-4 px-8 text-gray-900 dark:text-white bg-primary dark:bg-gray-800 placeholder:text-gray-300 focus:outline-none sm:text-sm sm:leading-6', inputClassName)}
         placeholder={placeholder}
         disabled={disabled}
+        pattern={inputPattern}
       />
       {showBorderPlaceholder && <PaleBodyText className={cx('absolute text-xs bg-primary dark:bg-gray-800 px-4 -top-12 peer-placeholder-shown:top-0 opacity-100 peer-placeholder-shown:opacity-0 rounded-t-md border-t-2 border-x-2 dark:dark:border-gray-900 transition-all', borderPlaceholderClassName)}>{placeholder}</PaleBodyText>}
     </div>
