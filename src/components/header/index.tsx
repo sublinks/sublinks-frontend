@@ -48,7 +48,7 @@ const Header = async () => {
           <LinkText>Create post</LinkText>
         </Link>
 
-        <Link href="/create_community">
+        <Link href="/c/create">
           <LinkText>Create community</LinkText>
         </Link>
 
