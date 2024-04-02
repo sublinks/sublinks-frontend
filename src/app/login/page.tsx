@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BodyText, H1, LinkText } from '@/components/text';
 import Link from 'next/link';
-import LoginForm from '@/components/auth/login-form';
+import LoginForm from '@/components/form/login';
 
 const Login = () => (
   <div className="flex flex-col items-center p-24 md:p-56 w-full">
