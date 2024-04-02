@@ -7,7 +7,7 @@ const Signup = () => (
   <div className="flex flex-col items-center p-24 md:p-56 w-full">
     <div className="w-full md:w-500 overflow-x-hidden">
       <H1>Sign Up</H1>
-      <div className="text-sm mt-32">
+      <div className="mt-32">
         <SignupForm />
       </div>
     </div>
