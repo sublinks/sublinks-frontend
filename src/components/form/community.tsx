@@ -3,7 +3,7 @@
 import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { InputField } from '@/components/input';
+import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
@@ -102,6 +102,9 @@ const CommunityForm = () => {
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.TITLE)}
         />
+        <MarkdownTextarea id={INPUT_IDS.DESCRIPTION} label="Description" initialValue="**Description**" />
+        <Checkbox label="Allow NSFW content" name={INPUT_IDS.NSFW} id={INPUT_IDS.NSFW} />
+        <Checkbox label="Only allow moderators to post" name={INPUT_IDS.MODS_ONLY} id={INPUT_IDS.MODS_ONLY} />
       </div>
       <div aria-live="polite" className="h-32">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}

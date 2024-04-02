@@ -12,6 +12,7 @@ interface PreviewCommandToolProps {
 interface MarkdownTextareaProps {
   label: string;
   id: string;
+  initialValue?: string;
 }
 
 // Important classes for this and the textarea component
@@ -23,9 +24,9 @@ const PreviewCommandTool = ({ label, onClick }: PreviewCommandToolProps) => (
 );
 
 const MarkdownTextarea = ({
-  label, id
+  label, id, initialValue
 }: MarkdownTextareaProps) => {
-  const [value, setValue] = useState('**Hello world!!!**');
+  const [value, setValue] = useState(initialValue || '**Hello world!!!**');
   const [showPreview, setShowPreview] = useState(false);
 
   const previewCommand = showPreview ? 'Edit' : 'Preview';
