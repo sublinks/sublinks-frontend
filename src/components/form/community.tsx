@@ -18,6 +18,11 @@ const INPUT_IDS = {
   MODS_ONLY: 'mods-only'
 };
 
+const REQUIRED_FIELDS = [
+  INPUT_IDS.NAME,
+  INPUT_IDS.TITLE
+];
+
 const CommunityForm = () => {
   const router = useRouter();
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
@@ -32,8 +37,11 @@ const CommunityForm = () => {
 
     const formData = new FormData(event.currentTarget);
     const fieldValues: Record<string, string> = {
-      username: formData.get('username') as string,
-      password: formData.get('password') as string
+      name: formData.get(INPUT_IDS.NAME) as string,
+      title: formData.get(INPUT_IDS.TITLE) as string,
+      description: formData.get(INPUT_IDS.DESCRIPTION) as string,
+      nsfw: formData.get(INPUT_IDS.NSFW) as string,
+      modsOnly: formData.get(INPUT_IDS.MODS_ONLY) as string
     };
     const emptyFields: string[] = [];
 
@@ -43,9 +51,17 @@ const CommunityForm = () => {
       }
     });
 
+    REQUIRED_FIELDS.forEach(fieldKey => {
+      const key = fieldKey as keyof typeof fieldValues;
+
+      if (!fieldValues[key]) {
+        emptyFields.push(key);
+      }
+    });
+
     if (emptyFields.length > 0) {
       setErroneousFields(emptyFields);
-      setErrorMessage('Please enter your username and password');
+      setErrorMessage('Please enter all required information');
       setIsSubmitting(false);
       return;
     }
