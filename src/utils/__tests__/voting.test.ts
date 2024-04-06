@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill';
 import { CommentResponse, GetPostResponse, SublinksClient } from 'sublinks-js-client';
 
 import logger from '../logger';
