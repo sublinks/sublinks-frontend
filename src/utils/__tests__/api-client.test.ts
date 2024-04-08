@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill';
 import { GetSiteResponse, LoginResponse, SublinksClient } from 'sublinks-js-client';
 
 import SublinksApiBase from '../api-client/base';
@@ -72,9 +73,29 @@ describe('SublinksApiBase', () => {
     };
 
     apiClient.setAuthCookieStore(cookieStore);
-    await apiClient.login('bill', 'password123');
+    await apiClient.login({
+      username: 'bill',
+      password: 'password123'
+    });
 
     expect(SublinksClient.prototype.login).toHaveBeenCalled();
+    expect(cookieStore.set).toHaveBeenCalled();
+  });
+
+  it('updates authorization but does not make API request on login with JWT', async () => {
+    const apiClient = new SublinksApiBase();
+    const cookieStore = {
+      get: jest.fn(),
+      set: jest.fn(),
+      remove: jest.fn()
+    };
+
+    apiClient.setAuthCookieStore(cookieStore);
+    await apiClient.login({
+      jwt: 'test-jwt-token'
+    });
+
+    expect(SublinksClient.prototype.login).not.toHaveBeenCalled();
     expect(cookieStore.set).toHaveBeenCalled();
   });
 
@@ -96,7 +117,10 @@ describe('SublinksApiBase', () => {
     apiClient.setAuthCookieStore(cookieStore);
 
     try {
-      await apiClient.login('bill', 'password123');
+      await apiClient.login({
+        username: 'bill',
+        password: 'password123'
+      });
     } catch (e) {
       const error = e as Error;
       expect(error.message).toBe('request failed');
@@ -117,7 +141,10 @@ describe('SublinksApiBase', () => {
     apiClient.setAuthCookieStore(cookieStore);
 
     try {
-      await apiClient.login('bill', 'password123');
+      await apiClient.login({
+        username: 'bill',
+        password: 'password123'
+      });
     } catch (e) {
       const error = e as Error;
       expect(error.message).toBe('cookie set failed');
@@ -158,7 +185,10 @@ describe('SublinksApiBase', () => {
 
       apiClient.setAuthCookieStore(cookieStore);
 
-      await apiClient.login('bill', 'password123');
+      await apiClient.login({
+        username: 'bill',
+        password: 'password123'
+      });
       // @ts-expect-error Accessing private property
       apiClient.rawClient.setHeader('Authorization', undefined);
 
