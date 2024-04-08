@@ -15,7 +15,7 @@ const HeaderSearch = () => (
     LeftIcon={MagnifyingGlassIcon}
     className="w-108 lg:w-200 xl:w-240 xl:hover:w-460 xl:focus-within:w-460 transition-all duration-300 group"
     iconClassName={searchSharedClasses}
-    showBorderPlaceholder
+    showBorderPlaceholder={false}
     inputClassName={cx(searchSharedClasses, 'group-focus-within:placeholder-brand dark:group-focus-within:placeholder-brand-dark dark:group-hover:placeholder-brand-dark group-hover:placeholder-brand')}
     borderPlaceholderClassName={searchSharedClasses}
   />
