@@ -23,7 +23,7 @@
     "classnames": "^2.5.1",
     "cross-fetch": "3.1.8",
     "js-cookie": "^3.0.5",
-    "next": "14.1.4",
+    "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
