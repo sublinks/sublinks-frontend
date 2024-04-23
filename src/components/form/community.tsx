@@ -13,6 +13,8 @@ import { Spinner } from '@material-tailwind/react';
 const INPUT_IDS = {
   NAME: 'name',
   TITLE: 'title',
+  ICON: 'icon',
+  BANNER: 'banner',
   DESCRIPTION: 'description',
   NSFW: 'nsfw',
   MODS_ONLY: 'mods-only'
@@ -120,6 +122,27 @@ const CommunityForm = () => {
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.TITLE)}
+        />
+
+        <InputField
+          type="file"
+          label="Icon"
+          name={INPUT_IDS.ICON}
+          id={INPUT_IDS.ICON}
+          placeholder="Icon"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(INPUT_IDS.ICON)}
+        />
+        <InputField
+          type="file"
+          label="Banner"
+          name={INPUT_IDS.BANNER}
+          id={INPUT_IDS.BANNER}
+          placeholder="Banner"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(INPUT_IDS.BANNER)}
         />
         <MarkdownTextarea id={INPUT_IDS.DESCRIPTION} label="Description" initialValue="**Description**" />
         <Checkbox label="Allow NSFW content" name={INPUT_IDS.NSFW} id={INPUT_IDS.NSFW} />
