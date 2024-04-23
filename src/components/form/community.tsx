@@ -31,20 +31,7 @@ const CommunityForm = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleCreationAttempt = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setErrorMessage('');
-    setErroneousFields([]);
-
-    const formData = new FormData(event.currentTarget);
-    const fieldValues = {
-      name: formData.get(INPUT_IDS.NAME) as string,
-      title: formData.get(INPUT_IDS.TITLE) as string,
-      description: formData.get(INPUT_IDS.DESCRIPTION) as string,
-      nsfw: formData.get(INPUT_IDS.NSFW) as string,
-      modsOnly: formData.get(INPUT_IDS.MODS_ONLY) as string
-    };
+  const validateRequiredFields = (fieldValues: Record<string, string | File>) => {
     const emptyFields: string[] = [];
 
     REQUIRED_FIELDS.forEach(fieldKey => {
@@ -55,6 +42,42 @@ const CommunityForm = () => {
       }
     });
 
+    return emptyFields;
+  };
+
+  const uploadCommunityImage = async (imageFile: File) => {
+    try {
+      const { url } = await SublinksApi.Instance().Client().uploadImage({
+        image: imageFile
+      });
+      return url;
+    } catch (e) {
+      logger.error('Unable to upload image for community creation', imageFile, e);
+    }
+
+    return null;
+  };
+
+  const handleCreationAttempt = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setErrorMessage('');
+    setErroneousFields([]);
+
+    const formData = new FormData(event.currentTarget);
+    const fieldValues = {
+      name: formData.get(INPUT_IDS.NAME) as string,
+      title: formData.get(INPUT_IDS.TITLE) as string,
+      icon: formData.get(INPUT_IDS.ICON) as File,
+      banner: formData.get(INPUT_IDS.BANNER) as File,
+      description: formData.get(INPUT_IDS.DESCRIPTION) as string,
+      nsfw: formData.get(INPUT_IDS.NSFW) as string,
+      modsOnly: formData.get(INPUT_IDS.MODS_ONLY) as string
+    };
+    let iconUrl;
+    let bannerUrl;
+
+    const emptyFields = validateRequiredFields(fieldValues);
     if (emptyFields.length > 0) {
       setErroneousFields(emptyFields);
       setErrorMessage('Please enter all required information');
@@ -62,13 +85,21 @@ const CommunityForm = () => {
       return;
     }
 
+    if (fieldValues.icon) {
+      await uploadCommunityImage(fieldValues.icon);
+    }
+
+    if (fieldValues.banner) {
+      await uploadCommunityImage(fieldValues.banner);
+    }
+
     try {
       await SublinksApi.Instance().Client().createCommunity({
         name: fieldValues.name,
         title: fieldValues.title,
         description: fieldValues.description,
-        // icon?: string;
-        // banner?: string;
+        icon: iconUrl,
+        banner: bannerUrl,
         nsfw: Boolean(fieldValues.nsfw),
         posting_restricted_to_mods: Boolean(fieldValues.modsOnly)
       });
@@ -123,7 +154,6 @@ const CommunityForm = () => {
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.TITLE)}
         />
-
         <InputField
           type="file"
           label="Icon"
