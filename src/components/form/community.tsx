@@ -36,8 +36,6 @@ const CommunityForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    console.log(userData);
-
     if (userData.auth === false) {
       router.push('/login');
     }
