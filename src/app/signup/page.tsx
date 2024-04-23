@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { H1 } from '@/components/text';
-import SignupForm from '@/components/form/signup-form';
+import SignupForm from '@/components/form/signup';
 
 const Signup = () => (
   <div className="flex flex-col items-center p-24 md:p-56 w-full">
