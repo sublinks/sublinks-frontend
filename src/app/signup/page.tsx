@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { BodyTitle } from '@/components/text';
+import { H1 } from '@/components/text';
+import SignupForm from '@/components/form/signup-form';
 
-// @todo: Create signup page
-// https://github.com/sublinks/sublinks-frontend/issues/77
 const Signup = () => (
-  <div>
-    <BodyTitle>Signup page WIP</BodyTitle>
+  <div className="flex flex-col items-center p-24 md:p-56 w-full">
+    <div className="w-full md:w-500 overflow-x-hidden">
+      <H1>Sign Up</H1>
+      <div className="mt-32">
+        <SignupForm />
+      </div>
+    </div>
   </div>
 );
 

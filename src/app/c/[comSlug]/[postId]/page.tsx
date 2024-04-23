@@ -1,13 +1,14 @@
 import React from 'react';
+import { GetPostResponse } from 'sublinks-js-client';
 
 import MainCard from '@/components/main-card';
 import PostHeader from '@/components/post-header';
 import LinkedPostSubTitle from '@/components/post-subtitle';
-import { getPostThumbnailUrl, isImage } from '@/utils/links';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 
 import { ErrorText } from '@/components/text';
+import CommentFeed from '@/components/comment-feed';
 import * as testData from '../../../../../test-data.json';
 
 interface PostViewProps {
@@ -26,10 +27,30 @@ const getPost = async (postIdInt: number) => {
         id: postIdInt
       }) : { post_view: testData.posts.find(post => post.post.id === postIdInt)! };
 
-    return postData;
+    return postData as GetPostResponse;
   } catch (e) {
-    logger.error('Failed to retrieve post', e);
+    logger.error(`Failed to retrieve post with ID ${postIdInt}`, e);
     return undefined;
+  }
+};
+
+const getComments = async (postIdInt: number) => {
+  if (!process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL) {
+    return [];
+  }
+
+  try {
+    // @todo: Set this to the users default comments type and sort,
+    const commentData = await SublinksApi.Instance().Client().getComments({
+      type_: 'All',
+      sort: 'Hot',
+      post_id: postIdInt
+    });
+
+    return commentData.comments;
+  } catch (e) {
+    logger.error(`Failed to retrieve comments for post ${postIdInt}`, e);
+    return [];
   }
 };
 
@@ -38,19 +59,15 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
   // as Sublinks Core doesn't yet handle all post features
   const postIdInt = parseInt(postId, 10);
   const postData = await getPost(postIdInt);
+  const comments = await getComments(postIdInt);
 
   if (!postData) {
     return <ErrorText>Unable to show post. Please reload the page to try again.</ErrorText>;
   }
 
   const { post_view: postView } = postData;
-  const {
-    body, name: postName, url: postUrl
-  } = postView.post;
+  const { body } = postView.post;
   const { name: authorName } = postView.creator;
-  const { score } = postView.counts;
-  const postHasImage = postUrl ? isImage(postUrl) : false;
-  const thumbnailUrl = getPostThumbnailUrl(postView.post);
 
   // @todo: Make our own URLs until Sublinks API connects URLs to all entities
   const authorUrl = `/user/${authorName}`;
@@ -62,19 +79,16 @@ const PostView = async ({ params: { postId } }: PostViewProps) => {
       url={authorUrl}
     />
   );
-  const Header = (
-    <PostHeader
-      points={score}
-      title={postName}
-      SubTitle={SubTitle}
-      postUrl={postUrl}
-      thumbnailUrl={thumbnailUrl}
-      hasBody={Boolean(body)}
-      hasImage={postHasImage}
-    />
-  );
+  const Header = <PostHeader postView={postData.post_view} SubTitle={SubTitle} />;
 
-  return <MainCard Header={Header} body={body} />;
+  return (
+    <div className="flex flex-col gap-32 my-24 md:my-32">
+      <MainCard Header={Header} body={body} />
+      <div className="flex flex-col px-12 md:px-40">
+        <CommentFeed data={comments} />
+      </div>
+    </div>
+  );
 };
 
 export default PostView;

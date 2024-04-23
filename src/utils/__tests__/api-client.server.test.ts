@@ -1,3 +1,4 @@
+import 'cross-fetch/polyfill';
 import SublinksApiServerSide from '../api-client/server';
 
 jest.mock('next/headers');
