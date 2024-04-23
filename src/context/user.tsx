@@ -21,9 +21,7 @@ interface UserContextState {
 
 // Placeholders to make sure TS always considers the props defined
 export const UserContext = createContext<UserContextState>({
-  userData: {
-    auth: false
-  },
+  userData: {},
   clearMyUser: () => {},
   saveMyUserFromSite: () => {}
 });
