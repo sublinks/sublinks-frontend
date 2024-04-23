@@ -8,44 +8,55 @@ import React, {
 } from 'react';
 import logger from '@/utils/logger';
 
+interface UserData {
+  auth?: boolean;
+  myUser?: MyUserInfo;
+}
+
 interface UserContextState {
-  myUser?: MyUserInfo; // Undefined when user is not logged in
+  userData: UserData;
   clearMyUser: () => void;
   saveMyUserFromSite: () => void;
 }
 
-// Placeholders for function to make sure TS always considers it defined
+// Placeholders to make sure TS always considers the props defined
 export const UserContext = createContext<UserContextState>({
+  userData: {
+    auth: false
+  },
   clearMyUser: () => {},
   saveMyUserFromSite: () => {}
 });
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [myUser, setMyUser] = useState<MyUserInfo>();
+  const [userData, setUserData] = useState<UserData>({});
 
   const saveMyUserFromSite = async () => {
     try {
       const site = await SublinksApi.Instance().Client().getSite();
-
-      if (site.my_user) {
-        setMyUser(site.my_user);
-      }
+      setUserData({
+        auth: Boolean(site.my_user),
+        myUser: site.my_user
+      });
     } catch (e) {
       logger.error('Failed to get site for user context', e);
     }
   };
 
-  const clearMyUser = () => setMyUser(undefined);
+  const clearMyUser = () => setUserData({
+    auth: false,
+    myUser: undefined
+  });
 
   useEffect(() => {
     saveMyUserFromSite();
   }, []);
 
   const providerValue = useMemo((): UserContextState => ({
-    myUser,
+    userData,
     clearMyUser,
     saveMyUserFromSite
-  }), [myUser]);
+  }), [userData]);
 
   return <UserContext.Provider value={providerValue}>{children}</UserContext.Provider>;
 };
