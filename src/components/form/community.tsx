@@ -65,7 +65,7 @@ const CommunityForm = () => {
       logger.error('Unable to upload image for community creation', imageFile, e);
     }
 
-    return null;
+    return undefined;
   };
 
   const handleCreationAttempt = async (event: FormEvent<HTMLFormElement>) => {
@@ -96,11 +96,11 @@ const CommunityForm = () => {
     }
 
     if (fieldValues.icon) {
-      await uploadCommunityImage(fieldValues.icon);
+      iconUrl = await uploadCommunityImage(fieldValues.icon);
     }
 
     if (fieldValues.banner) {
-      await uploadCommunityImage(fieldValues.banner);
+      bannerUrl = await uploadCommunityImage(fieldValues.banner);
     }
 
     try {
