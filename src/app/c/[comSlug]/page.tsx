@@ -56,7 +56,7 @@ const CommunityHeader = ({ banner, icon, title }: CommunityHeaderProps) => (
     <div className="h-240">
       <Image
         alt="Community banner"
-        src={banner.replace('localhost', 'api:8080')} // https://github.com/sublinks/sublinks-api/issues/357
+        src={banner.replace('localhost', 'api:8080')} // @TODO: https://github.com/sublinks/sublinks-api/issues/357
         height={0}
         width={0}
         sizes="100vw"
@@ -72,7 +72,7 @@ const CommunityHeader = ({ banner, icon, title }: CommunityHeaderProps) => (
             <div className="max-md:hidden">
               <Image
                 alt="Community icon"
-                src={icon.replace('localhost', 'api:8080')} // https://github.com/sublinks/sublinks-api/issues/357
+                src={icon.replace('localhost', 'api:8080')} // @TODO: https://github.com/sublinks/sublinks-api/issues/357
                 height={120}
                 width={120}
               />
@@ -80,7 +80,7 @@ const CommunityHeader = ({ banner, icon, title }: CommunityHeaderProps) => (
             <div className="md:hidden">
               <Image
                 alt="Community icon"
-                src={icon.replace('localhost', 'api:8080')} // https://github.com/sublinks/sublinks-api/issues/357
+                src={icon.replace('localhost', 'api:8080')} // @TODO: https://github.com/sublinks/sublinks-api/issues/357
                 height={60}
                 width={60}
               />
