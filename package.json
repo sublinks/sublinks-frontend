@@ -28,7 +28,7 @@
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "sublinks-js-client": "^0.0.17",
+    "sublinks-js-client": "^0.0.13",
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
