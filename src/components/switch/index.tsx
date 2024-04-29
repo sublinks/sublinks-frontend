@@ -12,6 +12,7 @@ const Switch = ({
 {
   active: boolean, onSwitch: (newState: boolean) => void, icon: React.JSX.Element, label: string
 }) => (
+  // @ts-expect-error MT isn't up to date with their React types as of 2.1.9
   <Button
     onClick={() => {
       onSwitch(!active);
