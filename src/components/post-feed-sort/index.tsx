@@ -14,6 +14,7 @@ interface PostFeedTypeProps {
 const buttonGroupClass = 'px-12 py-4';
 
 const PostFeedType = ({ currentType, onTypeChange }: PostFeedTypeProps) => (
+  // @ts-expect-error MT isn't up to date with their React types as of 2.1.9
   <ButtonGroup className="flex">
     <Button id="post-feed-type-all" palette="pale" type="button" active={currentType === 'All'} onClick={() => onTypeChange('All')} className={buttonGroupClass}>All</Button>
     <Button id="post-feed-type-local" palette="pale" type="button" active={currentType === 'Local'} onClick={() => onTypeChange('Local')} className={buttonGroupClass}>Local</Button>

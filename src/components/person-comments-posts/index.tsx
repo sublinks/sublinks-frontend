@@ -28,6 +28,8 @@ export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailS
   return (
     <div className="mt-8 text-sm">
       <Tabs value="posts">
+        {/*
+        // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
         <TabsHeader
           indicatorProps={{
             className: 'bg-gray-900/10 dark:bg-secondary-dark shadow-none'
@@ -35,11 +37,14 @@ export const PersonDetailSelection = ({ postViews, commentViews }: PersonDetailS
           className="bg-secondary dark:bg-gray-900/10"
         >
           {tabs.map(({ label, value }) => (
+            // @ts-expect-error MT isn't up to date with their React types as of 2.1.9
             <Tab key={value} value={value} className="text-black dark:text-white">
               {label}
             </Tab>
           ))}
         </TabsHeader>
+        {/*
+        // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
         <TabsBody>
           {tabs.map(({ value, content }) => (
             <TabPanel key={value} value={value} className="mt-8">
