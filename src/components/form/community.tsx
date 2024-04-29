@@ -192,6 +192,8 @@ const CommunityForm = () => {
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting} className="flex justify-center">
+        {/*
+        // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
         {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Create Community</BodyTitleInverse>}
       </Button>
     </form>
