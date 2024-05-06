@@ -28,18 +28,17 @@ const REQUIRED_FIELDS = [
 ];
 
 const SignupForm = () => {
-  const { myUser, saveMyUserFromSite } = useContext(UserContext);
+  const { userData, saveMyUserFromSite } = useContext(UserContext);
   const router = useRouter();
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Redirect when user is logged in
   useEffect(() => {
-    if (myUser) {
+    if (userData.auth) {
       router.push('/');
     }
-  }, [myUser]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSignupAttempt = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

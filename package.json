@@ -28,11 +28,11 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
     "remark-gfm": "^4.0.0",
-    "sublinks-js-client": "^0.0.17",
+    "sublinks-js-client": "^0.0.13",
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^1.7.2",
+    "@stylistic/eslint-plugin-js": "^1.8.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.6",
     "@types/jest": "^29.5.12",

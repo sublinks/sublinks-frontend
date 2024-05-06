@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import SublinksApi from '@/utils/api-client/client';
@@ -10,7 +10,8 @@ import { BodyTitle } from '@/components/text';
 
 const Logout = () => {
   const router = useRouter();
-  const { clearMyUser } = useContext(UserContext);
+  const { userData, clearMyUser } = useContext(UserContext);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const logout = async () => {
@@ -19,8 +20,20 @@ const Logout = () => {
       router.replace('/');
     };
 
+    if (isProcessing) {
+      return;
+    }
+
+    if (userData.auth) {
+      setIsProcessing(true);
+      logout();
+    } else if (userData.auth === false) {
+      setIsProcessing(true);
+      router.replace('/');
+    }
+
     logout();
-  }, [clearMyUser, router]);
+  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="w-full mt-56 flex flex-col gap-8 items-center justify-center">
