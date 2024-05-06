@@ -175,16 +175,19 @@ const PostForm = ({ communities }: PostFormProps) => {
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.TITLE)}
         />
-        <InputField
-          type="text"
-          label="URL"
-          name={INPUT_IDS.URL}
-          id={INPUT_IDS.URL}
-          placeholder="Url"
-          showBorderPlaceholder
-          disabled={isSubmitting || isMediaPost}
-          hasError={erroneousFields.includes(INPUT_IDS.URL)}
-        />
+        <div>
+          <InputField
+            type="text"
+            label="URL"
+            name={INPUT_IDS.URL}
+            id={INPUT_IDS.URL}
+            placeholder="Url"
+            showBorderPlaceholder
+            disabled={isSubmitting || isMediaPost}
+            hasError={erroneousFields.includes(INPUT_IDS.URL)}
+          />
+          <PaleBodyText className="text-sm">Will be overridden by the image URL if one is submitted.</PaleBodyText>
+        </div>
         <InputField
           type="file"
           label="Image"
