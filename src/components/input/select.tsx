@@ -12,7 +12,7 @@ interface SelectorProps {
     label: string;
   }[];
   placeholder?: {
-    value: string | number;
+    value: string | number | undefined;
     label: string;
   };
   disabled?: boolean;

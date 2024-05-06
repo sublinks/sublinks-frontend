@@ -159,7 +159,7 @@ const PostForm = ({ communities }: PostFormProps) => {
           label="Community selector"
           options={communityOptions}
           placeholder={{
-            value: 0,
+            value: undefined,
             label: 'Select community'
           }}
           disabled={isSubmitting}
