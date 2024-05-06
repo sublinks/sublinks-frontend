@@ -148,12 +148,13 @@ const PostForm = ({ communities }: PostFormProps) => {
     <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <select
-          label="Community"
           name={INPUT_IDS.COMMUNITY}
           id={INPUT_IDS.COMMUNITY}
-          placeholder="Community"
+          className="bg-primary dark:bg-gray-800 flex h-40 items-center border-2 rounded-md px-16 border-gray-300 dark:border-gray-900 text-gray-900 dark:text-white"
           disabled={isSubmitting}
         >
+          <option>Select Community</option>
+          <option disabled>---</option>
           {communities.map(view => (
             <option value={view.community.id}>
               {getCommunitySlugFromUrl(view.community.actor_id, false)}

@@ -56,7 +56,8 @@ const MarkdownTextarea = ({
         autoFocus={false}
         preview={showPreview ? 'preview' : 'edit'}
         textareaProps={{
-          autoCapitalize: 'none'
+          autoCapitalize: 'none',
+          name: id
         }}
         defaultTabEnable
         visibleDragbar={false}
