@@ -9,6 +9,7 @@ import { Spinner } from '@material-tailwind/react';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
+import { Selector } from '@/components/input/select';
 import { BodyTitleInverse, ErrorText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
@@ -48,7 +49,7 @@ const PostForm = ({ communities }: PostFormProps) => {
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const validateRequiredFields = (fieldValues: Record<string, string | File>) => {
+  const validateRequiredFields = (fieldValues: Record<string, string | number | File>) => {
     const emptyFields: string[] = [];
 
     REQUIRED_FIELDS.forEach(fieldKey => {
@@ -83,7 +84,7 @@ const PostForm = ({ communities }: PostFormProps) => {
 
     const formData = new FormData(event.currentTarget);
     const fieldValues = {
-      community: formData.get(INPUT_IDS.COMMUNITY) as string,
+      community: parseInt(formData.get(INPUT_IDS.COMMUNITY) as string, 10),
       title: formData.get(INPUT_IDS.TITLE) as string,
       url: formData.get(INPUT_IDS.URL) as string,
       media: formData.get(INPUT_IDS.MEDIA) as File,
@@ -92,7 +93,7 @@ const PostForm = ({ communities }: PostFormProps) => {
       nsfw: formData.get(INPUT_IDS.NSFW) as string
     };
     let imageUrl;
-
+    console.log(fieldValues);
     const emptyFields = validateRequiredFields(fieldValues);
     if (emptyFields.length > 0) {
       setErroneousFields(emptyFields);
@@ -107,7 +108,7 @@ const PostForm = ({ communities }: PostFormProps) => {
 
     try {
       const { post_view: postView } = await SublinksApi.Instance().Client().createPost({
-        community_id: parseInt(fieldValues.community, 10),
+        community_id: fieldValues.community,
         name: fieldValues.title,
         url: imageUrl || fieldValues.url,
         body: fieldValues.body,
@@ -144,23 +145,25 @@ const PostForm = ({ communities }: PostFormProps) => {
     }
   };
 
+  const communityOptions = communities.map(view => ({
+    value: view.community.id,
+    label: getCommunitySlugFromUrl(view.community.actor_id, false) || view.community.name
+  }));
+
   return (
     <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <select
-          name={INPUT_IDS.COMMUNITY}
+        <Selector
           id={INPUT_IDS.COMMUNITY}
-          className="bg-primary dark:bg-gray-800 flex h-40 items-center border-2 rounded-md px-16 border-gray-300 dark:border-gray-900 text-gray-900 dark:text-white"
-          disabled={isSubmitting}
-        >
-          <option>Select Community</option>
-          <option disabled>---</option>
-          {communities.map(view => (
-            <option value={view.community.id}>
-              {getCommunitySlugFromUrl(view.community.actor_id, false)}
-            </option>
-          ))}
-        </select>
+          label="Community selector"
+          options={communityOptions}
+          placeholder={{
+            value: 0,
+            label: 'Select community'
+          }}
+          isDisabled={isSubmitting}
+          hasError={erroneousFields.includes(INPUT_IDS.COMMUNITY)}
+        />
         <InputField
           type="text"
           label="Title"
