@@ -4,16 +4,21 @@ import React, {
   FormEvent, useContext, useEffect, useState
 } from 'react';
 import { useRouter } from 'next/navigation';
+import { CommunityView } from 'sublinks-js-client';
+import { Spinner } from '@material-tailwind/react';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { BodyTitleInverse, ErrorText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
-import { Spinner } from '@material-tailwind/react';
 import { UserContext } from '@/context/user';
 import { isImage } from '@/utils/links';
 import { getCommunitySlugFromUrl } from '@/utils/communities';
+
+interface PostFormProps {
+  communities: CommunityView[];
+}
 
 const INPUT_IDS = {
   COMMUNITY: 'community',
@@ -30,7 +35,7 @@ const REQUIRED_FIELDS = [
   INPUT_IDS.TITLE
 ];
 
-const PostForm = () => {
+const PostForm = ({ communities }: PostFormProps) => {
   const router = useRouter();
   const { userData } = useContext(UserContext);
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
@@ -102,7 +107,7 @@ const PostForm = () => {
 
     try {
       const { post_view: postView } = await SublinksApi.Instance().Client().createPost({
-        community_id: 1, // fieldValues.community,
+        community_id: parseInt(fieldValues.community, 10),
         name: fieldValues.title,
         url: imageUrl || fieldValues.url,
         body: fieldValues.body,
@@ -142,16 +147,19 @@ const PostForm = () => {
   return (
     <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <InputField
-          type="text"
+        <select
           label="Community"
           name={INPUT_IDS.COMMUNITY}
           id={INPUT_IDS.COMMUNITY}
           placeholder="Community"
-          showBorderPlaceholder
           disabled={isSubmitting}
-          hasError={erroneousFields.includes(INPUT_IDS.COMMUNITY)}
-        />
+        >
+          {communities.map(view => (
+            <option value={view.community.id}>
+              {getCommunitySlugFromUrl(view.community.actor_id, false)}
+            </option>
+          ))}
+        </select>
         <InputField
           type="text"
           label="Title"
@@ -181,6 +189,16 @@ const PostForm = () => {
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.MEDIA)}
+        />
+        <InputField
+          type="text"
+          label="Media Description"
+          name={INPUT_IDS.ALT}
+          id={INPUT_IDS.ALT}
+          placeholder="Media Description"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          hasError={erroneousFields.includes(INPUT_IDS.ALT)}
         />
         <MarkdownTextarea id={INPUT_IDS.BODY} label="Content" initialValue="**Content**" />
         <Checkbox label="Is NSFW" name={INPUT_IDS.NSFW} id={INPUT_IDS.NSFW} />
