@@ -162,7 +162,7 @@ const PostForm = ({ communities }: PostFormProps) => {
             value: 0,
             label: 'Select community'
           }}
-          isDisabled={isSubmitting}
+          disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.COMMUNITY)}
         />
         <InputField
