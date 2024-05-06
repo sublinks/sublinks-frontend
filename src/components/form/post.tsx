@@ -10,7 +10,7 @@ import { Spinner } from '@material-tailwind/react';
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { Selector } from '@/components/input/select';
-import { BodyTitleInverse, ErrorText } from '@/components/text';
+import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 import { UserContext } from '@/context/user';
@@ -42,6 +42,7 @@ const PostForm = ({ communities }: PostFormProps) => {
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMediaPost, setIsMediaPost] = useState(false);
 
   useEffect(() => {
     if (userData.auth === false) {
@@ -93,7 +94,7 @@ const PostForm = ({ communities }: PostFormProps) => {
       nsfw: formData.get(INPUT_IDS.NSFW) as string
     };
     let imageUrl;
-    console.log(fieldValues);
+
     const emptyFields = validateRequiredFields(fieldValues);
     if (emptyFields.length > 0) {
       setErroneousFields(emptyFields);
@@ -181,29 +182,35 @@ const PostForm = ({ communities }: PostFormProps) => {
           id={INPUT_IDS.URL}
           placeholder="Url"
           showBorderPlaceholder
-          disabled={isSubmitting}
+          disabled={isSubmitting || isMediaPost}
           hasError={erroneousFields.includes(INPUT_IDS.URL)}
         />
         <InputField
           type="file"
-          label="Media"
+          label="Image"
           name={INPUT_IDS.MEDIA}
           id={INPUT_IDS.MEDIA}
-          placeholder="Media"
+          placeholder="Image"
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(INPUT_IDS.MEDIA)}
+          onChange={e => setIsMediaPost(Boolean(e.currentTarget.value))}
         />
-        <InputField
-          type="text"
-          label="Media Description"
-          name={INPUT_IDS.ALT}
-          id={INPUT_IDS.ALT}
-          placeholder="Media Description"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(INPUT_IDS.ALT)}
-        />
+        {isMediaPost && (
+          <div>
+            <InputField
+              type="text"
+              label="Image Description"
+              name={INPUT_IDS.ALT}
+              id={INPUT_IDS.ALT}
+              placeholder="Image Description"
+              showBorderPlaceholder
+              disabled={isSubmitting}
+              hasError={erroneousFields.includes(INPUT_IDS.ALT)}
+            />
+            <PaleBodyText className="text-sm">Used by screen readers to inform what the image depicts.</PaleBodyText>
+          </div>
+        )}
         <MarkdownTextarea id={INPUT_IDS.BODY} label="Content" initialValue="**Content**" />
         <Checkbox label="Is NSFW" name={INPUT_IDS.NSFW} id={INPUT_IDS.NSFW} />
       </div>

@@ -36,7 +36,7 @@ const Selector = ({
       {placeholder && <option value={placeholder.value}>{placeholder.label}</option>}
       {placeholder && <option disabled>---</option>}
       {options.map(opt => (
-        <option value={opt.value}>
+        <option key={opt.value} value={opt.value}>
           {opt.label}
         </option>
       ))}
