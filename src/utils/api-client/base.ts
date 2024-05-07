@@ -1,4 +1,4 @@
-import { fetch as crossFetch } from 'cross-fetch';
+import crossFetch from 'cross-fetch';
 import { SublinksClient } from 'sublinks-js-client';
 
 import logger from '../logger';
@@ -36,8 +36,11 @@ class SublinksApiBase {
   private rawClient: SublinksClient;
 
   constructor() {
+    // Need to bind fetch to window in browser to make sure it's not locked to the class instance
+    const fetcher = isServerSide() ? crossFetch : crossFetch.bind(window);
+
     this.rawClient = new SublinksClient(getApiHost(), {
-      fetchFunction: crossFetch,
+      fetchFunction: fetcher,
       insecure: process.env.NEXT_PUBLIC_HTTPS_ENABLED !== 'true'
     });
     this.client = this.getWrappedClient();
