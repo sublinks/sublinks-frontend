@@ -1,8 +1,6 @@
 'use client';
 
-import React, {
-  FormEvent, useContext, useEffect, useState
-} from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
@@ -11,7 +9,6 @@ import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 import { Spinner } from '@material-tailwind/react';
-import { UserContext } from '@/context/user';
 
 const INPUT_IDS = {
   NAME: 'name',
@@ -30,16 +27,9 @@ const REQUIRED_FIELDS = [
 
 const CommunityForm = () => {
   const router = useRouter();
-  const { userData } = useContext(UserContext);
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (userData.auth === false) {
-      router.push('/login');
-    }
-  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validateRequiredFields = (fieldValues: Record<string, string | File>) => {
     const emptyFields: string[] = [];
