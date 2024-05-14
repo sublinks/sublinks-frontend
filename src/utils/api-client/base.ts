@@ -36,11 +36,8 @@ class SublinksApiBase {
   private rawClient: SublinksClient;
 
   constructor() {
-    // Need to bind fetch to window in browser to make sure it's not locked to the class instance
-    const fetcher = isServerSide() ? crossFetch : crossFetch.bind(window);
-
     this.rawClient = new SublinksClient(getApiHost(), {
-      fetchFunction: fetcher,
+      fetchFunction: crossFetch.bind(globalThis),
       insecure: process.env.NEXT_PUBLIC_HTTPS_ENABLED !== 'true'
     });
     this.client = this.getWrappedClient();
