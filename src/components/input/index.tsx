@@ -35,6 +35,7 @@ interface InputFieldProps {
   showBorderPlaceholder?: boolean;
   borderPlaceholderClassName?: string;
   inputPattern?: string;
+  onChange?: (e: React.FormEvent<HTMLInputElement>) => void;
 }
 
 const InputField = ({
@@ -51,7 +52,8 @@ const InputField = ({
   iconClassName,
   showBorderPlaceholder,
   borderPlaceholderClassName,
-  inputPattern
+  inputPattern,
+  onChange
 }: InputFieldProps) => (
   <div className={cx('bg-primary dark:bg-gray-800 rounded-md', className)}>
     <label htmlFor={name} className="sr-only">
@@ -71,6 +73,7 @@ const InputField = ({
         placeholder={placeholder}
         disabled={disabled}
         pattern={inputPattern}
+        onChange={onChange}
       />
       {showBorderPlaceholder && <PaleBodyText className={cx('absolute text-xs bg-primary dark:bg-gray-800 px-4 -top-12 peer-placeholder-shown:top-0 opacity-100 peer-placeholder-shown:opacity-0 rounded-t-md border-t-2 border-x-2 dark:dark:border-gray-900 transition-all', borderPlaceholderClassName)}>{placeholder}</PaleBodyText>}
     </div>

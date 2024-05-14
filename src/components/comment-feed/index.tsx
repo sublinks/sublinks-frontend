@@ -14,7 +14,7 @@ const CommentFeed = ({ data: comments }: CommentFeedProps) => (
       <div key={commentData.comment.ap_id} className="mb-8">
         <CommentCard comment={commentData} />
       </div>
-    )) : (<H1 className="text-center">No comments available!</H1>)}
+    )) : (<H1 className="text-center">No comments available</H1>)}
   </div>
 );
 
