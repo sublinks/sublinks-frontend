@@ -1,8 +1,6 @@
 'use client';
 
-import React, {
-  FormEvent, useContext, useEffect, useState
-} from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CommunityView } from 'sublinks-js-client';
 import { Spinner } from '@material-tailwind/react';
@@ -13,7 +11,6 @@ import { Selector } from '@/components/input/select';
 import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
-import { UserContext } from '@/context/user';
 import { isImage } from '@/utils/links';
 import { getCommunitySlugFromUrl } from '@/utils/communities';
 
@@ -38,17 +35,10 @@ const REQUIRED_FIELDS = [
 
 const PostForm = ({ communities }: PostFormProps) => {
   const router = useRouter();
-  const { userData } = useContext(UserContext);
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMediaPost, setIsMediaPost] = useState(false);
-
-  useEffect(() => {
-    if (userData.auth === false) {
-      router.push('/login');
-    }
-  }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const validateRequiredFields = (fieldValues: Record<string, string | number | File>) => {
     const emptyFields: string[] = [];
