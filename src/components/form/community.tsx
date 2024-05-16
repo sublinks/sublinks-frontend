@@ -58,13 +58,11 @@ const CommunityForm = () => {
     return undefined;
   };
 
-  const handleCreationAttempt = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const communityCreateAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
     setErroneousFields([]);
 
-    const formData = new FormData(event.currentTarget);
     const fieldValues = {
       name: formData.get(INPUT_IDS.NAME) as string,
       title: formData.get(INPUT_IDS.TITLE) as string,
@@ -128,7 +126,7 @@ const CommunityForm = () => {
   };
 
   return (
-    <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={communityCreateAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <div>
           <InputField

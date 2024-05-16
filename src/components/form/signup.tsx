@@ -40,13 +40,11 @@ const SignupForm = () => {
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleSignupAttempt = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const signUpAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
     setErroneousFields([]);
 
-    const formData = new FormData(event.currentTarget);
     const fieldValues = {
       email: formData.get('email') as string,
       username: formData.get('username') as string,
@@ -113,7 +111,7 @@ const SignupForm = () => {
   };
 
   return (
-    <form onSubmit={handleSignupAttempt} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={signUpAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <InputField
           type="email"

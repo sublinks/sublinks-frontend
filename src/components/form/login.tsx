@@ -32,7 +32,7 @@ const LoginForm = () => {
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleLoginAttempt = async (formData: FormData) => {
+  const loginAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
     setErroneousFields([]);
@@ -90,7 +90,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form action={handleLoginAttempt} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={loginAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <InputField
           type="text"

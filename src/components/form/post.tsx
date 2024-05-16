@@ -67,13 +67,11 @@ const PostForm = ({ communities }: PostFormProps) => {
     return undefined;
   };
 
-  const handleCreationAttempt = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const postCreateAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
     setErroneousFields([]);
 
-    const formData = new FormData(event.currentTarget);
     const fieldValues = {
       community: parseInt(formData.get(INPUT_IDS.COMMUNITY) as string, 10),
       title: formData.get(INPUT_IDS.TITLE) as string,
@@ -142,7 +140,7 @@ const PostForm = ({ communities }: PostFormProps) => {
   }));
 
   return (
-    <form onSubmit={handleCreationAttempt} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={postCreateAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <Selector
           id={INPUT_IDS.COMMUNITY}
