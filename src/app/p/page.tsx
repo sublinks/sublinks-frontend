@@ -1,8 +1,9 @@
 import React from 'react';
 
-import SublinksApi from '@/utils/api-client/server';
+import RestrictedPage from '@/components/auth/restricted-page';
 import { ErrorText, H1 } from '@/components/text';
 import PostForm from '@/components/form/post';
+import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 
 const getCommunities = async () => {
@@ -39,4 +40,4 @@ const PostCreate = async () => {
   );
 };
 
-export default PostCreate;
+export default () => RestrictedPage(<PostCreate />);

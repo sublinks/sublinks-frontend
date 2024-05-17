@@ -2,11 +2,12 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@material-tailwind/react';
 
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
-import { Spinner } from '@material-tailwind/react';
 import { BodyTitle } from '@/components/text';
+import { revalidateAll } from '@/utils/server';
 
 const Logout = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const Logout = () => {
     const logout = async () => {
       await SublinksApi.Instance().logout();
       clearMyUser();
+      revalidateAll();
       router.replace('/');
     };
 

@@ -21,6 +21,10 @@ We want to leverage the powers of NextJS as much as possible. And one thing it d
 
 One of our goals with this project is to keep it as componentized as we can. Any element that's used in more than one place should be created as a separate component. This will help us create consistency and avoid creating the same or very similar components in multiple files.
 
+## Restricted Pages
+
+Some pages we only want users to be able to access after they've successfully authenticated. We gatekeep these pages using the `RestrictedPage` server component. When you create a new page that unathenticated users should not be able to access, wrap it in this component.
+
 ## Types
 
 This project uses and relies on TypeScript. Meaning every variable, function, and component is required to have proper type definitions.
@@ -60,5 +64,3 @@ Note that end-to-end tests have not yet been set up. If you're passionate about 
 ## Pull Requests
 
 The pull request flow in this project isn't anything special. We require a pull request to be created before anything is merged into `main`. At least one person must approve the pull request.
-
-

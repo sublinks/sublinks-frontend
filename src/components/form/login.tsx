@@ -4,13 +4,14 @@ import React, {
   FormEvent, useContext, useEffect, useState
 } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@material-tailwind/react';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import logger from '@/utils/logger';
-import { Spinner } from '@material-tailwind/react';
+import { revalidateAll } from '@/utils/server';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LOGIN_FIELD_IDS = {
@@ -31,13 +32,11 @@ const LoginForm = () => {
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleLoginAttempt = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const loginAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
     setErroneousFields([]);
 
-    const formData = new FormData(event.currentTarget);
     const fieldValues = {
       username: formData.get('username') as string,
       password: formData.get('password') as string
@@ -65,6 +64,7 @@ const LoginForm = () => {
         password: fieldValues.password
       });
       await saveMyUserFromSite();
+      revalidateAll();
       router.push('/');
     } catch (e) {
       logger.error('Login attempt failed', e);
@@ -90,7 +90,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleLoginAttempt} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={loginAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <InputField
           type="text"

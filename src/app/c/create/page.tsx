@@ -1,5 +1,6 @@
 import React from 'react';
 
+import RestrictedPage from '@/components/auth/restricted-page';
 import { H1 } from '@/components/text';
 import CommunityForm from '@/components/form/community';
 
@@ -14,4 +15,4 @@ const Communities = () => (
   </div>
 );
 
-export default Communities;
+export default () => RestrictedPage(<Communities />);
