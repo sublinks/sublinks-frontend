@@ -117,6 +117,7 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
 const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
   const { userData } = useContext(UserContext);
   const [myUser, setMyUser] = useState(initialMyUser);
+  const endUser = myUser || initialMyUser;
 
   useEffect(() => {
     if (userData.auth !== undefined) {
@@ -124,8 +125,8 @@ const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
     }
   }, [userData]);
 
-  if (myUser) {
-    return <ProfileMenu myUser={myUser} />;
+  if (endUser) {
+    return <ProfileMenu myUser={endUser} />;
   }
 
   return (
