@@ -11,7 +11,7 @@ import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import logger from '@/utils/logger';
-import { revalidateAllAndRedirect, saveAuthOnServer } from '@/utils/server';
+import { revalidateAllAndRedirect, saveAuthOnServer } from '@/utils/server-actions';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LOGIN_FIELD_IDS = {

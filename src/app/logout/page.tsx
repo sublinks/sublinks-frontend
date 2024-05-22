@@ -7,7 +7,7 @@ import { Spinner } from '@material-tailwind/react';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import { BodyTitle } from '@/components/text';
-import { removeAuthOnServer, revalidateAllAndRedirect } from '@/utils/server';
+import { removeAuthOnServer, revalidateAllAndRedirect } from '@/utils/server-actions';
 
 const Logout = () => {
   const router = useRouter();
