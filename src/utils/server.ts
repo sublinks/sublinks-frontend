@@ -6,7 +6,6 @@ import { redirect } from 'next/navigation';
 import SublinksApi from '@/utils/api-client/server';
 
 export const revalidateAllAndRedirect = (redirectPath: string) => {
-  console.log('revalidateAllAndRedirect');
   revalidatePath('/', 'layout');
   redirect(redirectPath);
 };

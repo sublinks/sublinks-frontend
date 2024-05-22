@@ -64,6 +64,7 @@ class SublinksApiBase {
         SameSite: 'Lax'
       });
       this.setAuthHeader(jwt);
+      this.clearCache();
 
       return jwt;
     } catch (e) {
@@ -104,6 +105,7 @@ class SublinksApiBase {
 
   public logout() {
     this.clearAuth();
+    this.clearCache();
   }
 
   public Client() {
@@ -116,6 +118,11 @@ class SublinksApiBase {
     }
 
     this.rawClient.setHeaders({});
+  }
+
+  // Clear getSite cache to allow for update myUser property
+  private clearCache() {
+    this.rawClient.cache.flush();
   }
 
   private getWrappedClient() {
@@ -148,9 +155,8 @@ class SublinksApiBase {
         wrappedClient[name] = async (...args: unknown[]) => {
           const authCookie = this.authCookieStore?.get();
 
-          if (authCookie && !this.rawClient.headers.Authorization) {
+          if (authCookie) {
             this.setAuthHeader(authCookie);
-            await validateAndUpdateAuth(authCookie);
           } else if (!authCookie && this.rawClient.headers.Authorization) {
             this.rawClient.setHeaders({});
           }

@@ -64,8 +64,6 @@ const LoginForm = () => {
         password: fieldValues.password
       });
       await saveMyUserFromSite();
-      router.refresh();
-
       await saveAuthOnServer(jwt);
       await revalidateAllAndRedirect('/');
     } catch (e) {
