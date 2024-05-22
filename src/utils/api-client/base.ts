@@ -120,7 +120,7 @@ class SublinksApiBase {
     this.rawClient.setHeaders({});
   }
 
-  // Clear getSite cache to allow for update myUser property
+  // Clear getSite cache to allow for updated myUser property
   private clearCache() {
     this.rawClient.cache.flush();
   }

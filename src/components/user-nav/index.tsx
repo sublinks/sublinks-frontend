@@ -117,7 +117,7 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
 const UserNav = ({ initialMyUser }: { initialMyUser?: MyUserInfo }) => {
   const { userData } = useContext(UserContext);
   const [myUser, setMyUser] = useState(initialMyUser);
-  const endUser = myUser || initialMyUser;
+  const endUser = myUser || initialMyUser; // Server doesn't have access to myUser state
 
   useEffect(() => {
     if (userData.auth !== undefined) {
