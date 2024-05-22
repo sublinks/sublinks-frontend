@@ -9,12 +9,17 @@ let errorSpy: jest.SpyInstance;
 
 beforeEach(() => {
   jest.spyOn(SublinksClient.prototype, 'getSite').mockResolvedValue({
-    my_user: {}
+    my_user: undefined
   } as GetSiteResponse);
   jest.spyOn(SublinksClient.prototype, 'login').mockResolvedValue({
     jwt: 'test-jwt-token'
   } as LoginResponse);
-  jest.spyOn(SublinksClient.prototype, 'getPosts').mockRejectedValue(new Error('Unauthorized'));
+  jest.spyOn(SublinksClient.prototype, 'getPosts').mockResolvedValue({
+    errors: ['error occurred'],
+    message: '401 UNAUTHORIZED',
+    // @ts-expect-error Client types are not up to date
+    status: 'UNAUTHORIZED'
+  });
 
   errorSpy = jest.spyOn(logger, 'error').mockImplementation(() => {});
   jest.spyOn(logger, 'debug').mockImplementation(() => {});
@@ -202,20 +207,20 @@ describe('SublinksApiBase', () => {
 
       // Once for user auth validation, second time for actual API request
       // @ts-expect-error Accessing private property
-      expect(apiClient.rawClient.getSite).toHaveBeenCalledTimes(2);
+      expect(apiClient.rawClient.getSite).toHaveBeenCalledTimes(1);
     });
 
     it('validates and clears auth on Unauthorized API error', async () => {
       const apiClient = new SublinksApiBase();
       const cookieStore = {
-        get: jest.fn(),
+        get: () => 'auth-cookie',
         set: jest.fn(),
         remove: jest.fn()
       };
 
       apiClient.setAuthCookieStore(cookieStore);
       // @ts-expect-error Accessing private property
-      apiClient.rawClient.setHeader('Authorization', 'test-jwt-cookie');
+      apiClient.rawClient.setAuth('test-jwt-cookie');
 
       try {
         await apiClient.Client().getPosts();
@@ -236,7 +241,7 @@ describe('SublinksApiBase', () => {
         await apiClient.Client().getPosts();
       } catch (e) {
         const error = e as Error;
-        expect(error.message).toBe('Unauthorized');
+        expect(error.message).toBe('UNAUTHORIZED');
       }
     });
   });

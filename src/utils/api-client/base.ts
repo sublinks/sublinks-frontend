@@ -164,10 +164,16 @@ class SublinksApiBase {
           try {
             // @ts-expect-error: TS can't find a matching index signature
             const result = await this.rawClient[name](...args);
+
+            // API client doesn't throw exceptions but instead forwards error properties
+            if (result.errors) {
+              throw Error(result.status || result.message);
+            }
+
             return result;
           } catch (e) {
             const error = e as Error;
-            if (error.message === 'Unauthorized' && this.rawClient.headers.Authorization) {
+            if (error.message === 'UNAUTHORIZED' && this.rawClient.headers.Authorization) {
               logger.debug('Validating auth following unauthorized API response', e);
               await validateAndUpdateAuth(authCookie);
             }
