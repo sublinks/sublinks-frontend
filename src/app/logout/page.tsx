@@ -7,7 +7,7 @@ import { Spinner } from '@material-tailwind/react';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import { BodyTitle } from '@/components/text';
-import { revalidateAll } from '@/utils/server';
+import { removeAuthOnServer, revalidateAllAndRedirect } from '@/utils/server';
 
 const Logout = () => {
   const router = useRouter();
@@ -16,10 +16,12 @@ const Logout = () => {
 
   useEffect(() => {
     const logout = async () => {
-      await SublinksApi.Instance().logout();
+      SublinksApi.Instance().logout();
       clearMyUser();
-      revalidateAll();
-      router.replace('/');
+      router.refresh();
+
+      await removeAuthOnServer();
+      await revalidateAllAndRedirect('/');
     };
 
     if (isProcessing) {

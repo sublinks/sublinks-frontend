@@ -61,9 +61,11 @@ class SublinksApiBase {
         expires: new Date(Date.now() + AUTH_TTL_MS),
         secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
         path: '/',
-        sameSite: 'Lax'
+        SameSite: 'Lax'
       });
       this.setAuthHeader(jwt);
+
+      return jwt;
     } catch (e) {
       logger.error('Failed to save and set JWT', e);
       throw e;
@@ -81,7 +83,7 @@ class SublinksApiBase {
         throw Error('JWT not returned from server');
       }
 
-      this.saveAndSetJwt(jwt);
+      return this.saveAndSetJwt(jwt);
     } catch (e) {
       logger.error('Failed to login user', e);
       throw e;
@@ -97,8 +99,7 @@ class SublinksApiBase {
       return this.loginWithCredentials(username, password);
     }
 
-    logger.error('Login function called without expected arguments');
-    return null;
+    throw Error('Login function called without expected arguments');
   }
 
   public logout() {
@@ -150,6 +151,8 @@ class SublinksApiBase {
           if (authCookie && !this.rawClient.headers.Authorization) {
             this.setAuthHeader(authCookie);
             await validateAndUpdateAuth(authCookie);
+          } else if (!authCookie && this.rawClient.headers.Authorization) {
+            this.rawClient.setHeaders({});
           }
 
           try {

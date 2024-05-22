@@ -11,7 +11,7 @@ import Button from '@/components/button';
 import SublinksApi from '@/utils/api-client/client';
 import { UserContext } from '@/context/user';
 import logger from '@/utils/logger';
-import { revalidateAll } from '@/utils/server';
+import { revalidateAllAndRedirect, saveAuthOnServer } from '@/utils/server';
 import { BodyTitleInverse, ErrorText } from '../text';
 
 const LOGIN_FIELD_IDS = {
@@ -28,7 +28,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (userData.auth) {
-      router.push('/');
+      router.replace('/');
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -59,13 +59,15 @@ const LoginForm = () => {
     }
 
     try {
-      await SublinksApi.Instance().login({
+      const jwt = await SublinksApi.Instance().login({
         username: fieldValues.username,
         password: fieldValues.password
       });
       await saveMyUserFromSite();
-      revalidateAll();
-      router.push('/');
+      router.refresh();
+
+      await saveAuthOnServer(jwt);
+      await revalidateAllAndRedirect('/');
     } catch (e) {
       logger.error('Login attempt failed', e);
       setErrorMessage('Login attempt failed. Please try again.');
