@@ -1,5 +1,7 @@
 import 'cross-fetch/polyfill';
-import { GetSiteResponse, LoginResponse, SublinksClient } from 'sublinks-js-client';
+import {
+  GetPostsResponse, GetSiteResponse, LoginResponse, SublinksClient
+} from 'sublinks-js-client';
 
 import SublinksApiBase from '../api-client/base';
 import SublinksApiClientSide from '../api-client/client';
@@ -17,9 +19,8 @@ beforeEach(() => {
   jest.spyOn(SublinksClient.prototype, 'getPosts').mockResolvedValue({
     errors: ['error occurred'],
     message: '401 UNAUTHORIZED',
-    // @ts-expect-error Client types are not up to date
     status: 'UNAUTHORIZED'
-  });
+  } as GetPostsResponse);
 
   errorSpy = jest.spyOn(logger, 'error').mockImplementation(() => {});
   jest.spyOn(logger, 'debug').mockImplementation(() => {});
