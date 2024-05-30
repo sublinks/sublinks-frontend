@@ -1,35 +1,16 @@
 import React from 'react';
 import { HeartIcon } from '@heroicons/react/24/outline';
-import { GetSiteResponse } from 'sublinks-js-client';
 import Link from 'next/link';
+import { GetSiteResponse } from 'sublinks-js-client';
 
-import SublinksApi from '@/utils/api-client/server';
-import logger from '@/utils/logger';
 import UserNav from '../user-nav';
 import HeaderLogo from './header-logo';
 import HeaderSearch from './header-search';
 import Icon, { ICON_SIZE } from '../icon';
 import HeaderLayout from './header-layout';
-import * as testData from '../../../test-instance-data.json';
 import { LinkText } from '../text';
 
-// @todo: Allow test data when in non-docker dev env
-// as Sublinks Core doesn't yet handle all post features
-const getSite = async () => {
-  try {
-    const site = process.env.NEXT_PUBLIC_SUBLINKS_API_BASE_URL
-      ? await SublinksApi.Instance().Client().getSite()
-      : JSON.parse(JSON.stringify(testData)) as unknown as GetSiteResponse;
-
-    return site;
-  } catch (e) {
-    logger.error('Failed to retrieve site for header', e);
-    return undefined;
-  }
-};
-
-const Header = async () => {
-  const site = await getSite();
+const Header = async ({ site }: { site?: GetSiteResponse }) => {
   const myUser = site?.my_user;
 
   return (
