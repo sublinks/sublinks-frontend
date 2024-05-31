@@ -61,9 +61,12 @@ class SublinksApiBase {
         expires: new Date(Date.now() + AUTH_TTL_MS),
         secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
         path: '/',
-        sameSite: 'Lax'
+        SameSite: 'Lax'
       });
       this.setAuthHeader(jwt);
+      this.clearCache();
+
+      return jwt;
     } catch (e) {
       logger.error('Failed to save and set JWT', e);
       throw e;
@@ -81,7 +84,7 @@ class SublinksApiBase {
         throw Error('JWT not returned from server');
       }
 
-      this.saveAndSetJwt(jwt);
+      return this.saveAndSetJwt(jwt);
     } catch (e) {
       logger.error('Failed to login user', e);
       throw e;
@@ -97,12 +100,12 @@ class SublinksApiBase {
       return this.loginWithCredentials(username, password);
     }
 
-    logger.error('Login function called without expected arguments');
-    return null;
+    throw Error('Login function called without expected arguments');
   }
 
   public logout() {
     this.clearAuth();
+    this.clearCache();
   }
 
   public Client() {
@@ -115,6 +118,11 @@ class SublinksApiBase {
     }
 
     this.rawClient.setHeaders({});
+  }
+
+  // Clear getSite cache to allow for updated myUser property
+  private clearCache() {
+    this.rawClient.cache.flush();
   }
 
   private getWrappedClient() {
@@ -147,18 +155,25 @@ class SublinksApiBase {
         wrappedClient[name] = async (...args: unknown[]) => {
           const authCookie = this.authCookieStore?.get();
 
-          if (authCookie && !this.rawClient.headers.Authorization) {
+          if (authCookie) {
             this.setAuthHeader(authCookie);
-            await validateAndUpdateAuth(authCookie);
+          } else if (!authCookie && this.rawClient.headers.Authorization) {
+            this.rawClient.setHeaders({});
           }
 
           try {
             // @ts-expect-error: TS can't find a matching index signature
             const result = await this.rawClient[name](...args);
+
+            // API client doesn't throw exceptions but instead forwards error properties
+            if (result.errors) {
+              throw Error(result.status || result.message);
+            }
+
             return result;
           } catch (e) {
             const error = e as Error;
-            if (error.message === 'Unauthorized' && this.rawClient.headers.Authorization) {
+            if (error.message === 'UNAUTHORIZED' && this.rawClient.headers.Authorization) {
               logger.debug('Validating auth following unauthorized API response', e);
               await validateAndUpdateAuth(authCookie);
             }

@@ -10,10 +10,10 @@ class SublinksApiServerSide extends SublinksApiBase {
     super();
     SublinksApiServerSide.instance = this;
 
-    const nextCookies = cookies();
     const cookieStore = {
       get: () => {
         try {
+          const nextCookies = cookies();
           return nextCookies.get(AUTH_COOKIE_NAME)?.value;
         } catch (e) {
           logger.error('Failed to get server auth cookie', e);
@@ -22,6 +22,7 @@ class SublinksApiServerSide extends SublinksApiBase {
       },
       set: (value: string, options?: object) => {
         try {
+          const nextCookies = cookies();
           nextCookies.set(AUTH_COOKIE_NAME, value, {
             ...options,
             httpOnly: true
@@ -32,6 +33,7 @@ class SublinksApiServerSide extends SublinksApiBase {
       },
       remove: () => {
         try {
+          const nextCookies = cookies();
           nextCookies.delete(AUTH_COOKIE_NAME);
         } catch (e) {
           logger.error('Failed to remove server auth cookie', e);
