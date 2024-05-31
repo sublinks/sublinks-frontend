@@ -76,7 +76,7 @@ const Feed = ({ posts, site }: FeedProps) => {
     <div className="relative">
       <div className="float-none md:float-right">
         <Sidebar
-          site={site?.site_view.site}
+          site={site?.site_view?.site}
           admins={site?.admins}
           onSwitch={handleSidebarSwitch}
           open={sidebarOpen}
