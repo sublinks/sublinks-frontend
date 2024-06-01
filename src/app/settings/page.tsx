@@ -21,7 +21,6 @@ const getUser = async () => {
 
 const UserSettings = async () => {
   const userData = await getUser();
-  console.log(userData);
 
   if (!userData) {
     return (

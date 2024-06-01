@@ -10,6 +10,7 @@ import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 import { BodyTitle, BodyTitleInverse, ErrorText } from '../text';
 import { PostFeedSort, PostFeedType } from '../post-feed-sort';
+import { Selector } from '../input/select';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -74,6 +75,18 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     }
   };
 
+  // @TODO Bring in available instance themes
+  const themeOptions = [
+    {
+      label: 'Dark',
+      value: 'dark'
+    },
+    {
+      label: 'Light',
+      value: 'light'
+    }
+  ];
+
   return (
     <form action={saveUserSettingsAction} onChange={handleFieldValueChange} className="flex flex-col py-24 md:py-32 max-w-500">
       <div className="flex flex-col gap-16">
@@ -120,6 +133,16 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
             onTypeChange={type => setListingType(type)}
           />
         </div>
+        <Selector
+          id={SETTING_FIELD_IDS.THEME}
+          label="Theme"
+          options={themeOptions}
+          placeholder={{
+            value: undefined,
+            label: 'Select theme'
+          }}
+          disabled={isSubmitting}
+        />
         <div className="flex flex-col">
           <BodyTitle>Default Post Feed Sort</BodyTitle>
           <div className="h-32">
