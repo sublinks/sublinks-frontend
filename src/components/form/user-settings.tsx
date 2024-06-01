@@ -75,7 +75,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   };
 
   return (
-    <form action={saveUserSettingsAction} onChange={handleFieldValueChange} className="flex flex-col">
+    <form action={saveUserSettingsAction} onChange={handleFieldValueChange} className="flex flex-col py-24 md:py-32">
       <div className="flex flex-col gap-16">
         <Checkbox
           label="Show NSFW"
