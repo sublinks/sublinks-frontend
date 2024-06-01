@@ -5,6 +5,7 @@ import MainCard from '@/components/main-card';
 import { ErrorText, H1 } from '@/components/text';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
+import UserSettingsForm from '@/components/form/user-settings';
 
 const getUser = async () => {
   try {
@@ -30,49 +31,55 @@ const UserSettings = async () => {
     );
   }
 
+  /* eslint-disable @typescript-eslint/naming-convention */
   const {
     local_user: {
       email,
       theme,
-      default_sort_type: sortType,
-      default_listing_type: listingType,
-      show_nsfw: showNsfw,
-      blur_nsfw: blurNsfw,
-      auto_expand: autoExpandMedia,
-      show_scores: showScores,
-      show_avatars: showAvatars,
-      show_read_posts: showReadPosts,
-      show_bot_accounts: showBotAccounts,
-      send_notifications_to_email: sendEmailNotifications,
-      open_links_in_new_tab: openInNewTab
+      default_sort_type,
+      default_listing_type,
+      show_nsfw,
+      blur_nsfw,
+      auto_expand,
+      show_scores,
+      show_avatars,
+      show_read_posts,
+      show_bot_accounts,
+      send_notifications_to_email,
+      open_links_in_new_tab
     },
     person: {
-      avatar, banner, bio, display_name: displayName, name, bot_account: isBotAccount
+      avatar, banner, bio, display_name, name, bot_account
     }
   } = userData;
-  console.log(userData);
+  /* eslint-enable @typescript-eslint/naming-convention */
+
+  const userSettings = {
+    avatar,
+    banner,
+    bio,
+    display_name,
+    name,
+    bot_account,
+    email,
+    theme,
+    default_sort_type,
+    default_listing_type,
+    show_nsfw,
+    blur_nsfw,
+    show_avatars,
+    show_bot_accounts,
+    auto_expand,
+    show_scores,
+    show_read_posts,
+    send_notifications_to_email,
+    open_links_in_new_tab
+  };
 
   return (
     <div className="flex flex-col gap-32 my-24 md:my-32">
       <MainCard Header={<H1>SETTINGS</H1>}>
-        <span>{`displayName: ${displayName || name}`}</span>
-        <span>{`bio: ${bio}`}</span>
-        <span>{`email: ${email}`}</span>
-        <span>{`avatar: ${avatar}`}</span>
-        <span>{`banner: ${banner}`}</span>
-        <span>{`isBotAccount: ${isBotAccount}`}</span>
-        <span>{`theme: ${theme}`}</span>
-        <span>{`sortType: ${sortType}`}</span>
-        <span>{`listingType: ${listingType}`}</span>
-        <span>{`showNsfw: ${showNsfw}`}</span>
-        <span>{`blurNsfw: ${blurNsfw}`}</span>
-        <span>{`showScores: ${showScores}`}</span>
-        <span>{`showAvatars: ${showAvatars}`}</span>
-        <span>{`showBotAccounts: ${showBotAccounts}`}</span>
-        <span>{`showReadPosts: ${showReadPosts}`}</span>
-        <span>{`autoExpandMedia: ${autoExpandMedia}`}</span>
-        <span>{`openInNewTab: ${openInNewTab}`}</span>
-        <span>{`sendEmailNotifications: ${sendEmailNotifications}`}</span>
+        <UserSettingsForm initialUserSettings={userSettings} />
       </MainCard>
     </div>
   );
