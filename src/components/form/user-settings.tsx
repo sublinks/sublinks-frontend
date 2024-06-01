@@ -122,10 +122,12 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
         </div>
         <div className="flex flex-col">
           <BodyTitle>Default Post Feed Sort</BodyTitle>
-          <PostFeedSort
-            currentSort={sortType}
-            onSortChange={sort => setSortType(sort)}
-          />
+          <div className="h-32">
+            <PostFeedSort
+              currentSort={sortType}
+              onSortChange={sort => setSortType(sort)}
+            />
+          </div>
         </div>
         <Checkbox
           label="Blur NSFW"

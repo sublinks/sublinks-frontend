@@ -28,7 +28,7 @@ const Button = ({
       'rounded-md px-23 py-12',
       palette === 'pale' ? 'bg-gray-200 dark:bg-gray-400' : 'bg-brand dark:bg-brand-dark',
       {
-        'bg-blue-300 dark:bg-blue-500': active,
+        '!bg-blue-300 !dark:bg-blue-500': active,
         'hover:bg-opacity-90': !disabled,
         'bg-opacity-50': disabled
       },
