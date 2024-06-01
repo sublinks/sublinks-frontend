@@ -9,11 +9,14 @@ interface CheckboxProps {
   label: string;
   name: string;
   id: string;
+  initialValue?: boolean;
 }
 
-const Checkbox = ({ label, name, id }: CheckboxProps) => (
+const Checkbox = ({
+  label, name, id, initialValue
+}: CheckboxProps) => (
   <div className="flex gap-8 items-center">
-    <input type="checkbox" id={id} name={name} className="flex items-center justify-center appearance-none cursor-pointer w-20 h-20 rounded-md border-2 border-gray-300 dark:border-gray-900 checked:bg-brand dark:checked:bg-brand-dark checked:after:content-['✓']" />
+    <input type="checkbox" id={id} name={name} checked={initialValue} className="flex items-center justify-center appearance-none cursor-pointer w-20 h-20 rounded-md border-2 border-gray-300 dark:border-gray-900 checked:bg-brand dark:checked:bg-brand-dark checked:after:content-['✓']" />
     <label htmlFor={name} className="cursor-pointer">
       <BodyText>{label}</BodyText>
     </label>
