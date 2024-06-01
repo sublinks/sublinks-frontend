@@ -82,6 +82,11 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     }
   };
 
+  const handleFieldValueChange = () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+  };
+
   // @TODO Bring in available instance themes
   const themeOptions = [
     {
@@ -95,7 +100,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   ];
 
   return (
-    <form action={saveUserSettingsAction} className="flex flex-col py-24 md:py-32 max-w-500">
+    <form action={saveUserSettingsAction} onChange={handleFieldValueChange} className="flex flex-col py-24 md:py-32 max-w-500">
       <div className="flex flex-col gap-16">
         <Checkbox
           label="This Is A Bot Account"
