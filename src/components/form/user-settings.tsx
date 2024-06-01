@@ -46,8 +46,25 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     setErroneousFields([]);
 
     const fieldValues: SaveUserSettings = {
-      blur_nsfw: formData.get(SETTING_FIELD_IDS.BLUR_NSFW) === 'true',
-      show_nsfw: formData.get(SETTING_FIELD_IDS.SHOW_NSFW) === 'true'
+      auto_expand: Boolean(formData.get(SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA)),
+      // @todo avatar
+      // @todo banner
+      // bio: formData.get(SETTING_FIELD_IDS.BIO) as string,
+      blur_nsfw: Boolean(formData.get(SETTING_FIELD_IDS.BLUR_NSFW)),
+      bot_account: Boolean(formData.get(SETTING_FIELD_IDS.BOT_ACCOUNT)),
+      // @todo default_listing_type
+      // @todo default_sort_type
+      // display_name: formData.get(SETTING_FIELD_IDS.DISPLAY_NAME) as string,
+      // email: formData.get(SETTING_FIELD_IDS.EMAIL) as string,
+      open_links_in_new_tab: Boolean(formData.get(SETTING_FIELD_IDS.OPEN_IN_NEW_TAB)),
+      send_notifications_to_email:
+        Boolean(formData.get(SETTING_FIELD_IDS.SEND_EMAIL_NOTIFICATIONS)),
+      show_avatars: Boolean(formData.get(SETTING_FIELD_IDS.SHOW_AVATARS)),
+      show_bot_accounts: Boolean(formData.get(SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS)),
+      show_nsfw: Boolean(formData.get(SETTING_FIELD_IDS.SHOW_NSFW)),
+      show_read_posts: Boolean(formData.get(SETTING_FIELD_IDS.SHOW_READ_POSTS)),
+      show_scores: Boolean(formData.get(SETTING_FIELD_IDS.SHOW_SCORES)),
+      theme: formData.get(SETTING_FIELD_IDS.THEME) as string
     };
 
     try {
@@ -55,6 +72,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     } catch (e) {
       logger.error('Failed saving user settings', e);
       setErrorMessage('Something went wrong. Please try again.');
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -139,7 +157,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           options={themeOptions}
           placeholder={{
             value: undefined,
-            label: 'Select theme'
+            label: 'Select Default Theme'
           }}
           disabled={isSubmitting}
         />

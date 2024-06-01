@@ -22,7 +22,6 @@ interface SelectorProps {
 const Selector = ({
   id, label, options, placeholder, disabled, hasError
 }: SelectorProps) => (
-
   <div className="relative bg-primary dark:bg-gray-800 rounded-md">
     <label htmlFor={id} className="sr-only">
       {label}
