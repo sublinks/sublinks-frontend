@@ -52,6 +52,17 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
       key: 'theme'
     },
     {
+      item:
+          (
+            <Link href="/settings" className="justify-center flex w-full">
+              <LinkText className="text-md">
+                Settings
+              </LinkText>
+            </Link>
+          ),
+      key: 'settings'
+    },
+    {
       item: (
         <Link href="/logout" className="justify-center flex w-full">
           <LinkText className="text-md">Log out</LinkText>
