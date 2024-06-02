@@ -6,13 +6,13 @@ import { SaveUserSettings } from 'sublinks-js-client';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
-import SublinksApi from '@/utils/api-client/client';
-import logger from '@/utils/logger';
 import {
   BodyText, BodyTitle, BodyTitleInverse, ErrorText
-} from '../text';
-import { PostFeedSort, PostFeedType } from '../post-feed-sort';
-import { Selector } from '../input/select';
+} from '@/components/text';
+import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
+import { Selector } from '@/components/input/select';
+import SublinksApi from '@/utils/api-client/client';
+import logger from '@/utils/logger';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
