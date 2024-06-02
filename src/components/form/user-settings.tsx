@@ -6,13 +6,12 @@ import { SaveUserSettings } from 'sublinks-js-client';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
-import {
-  BodyText, BodyTitle, BodyTitleInverse, ErrorText
-} from '@/components/text';
+import { BodyTitle, BodyTitleInverse } from '@/components/text';
 import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
+import { toast } from 'react-toastify';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -39,14 +38,10 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   const [listingType, setListingType] = useState(initialUserSettings.default_listing_type);
   const [sortType, setSortType] = useState(initialUserSettings.default_sort_type);
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>('');
-  const [successMessage, setSuccessMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const saveUserSettingsAction = async (formData: FormData) => {
     setIsSubmitting(true);
-    setErrorMessage('');
-    setSuccessMessage('');
     setErroneousFields([]);
 
     const fieldValues: SaveUserSettings = {
@@ -73,18 +68,13 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
 
     try {
       await SublinksApi.Instance().Client().saveUserSettings(fieldValues);
-      setSuccessMessage('Your settings were saved successfully!');
+      toast.success('Your settings were saved successfully!');
     } catch (e) {
       logger.error('Failed saving user settings', e);
-      setErrorMessage('Something went wrong. Please try again.');
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleFieldValueChange = () => {
-    setErrorMessage('');
-    setSuccessMessage('');
   };
 
   // @TODO Bring in available instance themes
@@ -100,7 +90,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   ];
 
   return (
-    <form action={saveUserSettingsAction} onChange={handleFieldValueChange} className="flex flex-col py-24 md:py-32 max-w-500">
+    <form action={saveUserSettingsAction} className="flex flex-col mt-12 md:mt-24 max-w-500">
       <div className="flex flex-col gap-16">
         <Checkbox
           label="This Is A Bot Account"
@@ -212,16 +202,12 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           id={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
           initialValue={initialUserSettings.open_links_in_new_tab}
         />
-      </div>
-      <div aria-live="polite" className="h-32 flex items-center justify-center">
-        {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
-        {successMessage && <BodyText className="text-sm">{successMessage}</BodyText>}
-      </div>
-      <Button type="submit" disabled={isSubmitting} className="flex justify-center">
-        {/*
+        <Button type="submit" disabled={isSubmitting} className="flex justify-center">
+          {/*
         // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
-        {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Save</BodyTitleInverse>}
-      </Button>
+          {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Save</BodyTitleInverse>}
+        </Button>
+      </div>
     </form>
   );
 };

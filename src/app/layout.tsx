@@ -1,9 +1,12 @@
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import cx from 'classnames';
 import { GetSiteResponse } from 'sublinks-js-client';
+import { ToastContainer } from 'react-toastify';
 
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
@@ -81,6 +84,7 @@ const RootLayout = async ({
               <CurvedCorner right />
               {children}
             </main>
+            <ToastContainer />
           </body>
         </html>
       </ThemeProvider>
