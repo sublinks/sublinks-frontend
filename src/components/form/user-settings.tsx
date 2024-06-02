@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Spinner } from '@material-tailwind/react';
 import { SaveUserSettings } from 'sublinks-js-client';
+import { toast } from 'react-toastify';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
@@ -11,7 +12,6 @@ import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
-import { toast } from 'react-toastify';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -66,8 +66,19 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
       theme: formData.get(SETTING_FIELD_IDS.THEME) as string
     };
 
+    const settingsHaveChange = Object.keys(fieldValues).some(
+      settingsKey => {
+        const key = settingsKey as keyof SaveUserSettings;
+        return fieldValues[key] !== initialUserSettings[key];
+      }
+    );
+
     try {
-      await SublinksApi.Instance().Client().saveUserSettings(fieldValues);
+      if (settingsHaveChange) {
+        await SublinksApi.Instance().Client().saveUserSettings(fieldValues);
+      }
+
+      // Always show success message to keep consistent with the action's visual outcome
       toast.success('Your settings were saved successfully!');
     } catch (e) {
       logger.error('Failed saving user settings', e);
