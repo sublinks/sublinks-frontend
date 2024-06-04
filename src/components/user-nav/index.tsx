@@ -19,7 +19,8 @@ import { LinkText } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 
 const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
-  const [theme, setTheme] = useTheme();
+  const initialTheme = myUser?.local_user_view?.local_user?.theme;
+  const [theme, setTheme] = useTheme(initialTheme);
   const [open, setOpen] = useState<boolean>(false);
 
   const ref = useClickOutside<HTMLUListElement>(() => open && setOpen(false));
