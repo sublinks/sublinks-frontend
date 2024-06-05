@@ -36,7 +36,7 @@ const SignupForm = () => {
 
   useEffect(() => {
     if (userData.auth) {
-      router.push('/');
+      router.replace('/');
     }
   }, [userData]); // eslint-disable-line react-hooks/exhaustive-deps
 
