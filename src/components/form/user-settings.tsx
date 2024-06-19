@@ -91,8 +91,11 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     );
 
     try {
-      if (settingsHaveChange) {
+      if (fieldValues.theme) {
         saveTheme(fieldValues.theme as Theme);
+      }
+
+      if (settingsHaveChange) {
         await handleSaveUserSettings(fieldValues);
         SublinksApi.Instance().clearCache();
         await revalidateAll();
