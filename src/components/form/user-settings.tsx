@@ -5,12 +5,13 @@ import { Spinner } from '@material-tailwind/react';
 import { SaveUserSettings } from 'sublinks-js-client';
 import { toast } from 'react-toastify';
 
-import SublinksApi from '@/utils/api-client/client';
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { BodyTitle, BodyTitleInverse } from '@/components/text';
 import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
+import { Theme, useTheme } from '@/hooks/use-theme';
+import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 import { revalidateAll } from '@/utils/server-actions';
 import { handleSaveUserSettings, uploadImage } from '@/utils/api-helpers';
@@ -41,6 +42,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   const [sortType, setSortType] = useState(initialUserSettings.default_sort_type);
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { saveTheme } = useTheme(initialUserSettings.theme as Theme);
 
   const saveUserSettingsAction = async (formData: FormData) => {
     setIsSubmitting(true);
@@ -90,6 +92,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
 
     try {
       if (settingsHaveChange) {
+        saveTheme(fieldValues.theme as Theme);
         await handleSaveUserSettings(fieldValues);
         SublinksApi.Instance().clearCache();
         await revalidateAll();
@@ -183,6 +186,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
             label: 'Select Default Theme'
           }}
           disabled={isSubmitting}
+          initialValue={initialUserSettings.theme}
         />
         <div className="flex flex-col">
           <BodyTitle>Default Post Feed Sort</BodyTitle>

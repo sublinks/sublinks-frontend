@@ -20,7 +20,7 @@ import Icon, { ICON_SIZE } from '../icon';
 
 const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
   const initialTheme = myUser?.local_user_view?.local_user?.theme as Theme;
-  const [theme, setTheme] = useTheme(initialTheme);
+  const { theme, saveTheme } = useTheme(initialTheme);
   const [open, setOpen] = useState<boolean>(false);
 
   const ref = useClickOutside<HTMLUListElement>(() => open && setOpen(false));
@@ -49,7 +49,7 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
       key: 'profile'
     },
     {
-      item: <ThemeSwitch key="theme-switcher" mode={theme as 'dark' | 'light'} onSwitch={setTheme} />,
+      item: <ThemeSwitch key="theme-switcher" mode={theme as 'dark' | 'light'} onSwitch={saveTheme} />,
       key: 'theme'
     },
     {
