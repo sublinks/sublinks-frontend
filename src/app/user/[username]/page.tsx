@@ -59,7 +59,7 @@ const User = async ({ params: { username } }: UserViewProps) => {
             <div className="w-full md:w-8/12 mr-16 relative">
               <PersonHeader
                 avatar={avatar}
-                is_admin={isAdmin}
+                isAdmin={isAdmin}
                 name={displayName || name}
                 banner={banner}
               />
