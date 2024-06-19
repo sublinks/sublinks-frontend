@@ -10,3 +10,16 @@ export const handleSaveUserSettings = async (userSettings: SaveUserSettings) => 
     logger.error(`Failed to save user settings ${userSettings}`, e);
   }
 };
+
+export const uploadImage = async (imageFile: File) => {
+  try {
+    const { url } = await SublinksApi.Instance().Client().uploadImage({
+      image: imageFile
+    });
+    return url;
+  } catch (e) {
+    logger.error('Unable to upload image', imageFile, e);
+  }
+
+  return undefined;
+};

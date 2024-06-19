@@ -2,13 +2,14 @@
 
 import React, { FormEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@material-tailwind/react';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { BodyTitleInverse, ErrorText, PaleBodyText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
+import { uploadImage } from '@/utils/api-helpers';
 import logger from '@/utils/logger';
-import { Spinner } from '@material-tailwind/react';
 
 const INPUT_IDS = {
   NAME: 'name',
@@ -45,19 +46,6 @@ const CommunityForm = () => {
     return emptyFields;
   };
 
-  const uploadCommunityImage = async (imageFile: File) => {
-    try {
-      const { url } = await SublinksApi.Instance().Client().uploadImage({
-        image: imageFile
-      });
-      return url;
-    } catch (e) {
-      logger.error('Unable to upload image for community creation', imageFile, e);
-    }
-
-    return undefined;
-  };
-
   const communityCreateAction = async (formData: FormData) => {
     setIsSubmitting(true);
     setErrorMessage('');
@@ -84,11 +72,11 @@ const CommunityForm = () => {
     }
 
     if (fieldValues.icon) {
-      iconUrl = await uploadCommunityImage(fieldValues.icon);
+      iconUrl = await uploadImage(fieldValues.icon);
     }
 
     if (fieldValues.banner) {
-      bannerUrl = await uploadCommunityImage(fieldValues.banner);
+      bannerUrl = await uploadImage(fieldValues.banner);
     }
 
     try {

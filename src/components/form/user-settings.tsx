@@ -12,8 +12,8 @@ import { BodyTitle, BodyTitleInverse } from '@/components/text';
 import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
 import logger from '@/utils/logger';
-import { handleSaveUserSettings } from '@/utils/settings';
 import { revalidateAll } from '@/utils/server-actions';
+import { handleSaveUserSettings, uploadImage } from '@/utils/api-helpers';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -46,10 +46,23 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     setIsSubmitting(true);
     setErroneousFields([]);
 
+    let avatarUrl;
+    let bannerUrl;
+    const avatarFile = formData.get(SETTING_FIELD_IDS.AVATAR) as File;
+    const bannerFile = formData.get(SETTING_FIELD_IDS.BANNER) as File;
+
+    if (avatarFile) {
+      avatarUrl = await uploadImage(avatarFile);
+    }
+
+    if (bannerFile) {
+      bannerUrl = await uploadImage(bannerFile);
+    }
+
     const fieldValues: SaveUserSettings = {
       auto_expand: Boolean(formData.get(SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA)),
-      // @todo avatar
-      // @todo banner
+      avatar: avatarUrl,
+      banner: bannerUrl,
       bio: formData.get(SETTING_FIELD_IDS.BIO) as string,
       blur_nsfw: Boolean(formData.get(SETTING_FIELD_IDS.BLUR_NSFW)),
       bot_account: Boolean(formData.get(SETTING_FIELD_IDS.BOT_ACCOUNT)),

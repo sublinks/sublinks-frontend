@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { handleSaveUserSettings } from '@/utils/settings';
+import { handleSaveUserSettings } from '@/utils/api-helpers';
 
 export type Theme = 'light' | 'dark';
 
