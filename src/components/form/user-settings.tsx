@@ -46,16 +46,16 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     setIsSubmitting(true);
     setErroneousFields([]);
 
-    let avatarUrl;
-    let bannerUrl;
+    let avatarUrl = initialUserSettings.avatar;
+    let bannerUrl = initialUserSettings.banner;
     const avatarFile = formData.get(SETTING_FIELD_IDS.AVATAR) as File;
     const bannerFile = formData.get(SETTING_FIELD_IDS.BANNER) as File;
 
-    if (avatarFile) {
+    if (avatarFile && avatarFile.size > 0) {
       avatarUrl = await uploadImage(avatarFile);
     }
 
-    if (bannerFile) {
+    if (bannerFile && bannerFile.size > 0) {
       bannerUrl = await uploadImage(bannerFile);
     }
 

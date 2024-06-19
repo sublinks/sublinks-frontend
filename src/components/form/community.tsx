@@ -71,11 +71,11 @@ const CommunityForm = () => {
       return;
     }
 
-    if (fieldValues.icon) {
+    if (fieldValues.icon && fieldValues.icon.size > 0) {
       iconUrl = await uploadImage(fieldValues.icon);
     }
 
-    if (fieldValues.banner) {
+    if (fieldValues.banner && fieldValues.banner.size > 0) {
       bannerUrl = await uploadImage(fieldValues.banner);
     }
 
