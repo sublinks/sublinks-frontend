@@ -12,6 +12,7 @@ import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
 import logger from '@/utils/logger';
 import { handleSaveUserSettings } from '@/utils/settings';
+import { revalidateAll } from '@/utils/server-actions';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -48,7 +49,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
       auto_expand: Boolean(formData.get(SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA)),
       // @todo avatar
       // @todo banner
-      // bio: formData.get(SETTING_FIELD_IDS.BIO) as string,
+      bio: formData.get(SETTING_FIELD_IDS.BIO) as string,
       blur_nsfw: Boolean(formData.get(SETTING_FIELD_IDS.BLUR_NSFW)),
       bot_account: Boolean(formData.get(SETTING_FIELD_IDS.BOT_ACCOUNT)),
       // @todo default_listing_type
@@ -76,6 +77,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     try {
       if (settingsHaveChange) {
         await handleSaveUserSettings(fieldValues);
+        await revalidateAll();
       }
 
       // Always show success message to keep consistent with the action's visual outcome
@@ -138,7 +140,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
         />
-        <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue="**Bio**" />
+        <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
         <div>
           <BodyTitle>Default Post Feed Type</BodyTitle>
           <PostFeedType
