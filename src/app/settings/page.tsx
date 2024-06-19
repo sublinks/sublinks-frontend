@@ -30,6 +30,7 @@ const UserSettings = async () => {
     );
   }
 
+  // Ignore snake_case errors for props taken straight from API response
   /* eslint-disable @typescript-eslint/naming-convention */
   const {
     local_user: {
