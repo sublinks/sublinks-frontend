@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import SublinksApi from '@/utils/api-client/server';
 
 export const revalidateAll = () => {
+  SublinksApi.Instance().clearCache();
   revalidatePath('/', 'layout');
 };
 

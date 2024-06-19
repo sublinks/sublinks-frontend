@@ -121,7 +121,7 @@ class SublinksApiBase {
   }
 
   // Clear getSite cache to allow for updated myUser property
-  private clearCache() {
+  public clearCache() {
     this.rawClient.cache.flush();
   }
 

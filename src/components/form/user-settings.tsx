@@ -5,6 +5,7 @@ import { Spinner } from '@material-tailwind/react';
 import { SaveUserSettings } from 'sublinks-js-client';
 import { toast } from 'react-toastify';
 
+import SublinksApi from '@/utils/api-client/client';
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
 import { BodyTitle, BodyTitleInverse } from '@/components/text';
@@ -52,8 +53,8 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
       bio: formData.get(SETTING_FIELD_IDS.BIO) as string,
       blur_nsfw: Boolean(formData.get(SETTING_FIELD_IDS.BLUR_NSFW)),
       bot_account: Boolean(formData.get(SETTING_FIELD_IDS.BOT_ACCOUNT)),
-      // @todo default_listing_type
-      // @todo default_sort_type
+      default_listing_type: listingType,
+      default_sort_type: sortType,
       display_name: formData.get(SETTING_FIELD_IDS.DISPLAY_NAME) as string,
       email: formData.get(SETTING_FIELD_IDS.EMAIL) as string,
       open_links_in_new_tab: Boolean(formData.get(SETTING_FIELD_IDS.OPEN_IN_NEW_TAB)),
@@ -77,6 +78,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     try {
       if (settingsHaveChange) {
         await handleSaveUserSettings(fieldValues);
+        SublinksApi.Instance().clearCache();
         await revalidateAll();
       }
 
