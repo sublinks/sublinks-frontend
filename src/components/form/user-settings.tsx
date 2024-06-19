@@ -10,8 +10,8 @@ import Button from '@/components/button';
 import { BodyTitle, BodyTitleInverse } from '@/components/text';
 import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
-import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
+import { handleSaveUserSettings } from '@/utils/settings';
 
 const SETTING_FIELD_IDS = {
   AUTO_EXPAND_MEDIA: 'autoExpandMedia',
@@ -75,7 +75,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
 
     try {
       if (settingsHaveChange) {
-        await SublinksApi.Instance().Client().saveUserSettings(fieldValues);
+        await handleSaveUserSettings(fieldValues);
       }
 
       // Always show success message to keep consistent with the action's visual outcome

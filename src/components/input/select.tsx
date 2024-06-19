@@ -31,6 +31,7 @@ const Selector = ({
       id={id}
       className={cx('w-full bg-primary dark:bg-gray-800 text-gray-900 dark:text-white flex h-40 items-center border-2 rounded-md px-16 appearance-none', hasError ? 'border-red-700 dark:border-red-400' : 'border-gray-300 dark:border-gray-900')}
       disabled={disabled}
+      value={undefined}
     >
       {placeholder && <option value={placeholder.value}>{placeholder.label}</option>}
       {options.map(opt => (
