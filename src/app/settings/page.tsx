@@ -76,7 +76,7 @@ const UserSettings = async () => {
   };
 
   return (
-    <div className="flex flex-col gap-32 my-24 md:my-32">
+    <div className="flex flex-col gap-32 mb-24 md:my-32">
       <MainCard Header={<H1>SETTINGS</H1>}>
         <UserSettingsForm initialUserSettings={userSettings} />
       </MainCard>
