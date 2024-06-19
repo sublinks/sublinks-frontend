@@ -54,8 +54,8 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
       bot_account: Boolean(formData.get(SETTING_FIELD_IDS.BOT_ACCOUNT)),
       // @todo default_listing_type
       // @todo default_sort_type
-      // display_name: formData.get(SETTING_FIELD_IDS.DISPLAY_NAME) as string,
-      // email: formData.get(SETTING_FIELD_IDS.EMAIL) as string,
+      display_name: formData.get(SETTING_FIELD_IDS.DISPLAY_NAME) as string,
+      email: formData.get(SETTING_FIELD_IDS.EMAIL) as string,
       open_links_in_new_tab: Boolean(formData.get(SETTING_FIELD_IDS.OPEN_IN_NEW_TAB)),
       send_notifications_to_email:
         Boolean(formData.get(SETTING_FIELD_IDS.SEND_EMAIL_NOTIFICATIONS)),
@@ -119,6 +119,17 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           placeholder="Display Name"
           showBorderPlaceholder
           disabled={isSubmitting}
+          initialValue={initialUserSettings.display_name}
+        />
+        <InputField
+          type="email"
+          label="E-Mail Address"
+          name={SETTING_FIELD_IDS.EMAIL}
+          id={SETTING_FIELD_IDS.EMAIL}
+          placeholder="E-Mail Address"
+          showBorderPlaceholder
+          disabled={isSubmitting}
+          initialValue={initialUserSettings.email}
         />
         <InputField
           type="file"
