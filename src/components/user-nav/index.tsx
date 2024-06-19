@@ -12,14 +12,15 @@ import {
 import { MyUserInfo } from 'sublinks-js-client';
 
 import { UserContext } from '@/context/user';
-import { useTheme } from '@/hooks/use-theme';
+import { Theme, useTheme } from '@/hooks/use-theme';
 import { useClickOutside } from '@/hooks/use-click-outside';
 import ThemeSwitch from '../theme-switch';
 import { LinkText } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 
 const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
-  const [theme, setTheme] = useTheme();
+  const initialTheme = myUser?.local_user_view?.local_user?.theme as Theme;
+  const [theme, setTheme] = useTheme(initialTheme);
   const [open, setOpen] = useState<boolean>(false);
 
   const ref = useClickOutside<HTMLUListElement>(() => open && setOpen(false));
@@ -75,21 +76,21 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
   return (
     <div className="flex justify-center items-center">
       {false && ( // @todo: Change to check if a user is logged in
-      <Link href="/inbox">
-        <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
-      </Link>
+        <Link href="/inbox">
+          <Icon IconType={BellIcon} size={ICON_SIZE.SMALL} title="Inbox icon" isInteractable />
+        </Link>
       )}
 
       {false && ( // @todo: Change to check if a user is a mod or an admin
-      <Link href="/reports">
-        <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
-      </Link>
+        <Link href="/reports">
+          <Icon IconType={ShieldExclamationIcon} size={ICON_SIZE.SMALL} title="Reports icon" isInteractable />
+        </Link>
       )}
 
       {false && ( // @todo: Change to check if applications are enabled and the user is an admin
-      <Link href="/registration_applications">
-        <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
-      </Link>
+        <Link href="/registration_applications">
+          <Icon IconType={ClipboardIcon} size={ICON_SIZE.SMALL} title="Registration applications icon" isInteractable />
+        </Link>
       )}
 
       <Menu

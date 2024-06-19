@@ -61,6 +61,7 @@ const RootLayout = async ({
   children: React.ReactNode
 }) => {
   const site = await getSite();
+  const initialTheme = site?.my_user?.local_user_view?.local_user?.theme ?? 'dark';
   const theme = {
     menu: {
       defaultProps: {
@@ -74,7 +75,7 @@ const RootLayout = async ({
   return (
     <UserProvider>
       <ThemeProvider value={theme}>
-        <html lang="en" className="h-full dark">
+        <html lang="en" className={`h-full ${initialTheme}`}>
           <body className={cx(inter.className, 'flex flex-col min-h-full bg-secondary dark:bg-secondary-dark')}>
             <Header site={site} />
             <BottomNav site={site} />
