@@ -19,12 +19,12 @@ interface FeedProps {
 }
 
 const Feed = ({ posts, site }: FeedProps) => {
+  const initialPostType = site?.my_user?.local_user_view.local_user.default_listing_type;
+  const initialPostSort = site?.my_user?.local_user_view.local_user.default_sort_type;
   const [postFeed, setPostFeed] = useState<GetPostsResponse | undefined>(posts);
 
-  // @todo: Set this to the users default feed type,
-  // temporarily setting default values to track initial state
-  const [postFeedType, setPostFeedType] = useState<ListingType>('All');
-  const [postFeedSort, setPostFeedSort] = useState<SortType>('Hot');
+  const [postFeedType, setPostFeedType] = useState<ListingType>(initialPostType || 'All');
+  const [postFeedSort, setPostFeedSort] = useState<SortType>(initialPostSort || 'Hot');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [showPostsError, setShowPostsError] = useState(false);
 
@@ -76,7 +76,7 @@ const Feed = ({ posts, site }: FeedProps) => {
     <div className="relative">
       <div className="float-none md:float-right">
         <Sidebar
-          site={site?.site_view.site}
+          site={site?.site_view?.site}
           admins={site?.admins}
           onSwitch={handleSidebarSwitch}
           open={sidebarOpen}

@@ -46,9 +46,9 @@ export const PersonBio = ({ bio }: { bio: string }) => (
   </div>
 );
 
-const PersonBadges = ({ is_admin }: { is_admin: boolean }) => (
+const PersonBadges = ({ isAdmin }: { isAdmin: boolean }) => (
   <div className="flex justify-center">
-    {is_admin ? (
+    {isAdmin ? (
       <div className="bg-red-400 dark:bg-red-600 text-white dark:text-gray-100 rounded-md flex flex-col px-8 text-sm font-bold my-2 justify-center items-center ml-8">
         <p>
           A
@@ -89,12 +89,12 @@ export const PersonTitle = ({ name, avatar }: { name: string, avatar: string | u
 interface PersonHeaderProps {
   name: string,
   avatar: string | undefined,
-  is_admin: boolean,
+  isAdmin: boolean,
   banner: string | undefined
 }
 
 export const PersonHeader = ({
-  name, avatar, is_admin, banner
+  name, avatar, isAdmin, banner
 }: PersonHeaderProps) => (
   <div className="w-full">
     {banner && (
@@ -102,7 +102,7 @@ export const PersonHeader = ({
     )}
     <div className="flex justify-start">
       <PersonTitle name={name} avatar={avatar} />
-      <PersonBadges is_admin={is_admin} />
+      <PersonBadges isAdmin={isAdmin} />
     </div>
   </div>
 );

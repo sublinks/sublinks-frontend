@@ -61,7 +61,7 @@ class SublinksApiBase {
         expires: new Date(Date.now() + AUTH_TTL_MS),
         secure: process.env.NEXT_PUBLIC_HTTPS_ENABLED === 'true',
         path: '/',
-        SameSite: 'Lax'
+        sameSite: 'Lax'
       });
       this.setAuthHeader(jwt);
       this.clearCache();
@@ -121,7 +121,7 @@ class SublinksApiBase {
   }
 
   // Clear getSite cache to allow for updated myUser property
-  private clearCache() {
+  public clearCache() {
     this.rawClient.cache.flush();
   }
 

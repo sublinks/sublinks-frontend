@@ -30,7 +30,7 @@ const customMarkdownComponents: Components = {
 const MainCard = ({
   Header, body, children
 }: MainCardProps) => (
-  <div className="flex flex-col md:mx-40 p-12 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg dark:shadow-gray-800">
+  <div className="flex flex-col md:mx-40 p-24 md:border md:border-gray-300 md:dark:border-gray-900 md:rounded-md shadow-lg dark:shadow-gray-800">
     {Header && (
     <div className="flex items-center gap-12">
       {Header}

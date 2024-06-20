@@ -5,8 +5,13 @@ import { redirect } from 'next/navigation';
 
 import SublinksApi from '@/utils/api-client/server';
 
-export const revalidateAllAndRedirect = (redirectPath: string) => {
+export const revalidateAll = () => {
+  SublinksApi.Instance().clearCache();
   revalidatePath('/', 'layout');
+};
+
+export const revalidateAllAndRedirect = (redirectPath: string) => {
+  revalidateAll();
   redirect(redirectPath);
 };
 
