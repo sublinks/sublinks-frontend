@@ -127,7 +127,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
     <div>
       <form id="userSettingsForm" action={saveUserSettingsAction} className="flex max-md:flex-col md:gap-32">
         <div className="inline-flex flex-col gap-16">
-          <H2 className="text-lg font-semibold">Edit Profile</H2>
+          <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Edit Profile</H2>
           <Checkbox
             label="This Is A Bot Account"
             name={SETTING_FIELD_IDS.BOT_ACCOUNT}
@@ -177,7 +177,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
         </div>
         <div className="inline-flex flex-col gap-16">
-          <H2 className="text-lg font-semibold">Settings</H2>
+          <H2 className="text-lg font-semibold max-md:mt-24 border-b-4 border-gray-900 dark:border-gray-100">Settings</H2>
           <div>
             <BodyTitle>Default Post Feed Type</BodyTitle>
             <PostFeedType

@@ -80,7 +80,7 @@ const UserSettings = async () => {
   return (
     <div className="flex flex-col gap-32 mb-24 md:my-32">
       <MainCard>
-        <div className="flex flex-wrap gap-24">
+        <div className="flex flex-wrap gap-24 max-md:mb-24">
           <UserSettingsForm initialUserSettings={userSettings} />
           <div className="border-4 max-md:hidden" />
           <ChangePasswordForm />

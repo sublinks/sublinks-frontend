@@ -94,7 +94,7 @@ const ChangePasswordForm = () => {
   return (
     <form action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
-        <H2 className="text-lg font-semibold">Change Password</H2>
+        <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Change Password</H2>
         <InputField
           type="password"
           label="Current Password"
