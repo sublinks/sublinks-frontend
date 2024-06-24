@@ -1,12 +1,12 @@
 import React from 'react';
 
 import RestrictedPage from '@/components/auth/restricted-page';
-import MainCard from '@/components/main-card';
-import { ErrorText, H1 } from '@/components/text';
-import SublinksApi from '@/utils/api-client/server';
-import logger from '@/utils/logger';
 import UserSettingsForm from '@/components/form/user-settings';
 import ChangePasswordForm from '@/components/form/change-password';
+import MainCard from '@/components/main-card';
+import { ErrorText } from '@/components/text';
+import SublinksApi from '@/utils/api-client/server';
+import logger from '@/utils/logger';
 
 const getUser = async () => {
   try {
@@ -79,9 +79,10 @@ const UserSettings = async () => {
 
   return (
     <div className="flex flex-col gap-32 mb-24 md:my-32">
-      <MainCard Header={<H1>SETTINGS</H1>}>
-        <div className="md:flex">
+      <MainCard>
+        <div className="flex flex-wrap gap-24">
           <UserSettingsForm initialUserSettings={userSettings} />
+          <div className="border-4 max-md:hidden" />
           <ChangePasswordForm />
         </div>
       </MainCard>
