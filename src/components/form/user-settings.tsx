@@ -154,26 +154,28 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
             disabled={isSubmitting}
             initialValue={initialUserSettings.email}
           />
-          <InputField
-            type="file"
-            label="Avatar"
-            name={SETTING_FIELD_IDS.AVATAR}
-            id={SETTING_FIELD_IDS.AVATAR}
-            placeholder="Avatar"
-            showBorderPlaceholder
-            disabled={isSubmitting}
-            hasError={erroneousFields.includes(SETTING_FIELD_IDS.AVATAR)}
-          />
-          <InputField
-            type="file"
-            label="Banner"
-            name={SETTING_FIELD_IDS.BANNER}
-            id={SETTING_FIELD_IDS.BANNER}
-            placeholder="Banner"
-            showBorderPlaceholder
-            disabled={isSubmitting}
-            hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
-          />
+          <div className="flex flex-col gap-24 mt-12">
+            <InputField
+              type="file"
+              label="Avatar"
+              name={SETTING_FIELD_IDS.AVATAR}
+              id={SETTING_FIELD_IDS.AVATAR}
+              placeholder="Avatar"
+              showBorderPlaceholder
+              disabled={isSubmitting}
+              hasError={erroneousFields.includes(SETTING_FIELD_IDS.AVATAR)}
+            />
+            <InputField
+              type="file"
+              label="Banner"
+              name={SETTING_FIELD_IDS.BANNER}
+              id={SETTING_FIELD_IDS.BANNER}
+              placeholder="Banner"
+              showBorderPlaceholder
+              disabled={isSubmitting}
+              hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
+            />
+          </div>
           <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
         </div>
         <div className="inline-flex flex-col gap-16">
