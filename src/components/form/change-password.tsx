@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Spinner } from '@material-tailwind/react';
 
@@ -26,6 +26,7 @@ const ChangePasswordForm = () => {
   const [erroneousFields, setErroneousFields] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const changePasswordAction = async (formData: FormData) => {
     setIsSubmitting(true);
@@ -49,7 +50,7 @@ const ChangePasswordForm = () => {
 
     if (emptyFields.length > 0) {
       setErroneousFields(emptyFields);
-      setErrorMessage('Please enter all required information');
+      setErrorMessage('Please fill all fields');
       setIsSubmitting(false);
       return;
     }
@@ -63,13 +64,14 @@ const ChangePasswordForm = () => {
 
       if (changePasswordRes.jwt) {
         await SublinksApi.Instance().login({ jwt: changePasswordRes.jwt });
+        formRef.current?.reset();
         toast.success('Your new password was saved!');
       } else {
-        setErrorMessage('Password change attempt failed. Please try again.');
+        toast.error('Password change failed. Please try again.');
       }
     } catch (e) {
       logger.error('Password change attempt failed', e);
-      setErrorMessage('Password change attempt failed. Please try again.');
+      toast.error('Password change failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -92,7 +94,7 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <form action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col">
+    <form ref={formRef} action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
         <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Change Password</H2>
         <InputField
@@ -126,7 +128,7 @@ const ChangePasswordForm = () => {
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.VERIFY_NEW_PASSWORD)}
         />
       </div>
-      <div aria-live="polite" className="h-32 flex items-center justify-center">
+      <div aria-live="polite" className="h-24 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
       <Button type="submit" disabled={isSubmitting} className="flex justify-center">
