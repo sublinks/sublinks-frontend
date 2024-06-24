@@ -182,7 +182,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
         </div>
         <div className="inline-flex flex-col gap-16">
           <H2 className="text-lg font-semibold max-md:mt-24 border-b-4 border-gray-900 dark:border-gray-100">Settings</H2>
-          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-hover-dark rounded-md p-12">
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-gray-500 rounded-md p-12">
             <div>
               <BodyTitle>Default Post Feed Type</BodyTitle>
               <PostFeedType
@@ -214,7 +214,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
               />
             </div>
           </div>
-          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-hover-dark rounded-md p-12">
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-gray-500 rounded-md p-12">
             <Checkbox
               label="Blur NSFW"
               name={SETTING_FIELD_IDS.BLUR_NSFW}
