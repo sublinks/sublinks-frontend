@@ -82,7 +82,6 @@ const UserSettings = async () => {
       <MainCard>
         <div className="flex flex-wrap gap-24 max-md:mb-24">
           <UserSettingsForm initialUserSettings={userSettings} />
-          <div className="border-4 max-md:hidden" />
           <ChangePasswordForm />
         </div>
       </MainCard>
