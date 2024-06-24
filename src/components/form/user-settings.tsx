@@ -176,85 +176,91 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
               hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
             />
           </div>
-          <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
+          <div className="mt-auto">
+            <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
+          </div>
         </div>
         <div className="inline-flex flex-col gap-16">
           <H2 className="text-lg font-semibold max-md:mt-24 border-b-4 border-gray-900 dark:border-gray-100">Settings</H2>
-          <div>
-            <BodyTitle>Default Post Feed Type</BodyTitle>
-            <PostFeedType
-              currentType={listingType}
-              onTypeChange={type => setListingType(type)}
-            />
-          </div>
-          <Selector
-            id={SETTING_FIELD_IDS.THEME}
-            label="Theme"
-            options={themeOptions}
-            placeholder={{
-              value: undefined,
-              label: 'Select Default Theme'
-            }}
-            disabled={isSubmitting}
-            initialValue={initialUserSettings.theme}
-          />
-          <div className="flex flex-col">
-            <BodyTitle>Default Post Feed Sort</BodyTitle>
-            <div className="h-32">
-              <PostFeedSort
-                currentSort={sortType}
-                onSortChange={sort => setSortType(sort)}
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-hover-dark rounded-md p-12">
+            <div>
+              <BodyTitle>Default Post Feed Type</BodyTitle>
+              <PostFeedType
+                currentType={listingType}
+                onTypeChange={type => setListingType(type)}
               />
             </div>
+            <div className="flex flex-col">
+              <BodyTitle>Default Post Feed Sort</BodyTitle>
+              <div className="h-32">
+                <PostFeedSort
+                  currentSort={sortType}
+                  onSortChange={sort => setSortType(sort)}
+                />
+              </div>
+            </div>
+            <Selector
+              id={SETTING_FIELD_IDS.THEME}
+              label="Theme"
+              options={themeOptions}
+              placeholder={{
+                value: undefined,
+                label: 'Select Default Theme'
+              }}
+              disabled={isSubmitting}
+              initialValue={initialUserSettings.theme}
+            />
           </div>
-          <Checkbox
-            label="Blur NSFW"
-            name={SETTING_FIELD_IDS.BLUR_NSFW}
-            id={SETTING_FIELD_IDS.BLUR_NSFW}
-            initialValue={initialUserSettings.blur_nsfw}
-          />
-          <Checkbox
-            label="Show NSFW"
-            name={SETTING_FIELD_IDS.SHOW_NSFW}
-            id={SETTING_FIELD_IDS.SHOW_NSFW}
-            initialValue={initialUserSettings.show_nsfw}
-          />
-          <Checkbox
-            label="Show Avatars"
-            name={SETTING_FIELD_IDS.SHOW_AVATARS}
-            id={SETTING_FIELD_IDS.SHOW_AVATARS}
-            initialValue={initialUserSettings.show_avatars}
-          />
-          <Checkbox
-            label="Show Bot Accounts"
-            name={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
-            id={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
-            initialValue={initialUserSettings.show_bot_accounts}
-          />
-          <Checkbox
-            label="Show Read Posts"
-            name={SETTING_FIELD_IDS.SHOW_READ_POSTS}
-            id={SETTING_FIELD_IDS.SHOW_READ_POSTS}
-            initialValue={initialUserSettings.show_read_posts}
-          />
-          <Checkbox
-            label="Show Scores"
-            name={SETTING_FIELD_IDS.SHOW_SCORES}
-            id={SETTING_FIELD_IDS.SHOW_SCORES}
-            initialValue={initialUserSettings.show_scores}
-          />
-          <Checkbox
-            label="Auto Expand Media"
-            name={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
-            id={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
-            initialValue={initialUserSettings.auto_expand}
-          />
-          <Checkbox
-            label="Open Links In New Tab"
-            name={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
-            id={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
-            initialValue={initialUserSettings.open_links_in_new_tab}
-          />
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-hover-dark rounded-md p-12">
+            <Checkbox
+              label="Blur NSFW"
+              name={SETTING_FIELD_IDS.BLUR_NSFW}
+              id={SETTING_FIELD_IDS.BLUR_NSFW}
+              initialValue={initialUserSettings.blur_nsfw}
+            />
+            <Checkbox
+              label="Show NSFW"
+              name={SETTING_FIELD_IDS.SHOW_NSFW}
+              id={SETTING_FIELD_IDS.SHOW_NSFW}
+              initialValue={initialUserSettings.show_nsfw}
+            />
+            <Checkbox
+              label="Show Avatars"
+              name={SETTING_FIELD_IDS.SHOW_AVATARS}
+              id={SETTING_FIELD_IDS.SHOW_AVATARS}
+              initialValue={initialUserSettings.show_avatars}
+            />
+            <Checkbox
+              label="Show Bot Accounts"
+              name={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
+              id={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
+              initialValue={initialUserSettings.show_bot_accounts}
+            />
+            <Checkbox
+              label="Show Read Posts"
+              name={SETTING_FIELD_IDS.SHOW_READ_POSTS}
+              id={SETTING_FIELD_IDS.SHOW_READ_POSTS}
+              initialValue={initialUserSettings.show_read_posts}
+            />
+            <Checkbox
+              label="Show Scores"
+              name={SETTING_FIELD_IDS.SHOW_SCORES}
+              id={SETTING_FIELD_IDS.SHOW_SCORES}
+              initialValue={initialUserSettings.show_scores}
+            />
+            <Checkbox
+              label="Auto Expand Media"
+              name={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
+              id={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
+              initialValue={initialUserSettings.auto_expand}
+            />
+            <Checkbox
+              label="Open Links In New Tab"
+              name={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
+              id={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
+              initialValue={initialUserSettings.open_links_in_new_tab}
+            />
+          </div>
         </div>
       </form>
       <Button type="submit" form="userSettingsForm" disabled={isSubmitting} className="flex justify-center w-fit px-12 mt-12 md:mt-24">
