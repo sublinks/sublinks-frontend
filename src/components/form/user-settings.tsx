@@ -190,7 +190,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
                 onTypeChange={type => setListingType(type)}
               />
             </div>
-            <div className="flex flex-col">
+            <div>
               <BodyTitle>Default Post Feed Sort</BodyTitle>
               <div className="h-32">
                 <PostFeedSort
@@ -199,17 +199,20 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
                 />
               </div>
             </div>
-            <Selector
-              id={SETTING_FIELD_IDS.THEME}
-              label="Theme"
-              options={themeOptions}
-              placeholder={{
-                value: undefined,
-                label: 'Select Default Theme'
-              }}
-              disabled={isSubmitting}
-              initialValue={initialUserSettings.theme}
-            />
+            <div>
+              <BodyTitle>Site Theme</BodyTitle>
+              <Selector
+                id={SETTING_FIELD_IDS.THEME}
+                label="Theme"
+                options={themeOptions}
+                placeholder={{
+                  value: undefined,
+                  label: 'Select Default Theme'
+                }}
+                disabled={isSubmitting}
+                initialValue={initialUserSettings.theme}
+              />
+            </div>
           </div>
           <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-hover-dark rounded-md p-12">
             <Checkbox
