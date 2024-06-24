@@ -8,12 +8,10 @@ import { ErrorText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 
-const getUser = async () => {
+const getSite = async () => {
   try {
     const site = await SublinksApi.Instance().Client().getSite();
-    const user = site.my_user?.local_user_view;
-
-    return user;
+    return site;
   } catch (e) {
     logger.error('Failed to retrieve user', e);
     return undefined;
@@ -21,18 +19,24 @@ const getUser = async () => {
 };
 
 const UserSettings = async () => {
-  const userData = await getUser();
+  const siteData = await getSite();
+  const userData = siteData?.my_user?.local_user_view;
 
   if (!userData) {
     return (
       <ErrorText>
-        Unable to show user settings. Please reload the page to try again.
+        Unable to show user site. Please reload the page to try again.
       </ErrorText>
     );
   }
 
   // Ignore snake_case errors for props taken straight from API response
   /* eslint-disable @typescript-eslint/naming-convention */
+  const {
+    default_post_listing_type: defaultSiteListingType,
+    default_theme: defaultSiteTheme
+  } = siteData.site_view.local_site;
+
   const {
     local_user: {
       email,
@@ -63,9 +67,9 @@ const UserSettings = async () => {
     name,
     bot_account,
     email,
-    theme,
+    theme: theme || defaultSiteTheme,
     default_sort_type,
-    default_listing_type,
+    default_listing_type: default_listing_type || defaultSiteListingType,
     show_nsfw,
     blur_nsfw,
     show_avatars,
