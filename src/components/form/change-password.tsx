@@ -6,7 +6,7 @@ import { Spinner } from '@material-tailwind/react';
 
 import { InputField } from '@/components/input';
 import Button from '@/components/button';
-import { BodyTitleInverse, ErrorText } from '@/components/text';
+import { BodyTitleInverse, ErrorText, H2 } from '@/components/text';
 import SublinksApi from '@/utils/api-client/client';
 import logger from '@/utils/logger';
 
@@ -94,12 +94,13 @@ const ChangePasswordForm = () => {
   return (
     <form action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col">
       <div className="flex flex-col gap-16">
+        <H2 className="text-lg font-semibold">Change Password</H2>
         <InputField
           type="password"
           label="Current Password"
           name={SIGNUP_FIELD_IDS.CURRENT_PASSWORD}
           id={SIGNUP_FIELD_IDS.CURRENT_PASSWORD}
-          placeholder="Password"
+          placeholder="Current Password"
           showBorderPlaceholder
           disabled={isSubmitting}
           hasError={erroneousFields.includes(SIGNUP_FIELD_IDS.CURRENT_PASSWORD)}
@@ -131,7 +132,7 @@ const ChangePasswordForm = () => {
       <Button type="submit" disabled={isSubmitting} className="flex justify-center">
         {/*
         // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
-        {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Sign In</BodyTitleInverse>}
+        {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Change Password</BodyTitleInverse>}
       </Button>
     </form>
   );
