@@ -6,6 +6,7 @@ import { ErrorText, H1 } from '@/components/text';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
 import UserSettingsForm from '@/components/form/user-settings';
+import ChangePasswordForm from '@/components/form/change-password';
 
 const getUser = async () => {
   try {
@@ -79,7 +80,10 @@ const UserSettings = async () => {
   return (
     <div className="flex flex-col gap-32 mb-24 md:my-32">
       <MainCard Header={<H1>SETTINGS</H1>}>
-        <UserSettingsForm initialUserSettings={userSettings} />
+        <div className="md:flex">
+          <UserSettingsForm initialUserSettings={userSettings} />
+          <ChangePasswordForm />
+        </div>
       </MainCard>
     </div>
   );
