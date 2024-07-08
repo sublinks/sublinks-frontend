@@ -9,17 +9,56 @@ import { Selector } from '../input/select';
 interface PostFeedTypeProps {
   currentType?: ListingType
   onTypeChange: (type: ListingType) => void
+  showModeratorOption?: boolean;
 }
 
 const buttonGroupClass = 'px-12 py-4';
 
-const PostFeedType = ({ currentType, onTypeChange }: PostFeedTypeProps) => (
+const PostFeedType = ({ currentType, onTypeChange, showModeratorOption }: PostFeedTypeProps) => (
   // @ts-expect-error MT isn't up to date with their React types as of 2.1.9
   <ButtonGroup className="flex">
-    <Button id="post-feed-type-all" palette="pale" type="button" active={currentType === 'All'} onClick={() => onTypeChange('All')} className={buttonGroupClass}>All</Button>
-    <Button id="post-feed-type-local" palette="pale" type="button" active={currentType === 'Local'} onClick={() => onTypeChange('Local')} className={buttonGroupClass}>Local</Button>
-    <Button id="post-feed-type-modview" palette="pale" type="button" active={currentType === 'ModeratorView'} onClick={() => onTypeChange('ModeratorView')} className={buttonGroupClass}>Moderator View</Button>
-    <Button id="post-feed-type-subscribed" palette="pale" type="button" active={currentType === 'Subscribed'} onClick={() => onTypeChange('Subscribed')} className={buttonGroupClass}>Subscribed</Button>
+    <Button
+      id="post-feed-type-all"
+      palette="pale"
+      type="button"
+      active={currentType === 'All'}
+      onClick={() => onTypeChange('All')}
+      className={buttonGroupClass}
+    >
+      All
+    </Button>
+    <Button
+      id="post-feed-type-local"
+      palette="pale"
+      type="button"
+      active={currentType === 'Local'}
+      onClick={() => onTypeChange('Local')}
+      className={buttonGroupClass}
+    >
+      Local
+    </Button>
+    {showModeratorOption && (
+    <Button
+      id="post-feed-type-modview"
+      palette="pale"
+      type="button"
+      active={currentType === 'ModeratorView'}
+      onClick={() => onTypeChange('ModeratorView')}
+      className={buttonGroupClass}
+    >
+      Moderator
+    </Button>
+    )}
+    <Button
+      id="post-feed-type-subscribed"
+      palette="pale"
+      type="button"
+      active={currentType === 'Subscribed'}
+      onClick={() => onTypeChange('Subscribed')}
+      className={buttonGroupClass}
+    >
+      Subscribed
+    </Button>
   </ButtonGroup>
 );
 
@@ -130,7 +169,8 @@ const PostFeedOptions = ({
   currentType, onTypeChange, currentSort, onSortChange, sidebarOpen, onSidebarSwitch
 }: PostFeedOptionProps) => (
   <div className="flex flex-col md:flex-row mt-8 md:mt-0">
-    <PostFeedType currentType={currentType} onTypeChange={onTypeChange} />
+    { /* @todo: Show moderator option only if user is moderator */ }
+    <PostFeedType currentType={currentType} onTypeChange={onTypeChange} showModeratorOption />
     <div className="ml-0 md:ml-4 mt-8 md:mt-0 flex w-full md:w-auto">
       <PostFeedSort currentSort={currentSort} onSortChange={onSortChange} />
       <Button
