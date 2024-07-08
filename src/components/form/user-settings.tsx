@@ -128,12 +128,6 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
       <form id="userSettingsForm" action={saveUserSettingsAction} className="flex max-md:flex-col md:gap-32">
         <div className="inline-flex flex-col gap-16">
           <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Edit Profile</H2>
-          <Checkbox
-            label="This Is A Bot Account"
-            name={SETTING_FIELD_IDS.BOT_ACCOUNT}
-            id={SETTING_FIELD_IDS.BOT_ACCOUNT}
-            initialValue={initialUserSettings.bot_account}
-          />
           <InputField
             type="text"
             label="Display Name"
@@ -174,6 +168,12 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
               showBorderPlaceholder
               disabled={isSubmitting}
               hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
+            />
+            <Checkbox
+              label="This Is A Bot Account"
+              name={SETTING_FIELD_IDS.BOT_ACCOUNT}
+              id={SETTING_FIELD_IDS.BOT_ACCOUNT}
+              initialValue={initialUserSettings.bot_account}
             />
           </div>
           <div className="mt-auto">

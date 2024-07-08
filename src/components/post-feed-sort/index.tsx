@@ -4,7 +4,7 @@ import { ListingType, SortType } from 'sublinks-js-client';
 import React from 'react';
 import { ButtonGroup } from '../TailwindMaterial';
 import Button from '../button';
-import Select, { Option } from '../select';
+import { Selector } from '../input/select';
 
 interface PostFeedTypeProps {
   currentType?: ListingType
@@ -108,11 +108,13 @@ interface PostFeedSortProps {
 }
 
 const PostFeedSort = ({ currentSort, onSortChange: onTypeChange }: PostFeedSortProps) => (
-  <Select value={currentSort ?? undefined} aria-label="Sort Select" className="h-full rounded-md bg-gray-200 dark:bg-gray-400 pl-4" onChange={newValue => onTypeChange(newValue.currentTarget.value as SortType)}>
-    {sortOptions.map(({ label, value }) => (
-      <Option key={value} value={value}>{label}</Option>
-    ))}
-  </Select>
+  <Selector
+    id="postFeedSort"
+    label="Sort Select"
+    options={sortOptions}
+    initialValue={currentSort ?? undefined}
+    onChange={e => onTypeChange(e.currentTarget.value as SortType)}
+  />
 );
 
 interface PostFeedOptionProps {
