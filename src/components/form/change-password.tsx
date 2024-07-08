@@ -94,8 +94,8 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <form ref={formRef} action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col">
-      <div className="flex flex-col gap-16">
+    <form ref={formRef} action={changePasswordAction} onChange={handleFieldValueChange} className="flex flex-col max-lg:w-full">
+      <div className="flex flex-col gap-16 md:w-400">
         <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Change Password</H2>
         <InputField
           type="password"
@@ -131,7 +131,7 @@ const ChangePasswordForm = () => {
       <div aria-live="polite" className="h-24 flex items-center justify-center">
         {errorMessage && <ErrorText className="text-sm">{errorMessage}</ErrorText>}
       </div>
-      <Button type="submit" disabled={isSubmitting} className="flex justify-center">
+      <Button type="submit" disabled={isSubmitting} className="flex justify-center w-fit max-md:w-full px-12">
         {/*
         // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
         {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Change Password</BodyTitleInverse>}

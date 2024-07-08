@@ -124,9 +124,9 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   ];
 
   return (
-    <div>
-      <form id="userSettingsForm" action={saveUserSettingsAction} className="flex max-md:flex-col md:gap-32">
-        <div className="inline-flex flex-col gap-16">
+    <div className="max-md:w-full">
+      <form id="userSettingsForm" action={saveUserSettingsAction} className="flex max-md:flex-col flex-wrap md:gap-32">
+        <div className="inline-flex flex-col gap-16 w-full md:w-400">
           <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Edit Profile</H2>
           <InputField
             type="text"
@@ -180,7 +180,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
             <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
           </div>
         </div>
-        <div className="inline-flex flex-col gap-16">
+        <div className="inline-flex flex-col gap-16 w-full md:w-400">
           <H2 className="text-lg font-semibold max-md:mt-24 border-b-4 border-gray-900 dark:border-gray-100">Settings</H2>
           <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-gray-500 rounded-md p-12">
             <div>
@@ -266,7 +266,7 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
           </div>
         </div>
       </form>
-      <Button type="submit" form="userSettingsForm" disabled={isSubmitting} className="flex justify-center w-fit px-12 mt-12 md:mt-24">
+      <Button type="submit" form="userSettingsForm" disabled={isSubmitting} className="flex justify-center w-fit max-md:w-full px-12 mt-12 md:mt-24">
         {/*
         // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
         {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Save Profile and Settings</BodyTitleInverse>}
