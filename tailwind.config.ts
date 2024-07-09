@@ -96,7 +96,8 @@ const config: Config = {
       colors: {
         brand: {
           DEFAULT: '#8e4d63',
-          dark: '#f8c234'
+          dark: '#f8c234',
+          lighter: '#C6A6B1'
         },
         primary: {
           DEFAULT: '#ffffff',

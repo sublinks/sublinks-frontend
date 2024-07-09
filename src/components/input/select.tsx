@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import cx from 'classnames';
 
@@ -18,10 +18,11 @@ interface SelectorProps {
   disabled?: boolean;
   hasError?: boolean;
   initialValue?: string;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 
 const Selector = ({
-  id, label, options, placeholder, disabled, hasError, initialValue
+  id, label, options, placeholder, disabled, hasError, initialValue, onChange
 }: SelectorProps) => (
   <div className="relative bg-primary dark:bg-gray-800 rounded-md">
     <label htmlFor={id} className="sr-only">
@@ -33,6 +34,7 @@ const Selector = ({
       className={cx('w-full bg-primary dark:bg-gray-800 text-gray-900 dark:text-white flex h-40 items-center border-2 rounded-md px-16 appearance-none', hasError ? 'border-red-700 dark:border-red-400' : 'border-gray-300 dark:border-gray-900')}
       disabled={disabled}
       defaultValue={initialValue ?? undefined}
+      onChange={onChange}
     >
       {placeholder && <option value={placeholder.value}>{placeholder.label}</option>}
       {options.map(opt => (

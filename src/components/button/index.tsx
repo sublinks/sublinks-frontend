@@ -10,11 +10,12 @@ interface ButtonProps {
   active?: boolean;
   className?: string;
   disabled?: boolean;
+  form?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({
-  ariaLabel, children, className, disabled, id, type, palette, active, onClick
+  ariaLabel, children, className, disabled, id, type, palette, active, form, onClick
 }: ButtonProps) => (
   // Rule doesn't like type being a variable even though types force it to be a valid option
   <button
@@ -23,12 +24,13 @@ const Button = ({
     aria-label={ariaLabel}
     id={id}
     disabled={disabled}
+    form={form}
     onClick={onClick}
     className={cx(
       'rounded-md px-23 py-12',
       palette === 'pale' ? 'bg-gray-200 dark:bg-gray-400' : 'bg-brand dark:bg-brand-dark',
       {
-        '!bg-blue-300 !dark:bg-blue-500': active,
+        '!bg-brand-lighter !dark:bg-secondary-dark': active,
         'hover:bg-opacity-90': !disabled,
         'bg-opacity-50': disabled
       },

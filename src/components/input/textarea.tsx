@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import MDEditor, { ICommand } from '@uiw/react-md-editor';
-import { BodyText } from '../text';
+
+import { BodyText, BodyTitle } from '../text';
 
 interface PreviewCommandToolProps {
   label: string;
@@ -47,7 +48,7 @@ const MarkdownTextarea = ({
   return (
     <div>
       <label htmlFor={id}>
-        <BodyText>{label}</BodyText>
+        <BodyTitle>{label}</BodyTitle>
       </label>
       <MDEditor
         id={id}

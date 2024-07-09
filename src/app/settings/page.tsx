@@ -1,18 +1,17 @@
 import React from 'react';
 
 import RestrictedPage from '@/components/auth/restricted-page';
+import UserSettingsForm from '@/components/form/user-settings';
+import ChangePasswordForm from '@/components/form/change-password';
 import MainCard from '@/components/main-card';
-import { ErrorText, H1 } from '@/components/text';
+import { ErrorText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
-import UserSettingsForm from '@/components/form/user-settings';
 
-const getUser = async () => {
+const getSite = async () => {
   try {
     const site = await SublinksApi.Instance().Client().getSite();
-    const user = site.my_user?.local_user_view;
-
-    return user;
+    return site;
   } catch (e) {
     logger.error('Failed to retrieve user', e);
     return undefined;
@@ -20,18 +19,24 @@ const getUser = async () => {
 };
 
 const UserSettings = async () => {
-  const userData = await getUser();
+  const siteData = await getSite();
+  const userData = siteData?.my_user?.local_user_view;
 
   if (!userData) {
     return (
       <ErrorText>
-        Unable to show user settings. Please reload the page to try again.
+        Unable to show user site. Please reload the page to try again.
       </ErrorText>
     );
   }
 
   // Ignore snake_case errors for props taken straight from API response
   /* eslint-disable @typescript-eslint/naming-convention */
+  const {
+    default_post_listing_type: defaultSiteListingType,
+    default_theme: defaultSiteTheme
+  } = siteData.site_view.local_site;
+
   const {
     local_user: {
       email,
@@ -62,9 +67,9 @@ const UserSettings = async () => {
     name,
     bot_account,
     email,
-    theme,
+    theme: theme || defaultSiteTheme,
     default_sort_type,
-    default_listing_type,
+    default_listing_type: default_listing_type || defaultSiteListingType,
     show_nsfw,
     blur_nsfw,
     show_avatars,
@@ -78,8 +83,11 @@ const UserSettings = async () => {
 
   return (
     <div className="flex flex-col gap-32 mb-24 md:my-32">
-      <MainCard Header={<H1>SETTINGS</H1>}>
-        <UserSettingsForm initialUserSettings={userSettings} />
+      <MainCard>
+        <div className="flex flex-wrap gap-24 max-md:mb-24 justify-around">
+          <UserSettingsForm initialUserSettings={userSettings} />
+          <ChangePasswordForm />
+        </div>
       </MainCard>
     </div>
   );

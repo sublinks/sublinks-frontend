@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import { Checkbox, InputField, MarkdownTextarea } from '@/components/input';
 import Button from '@/components/button';
-import { BodyTitle, BodyTitleInverse } from '@/components/text';
+import { BodyTitle, BodyTitleInverse, H2 } from '@/components/text';
 import { PostFeedSort, PostFeedType } from '@/components/post-feed-sort';
 import { Selector } from '@/components/input/select';
 import { Theme, useTheme } from '@/hooks/use-theme';
@@ -124,137 +124,154 @@ const UserSettingsForm = ({ initialUserSettings }: { initialUserSettings: SaveUs
   ];
 
   return (
-    <form action={saveUserSettingsAction} className="flex flex-col mt-12 md:mt-24 max-w-500">
-      <div className="flex flex-col gap-16">
-        <Checkbox
-          label="This Is A Bot Account"
-          name={SETTING_FIELD_IDS.BOT_ACCOUNT}
-          id={SETTING_FIELD_IDS.BOT_ACCOUNT}
-          initialValue={initialUserSettings.bot_account}
-        />
-        <InputField
-          type="text"
-          label="Display Name"
-          name={SETTING_FIELD_IDS.DISPLAY_NAME}
-          id={SETTING_FIELD_IDS.DISPLAY_NAME}
-          placeholder="Display Name"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          initialValue={initialUserSettings.display_name}
-        />
-        <InputField
-          type="email"
-          label="E-Mail Address"
-          name={SETTING_FIELD_IDS.EMAIL}
-          id={SETTING_FIELD_IDS.EMAIL}
-          placeholder="E-Mail Address"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          initialValue={initialUserSettings.email}
-        />
-        <InputField
-          type="file"
-          label="Avatar"
-          name={SETTING_FIELD_IDS.AVATAR}
-          id={SETTING_FIELD_IDS.AVATAR}
-          placeholder="Avatar"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(SETTING_FIELD_IDS.AVATAR)}
-        />
-        <InputField
-          type="file"
-          label="Banner"
-          name={SETTING_FIELD_IDS.BANNER}
-          id={SETTING_FIELD_IDS.BANNER}
-          placeholder="Banner"
-          showBorderPlaceholder
-          disabled={isSubmitting}
-          hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
-        />
-        <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
-        <div>
-          <BodyTitle>Default Post Feed Type</BodyTitle>
-          <PostFeedType
-            currentType={listingType}
-            onTypeChange={type => setListingType(type)}
+    <div className="max-md:w-full">
+      <form id="userSettingsForm" action={saveUserSettingsAction} className="flex max-md:flex-col flex-wrap md:gap-32">
+        <div className="inline-flex flex-col gap-16 w-full md:w-400">
+          <H2 className="text-lg font-semibold border-b-4 border-gray-900 dark:border-gray-100">Edit Profile</H2>
+          <InputField
+            type="text"
+            label="Display Name"
+            name={SETTING_FIELD_IDS.DISPLAY_NAME}
+            id={SETTING_FIELD_IDS.DISPLAY_NAME}
+            placeholder="Display Name"
+            showBorderPlaceholder
+            disabled={isSubmitting}
+            initialValue={initialUserSettings.display_name}
           />
+          <InputField
+            type="email"
+            label="E-Mail Address"
+            name={SETTING_FIELD_IDS.EMAIL}
+            id={SETTING_FIELD_IDS.EMAIL}
+            placeholder="E-Mail Address"
+            showBorderPlaceholder
+            disabled={isSubmitting}
+            initialValue={initialUserSettings.email}
+          />
+          <div className="flex flex-col gap-24 mt-12">
+            <InputField
+              type="file"
+              label="Avatar"
+              name={SETTING_FIELD_IDS.AVATAR}
+              id={SETTING_FIELD_IDS.AVATAR}
+              placeholder="Avatar"
+              showBorderPlaceholder
+              disabled={isSubmitting}
+              hasError={erroneousFields.includes(SETTING_FIELD_IDS.AVATAR)}
+            />
+            <InputField
+              type="file"
+              label="Banner"
+              name={SETTING_FIELD_IDS.BANNER}
+              id={SETTING_FIELD_IDS.BANNER}
+              placeholder="Banner"
+              showBorderPlaceholder
+              disabled={isSubmitting}
+              hasError={erroneousFields.includes(SETTING_FIELD_IDS.BANNER)}
+            />
+            <Checkbox
+              label="This Is A Bot Account"
+              name={SETTING_FIELD_IDS.BOT_ACCOUNT}
+              id={SETTING_FIELD_IDS.BOT_ACCOUNT}
+              initialValue={initialUserSettings.bot_account}
+            />
+          </div>
+          <div className="mt-auto">
+            <MarkdownTextarea id={SETTING_FIELD_IDS.BIO} label="Bio" initialValue={initialUserSettings.bio} />
+          </div>
         </div>
-        <Selector
-          id={SETTING_FIELD_IDS.THEME}
-          label="Theme"
-          options={themeOptions}
-          placeholder={{
-            value: undefined,
-            label: 'Select Default Theme'
-          }}
-          disabled={isSubmitting}
-          initialValue={initialUserSettings.theme}
-        />
-        <div className="flex flex-col">
-          <BodyTitle>Default Post Feed Sort</BodyTitle>
-          <div className="h-32">
-            <PostFeedSort
-              currentSort={sortType}
-              onSortChange={sort => setSortType(sort)}
+        <div className="inline-flex flex-col gap-16 w-full md:w-400">
+          <H2 className="text-lg font-semibold max-md:mt-24 border-b-4 border-gray-900 dark:border-gray-100">Settings</H2>
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-gray-500 rounded-md p-12">
+            <div>
+              <BodyTitle>Default Post Feed Type</BodyTitle>
+              <PostFeedType
+                currentType={listingType}
+                onTypeChange={type => setListingType(type)}
+              />
+            </div>
+            <div>
+              <BodyTitle>Default Post Feed Sort</BodyTitle>
+              <div className="h-32">
+                <PostFeedSort
+                  currentSort={sortType}
+                  onSortChange={sort => setSortType(sort)}
+                />
+              </div>
+            </div>
+            <div>
+              <BodyTitle>Site Theme</BodyTitle>
+              <Selector
+                id={SETTING_FIELD_IDS.THEME}
+                label="Theme"
+                options={themeOptions}
+                placeholder={{
+                  value: undefined,
+                  label: 'Select Default Theme'
+                }}
+                disabled={isSubmitting}
+                initialValue={initialUserSettings.theme}
+              />
+            </div>
+          </div>
+          <div className="flex flex-col gap-16 border-2 border-gray-300 dark:border-gray-500 rounded-md p-12">
+            <Checkbox
+              label="Blur NSFW"
+              name={SETTING_FIELD_IDS.BLUR_NSFW}
+              id={SETTING_FIELD_IDS.BLUR_NSFW}
+              initialValue={initialUserSettings.blur_nsfw}
+            />
+            <Checkbox
+              label="Show NSFW"
+              name={SETTING_FIELD_IDS.SHOW_NSFW}
+              id={SETTING_FIELD_IDS.SHOW_NSFW}
+              initialValue={initialUserSettings.show_nsfw}
+            />
+            <Checkbox
+              label="Show Avatars"
+              name={SETTING_FIELD_IDS.SHOW_AVATARS}
+              id={SETTING_FIELD_IDS.SHOW_AVATARS}
+              initialValue={initialUserSettings.show_avatars}
+            />
+            <Checkbox
+              label="Show Bot Accounts"
+              name={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
+              id={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
+              initialValue={initialUserSettings.show_bot_accounts}
+            />
+            <Checkbox
+              label="Show Read Posts"
+              name={SETTING_FIELD_IDS.SHOW_READ_POSTS}
+              id={SETTING_FIELD_IDS.SHOW_READ_POSTS}
+              initialValue={initialUserSettings.show_read_posts}
+            />
+            <Checkbox
+              label="Show Scores"
+              name={SETTING_FIELD_IDS.SHOW_SCORES}
+              id={SETTING_FIELD_IDS.SHOW_SCORES}
+              initialValue={initialUserSettings.show_scores}
+            />
+            <Checkbox
+              label="Auto Expand Media"
+              name={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
+              id={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
+              initialValue={initialUserSettings.auto_expand}
+            />
+            <Checkbox
+              label="Open Links In New Tab"
+              name={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
+              id={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
+              initialValue={initialUserSettings.open_links_in_new_tab}
             />
           </div>
         </div>
-        <Checkbox
-          label="Blur NSFW"
-          name={SETTING_FIELD_IDS.BLUR_NSFW}
-          id={SETTING_FIELD_IDS.BLUR_NSFW}
-          initialValue={initialUserSettings.blur_nsfw}
-        />
-        <Checkbox
-          label="Show NSFW"
-          name={SETTING_FIELD_IDS.SHOW_NSFW}
-          id={SETTING_FIELD_IDS.SHOW_NSFW}
-          initialValue={initialUserSettings.show_nsfw}
-        />
-        <Checkbox
-          label="Show Avatars"
-          name={SETTING_FIELD_IDS.SHOW_AVATARS}
-          id={SETTING_FIELD_IDS.SHOW_AVATARS}
-          initialValue={initialUserSettings.show_avatars}
-        />
-        <Checkbox
-          label="Show Bot Accounts"
-          name={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
-          id={SETTING_FIELD_IDS.SHOW_BOT_ACCOUNTS}
-          initialValue={initialUserSettings.show_bot_accounts}
-        />
-        <Checkbox
-          label="Show Read Posts"
-          name={SETTING_FIELD_IDS.SHOW_READ_POSTS}
-          id={SETTING_FIELD_IDS.SHOW_READ_POSTS}
-          initialValue={initialUserSettings.show_read_posts}
-        />
-        <Checkbox
-          label="Show Scores"
-          name={SETTING_FIELD_IDS.SHOW_SCORES}
-          id={SETTING_FIELD_IDS.SHOW_SCORES}
-          initialValue={initialUserSettings.show_scores}
-        />
-        <Checkbox
-          label="Auto Expand Media"
-          name={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
-          id={SETTING_FIELD_IDS.AUTO_EXPAND_MEDIA}
-          initialValue={initialUserSettings.auto_expand}
-        />
-        <Checkbox
-          label="Open Links In New Tab"
-          name={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
-          id={SETTING_FIELD_IDS.OPEN_IN_NEW_TAB}
-          initialValue={initialUserSettings.open_links_in_new_tab}
-        />
-        <Button type="submit" disabled={isSubmitting} className="flex justify-center">
-          {/*
+      </form>
+      <Button type="submit" form="userSettingsForm" disabled={isSubmitting} className="flex justify-center w-fit max-md:w-full px-12 mt-12 md:mt-24">
+        {/*
         // @ts-expect-error MT isn't up to date with their React types as of 2.1.9 */}
-          {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Save</BodyTitleInverse>}
-        </Button>
-      </div>
-    </form>
+        {isSubmitting ? <Spinner className="h-24 w-24" /> : <BodyTitleInverse>Save Profile and Settings</BodyTitleInverse>}
+      </Button>
+    </div>
   );
 };
 

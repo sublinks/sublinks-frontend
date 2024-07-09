@@ -19,13 +19,14 @@ import { LinkText } from '../text';
 import Icon, { ICON_SIZE } from '../icon';
 
 const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
-  const initialTheme = myUser?.local_user_view?.local_user?.theme as Theme;
+  const username = myUser.local_user_view.person.name;
+  const initialTheme = myUser.local_user_view.local_user.theme as Theme;
   const { theme, saveTheme } = useTheme(initialTheme);
   const [open, setOpen] = useState<boolean>(false);
 
   const ref = useClickOutside<HTMLUListElement>(() => open && setOpen(false));
 
-  const userAvatar = myUser?.local_user_view.person.avatar;
+  const userAvatar = myUser.local_user_view.person.avatar;
 
   // @todo: Move to theme provider or a similar high-level component
   useEffect(() => {
@@ -40,7 +41,7 @@ const ProfileMenu = ({ myUser }: { myUser: MyUserInfo }) => {
     {
       item:
           (
-            <Link href="/user/todo" className="justify-center flex w-full">
+            <Link href={`/user/${username}`} className="justify-center flex w-full">
               <LinkText className="text-md">
                 Profile
               </LinkText>
