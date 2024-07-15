@@ -7,6 +7,7 @@ import MainCard from '@/components/main-card';
 import { ErrorText } from '@/components/text';
 import SublinksApi from '@/utils/api-client/server';
 import logger from '@/utils/logger';
+import BlockedTargetsForm from '@/components/form/blocked';
 
 const getSite = async () => {
   try {
@@ -21,6 +22,11 @@ const getSite = async () => {
 const UserSettings = async () => {
   const siteData = await getSite();
   const userData = siteData?.my_user?.local_user_view;
+  const userBlocksData = {
+    communities: siteData?.my_user?.community_blocks,
+    instances: siteData?.my_user?.instance_blocks,
+    users: siteData?.my_user?.person_blocks // TODO: Have to fake for now
+  };
 
   if (!userData) {
     return (
@@ -84,6 +90,7 @@ const UserSettings = async () => {
   return (
     <div className="flex flex-col gap-32 mb-24 md:my-32">
       <MainCard>
+        <BlockedTargetsForm type="user" blocked={userBlocksData.users || []} />
         <div className="flex flex-wrap gap-24 max-md:mb-24 justify-around">
           <UserSettingsForm initialUserSettings={userSettings} />
           <ChangePasswordForm />
