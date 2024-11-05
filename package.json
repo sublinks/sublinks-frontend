@@ -33,7 +33,7 @@
     "sublinks-markdown": "^0.1.4"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^2.9.0",
+    "@stylistic/eslint-plugin-js": "^2.10.1",
     "@testing-library/jest-dom": "^6.6.2",
     "@testing-library/react": "^16.0.1",
     "@types/jest": "^29.5.14",
